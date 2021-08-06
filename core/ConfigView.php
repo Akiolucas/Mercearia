@@ -29,9 +29,8 @@ class ConfigView
             // alerta informando erro ao carregar a pagina;
             echo "Erro ao carregar a página<br>";
             echo "Erro ao carregar a view:". $this->rota. "</br>";
-            exit();
         }
-
+        exit();
     }
     
 }
