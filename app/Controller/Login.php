@@ -10,6 +10,7 @@ namespace App\Controller;
 class Login extends Controller
 {
     private $dados;
+    private string $mensagem;
 
     public function index()
     {
@@ -22,16 +23,22 @@ class Login extends Controller
             
              if($validar->getResultado())
              {
-               $urlDestino = URL . "home/";
+                 
+               $urlDestino = URL . "home/index";
                header("Location: $urlDestino");
+               exit();
              }
              else{
+                 $this->mensagem = "Credencial ou senha inválidos!";
+                 $this->mensagem = parent::alertaFalha($this->mensagem);
+                 $_SESSION['msg'] = $this->mensagem;
                  $this->dados['form'] = $this->dados;
              }
          }
-         
+       
         $pagina = new \Core\ConfigView('View/login/index',$this->dados);
         $pagina->renderizar();
+
     }
 }
     
