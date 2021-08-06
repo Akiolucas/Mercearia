@@ -1,0 +1,15 @@
+{
+    "description": "Mercearia",
+    "authors": [
+        {
+            "name": "Lucas Akio Turuda"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app",
+            "Core\\": "core"
+        }
+    },
+    "require": {}
+}
