@@ -56,3 +56,8 @@
 .principal .col{
 padding:0;
 }
+
+/* alerta */
+.alertaErro, .alertaSucesso {
+  margin:0 0 35px 0;
+}
