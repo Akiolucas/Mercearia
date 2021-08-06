@@ -34,18 +34,8 @@ class Login extends Model
             if($this->usuario)
             {
                 $this->validaUsuario($dadosFormulario['senha'], $this->usuario['senha']);
-            }  
-            else{
-            $msg = parent::alertaFalha("Usuário ou senha incorreto!"); 
-            $_SESSION['msg'] =$msg;
-                $this->resultado = false;
             }
-        }
-        else{
-            $msg = parent::alertaFalha("Usuário ou senha incorreto!"); 
-            $_SESSION['msg'] =$msg;
-            $this->resultado = false;
-        }
+        } 
     }
 
     public function getResultado()
@@ -60,17 +50,12 @@ class Login extends Model
             $_SESSION['usuario_id'] = $this->usuario['id'];
             $_SESSION['usuario_nome'] = $this->usuario['nome'];
             $_SESSION['usuario_cargo'] = $this->usuario['cargo'];
-
             $msg = parent::alertaSucesso("Bem vindo " . $_SESSION['usuario_nome']);
             $_SESSION['msg'] = $msg;
             $this->resultado = true;
         }
-        else{
-            $msg = parent::alertaFalha("Usuário ou senha incorreto!"); 
-            $_SESSION['msg'] =$msg;
-            $this->resultado = false;
-        }
     }
+
 }
 
 ?>
