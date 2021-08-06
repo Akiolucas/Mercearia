@@ -19,7 +19,6 @@
     <link href="<?php echo URL; ?>app/Assets/image/logo/favicon.ico" rel="shortcut icon">
     <title>Erro 404 | Mercearia</title>
 </head>
-<body>
 <?php
 include_once "app/View/include/header.php";
 ?>
@@ -28,7 +27,7 @@ include_once "app/View/include/header.php";
 <?php 
 include_once "app/View/include/menulateral.php";
 ?>
- <div class="col-md-9 ml-sm-auto col-lg-10 principal">
+ <div class="col-md-9 ml-auto col-lg-10 principal">
     <main role="main">
 <?php
 if(isset($_SESSION['msg']))
@@ -47,7 +46,5 @@ if(isset($_SESSION['msg']))
     include_once "app/View/include/footer.php";
 ?>
 <script src="<?php echo URL;?>app/Assets/js/eventos.js"></script>
-  </body>
-</html>
 </body>
 </html>
