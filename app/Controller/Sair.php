@@ -13,13 +13,10 @@ class Sair extends Controller
 
     public function index(): void
     {
-        unset(
-            $_SESSION['usuario_id'],
-            $_SESSION['usuario_nome'],
-            $_SESSION['usuario_cargo'],
-            $_SESSION['msg']
-        );
-       $msg = parent::alertaFalha("deslogado com sucesso");
+        $logout = new \App\Model\Sair();
+        $logout->logout();
+        
+        $msg = parent::alertaFalha("deslogado com sucesso");
         $_SESSION['msg'] = $msg;
         
         header("location:". URL . "login/index");
