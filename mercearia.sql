@@ -159,13 +159,16 @@ CREATE TABLE `funcionario` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(70) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `cargo_id` int NOT NULL,
+  `nivel_id` int NOT NULL,
   `credencial` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `senha` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
   `dt_registro` datetime NOT NULL,
-  PRIMARY KEY (`id`,`cargo_id`),
+  PRIMARY KEY (`id`,`cargo_id`,`nivel_id`),
   UNIQUE KEY `credencial_UNIQUE` (`credencial`),
-  KEY `fk_funcionario_cargo_idx` (`cargo_id`),
-  CONSTRAINT `fk_funcionario_cargo` FOREIGN KEY (`cargo_id`) REFERENCES `cargo` (`id`)
+  KEY `fk_funcionario_cargo_idx` (`cargo_id`) /*!80000 INVISIBLE */,
+  KEY `fk_funcionario_nivel_idx` (`nivel_id`),
+  CONSTRAINT `fk_funcionario_cargo` FOREIGN KEY (`cargo_id`) REFERENCES `cargo` (`id`),
+  CONSTRAINT `fk_funcionario_nivel` FOREIGN KEY (`nivel_id`) REFERENCES `nivel` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -175,8 +178,37 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,'Lucas',1,'lucas','$2y$10$/h7bSGxgQvLA7WW2OnmybO1NqN20lCnettDvBn7mA3DGTLroYBSq.','2021-08-02 20:27:53');
+INSERT INTO `funcionario` VALUES (1,'Lucas Akio Turuda',1,3,'lucas','$2y$10$/h7bSGxgQvLA7WW2OnmybO1NqN20lCnettDvBn7mA3DGTLroYBSq.','2021-08-02 20:27:53');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `funcionario_pg_privada`
+--
+
+DROP TABLE IF EXISTS `funcionario_pg_privada`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `funcionario_pg_privada` (
+  `funcionario_id` int NOT NULL,
+  `pg_privada_id` int NOT NULL,
+  `dt_registro` datetime NOT NULL,
+  PRIMARY KEY (`funcionario_id`,`pg_privada_id`),
+  KEY `fk_funcionario_pg_privada_pg_privada_idx` (`pg_privada_id`),
+  KEY `fk_funcionario_pg_privada_funcionario_idx` (`funcionario_id`) /*!80000 INVISIBLE */,
+  CONSTRAINT `fk_funcionario_pg_privada_funcionario` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionario` (`id`),
+  CONSTRAINT `fk_funcionario_pg_privada_pg_privada` FOREIGN KEY (`pg_privada_id`) REFERENCES `pg_privada` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `funcionario_pg_privada`
+--
+
+LOCK TABLES `funcionario_pg_privada` WRITE;
+/*!40000 ALTER TABLE `funcionario_pg_privada` DISABLE KEYS */;
+INSERT INTO `funcionario_pg_privada` VALUES (1,1,'2021-08-09 20:08:01'),(1,2,'2021-08-09 20:08:01'),(1,3,'2021-08-09 20:08:01');
+/*!40000 ALTER TABLE `funcionario_pg_privada` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -204,6 +236,83 @@ CREATE TABLE `imagem` (
 LOCK TABLES `imagem` WRITE;
 /*!40000 ALTER TABLE `imagem` DISABLE KEYS */;
 /*!40000 ALTER TABLE `imagem` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `nivel`
+--
+
+DROP TABLE IF EXISTS `nivel`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nivel` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(7) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome_UNIQUE` (`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nivel`
+--
+
+LOCK TABLES `nivel` WRITE;
+/*!40000 ALTER TABLE `nivel` DISABLE KEYS */;
+INSERT INTO `nivel` VALUES (1,'inicial'),(2,'parcial'),(3,'total');
+/*!40000 ALTER TABLE `nivel` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pg_privada`
+--
+
+DROP TABLE IF EXISTS `pg_privada`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pg_privada` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(30) NOT NULL,
+  `dt_registro` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome_UNIQUE` (`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pg_privada`
+--
+
+LOCK TABLES `pg_privada` WRITE;
+/*!40000 ALTER TABLE `pg_privada` DISABLE KEYS */;
+INSERT INTO `pg_privada` VALUES (1,'Home','2021-08-09 19:55:47'),(2,'Produtos','2021-08-09 19:55:47'),(3,'Perfil','2021-08-09 19:55:47');
+/*!40000 ALTER TABLE `pg_privada` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pg_publica`
+--
+
+DROP TABLE IF EXISTS `pg_publica`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `pg_publica` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(30) NOT NULL,
+  `dt_registro` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nome_UNIQUE` (`nome`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pg_publica`
+--
+
+LOCK TABLES `pg_publica` WRITE;
+/*!40000 ALTER TABLE `pg_publica` DISABLE KEYS */;
+INSERT INTO `pg_publica` VALUES (1,'Login','2021-08-09 19:57:27'),(2,'PaginaInvalida','2021-08-09 19:57:27'),(3,'Sair','2021-08-09 19:57:27');
+/*!40000 ALTER TABLE `pg_publica` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -248,4 +357,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-08 20:51:14
+-- Dump completed on 2021-08-10  0:53:26
