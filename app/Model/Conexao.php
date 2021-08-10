@@ -33,6 +33,7 @@ class Conexao
 
            $_SESSION['msg'] = $msg;
             header("Location:". URL . "paginaInvalida/index");
+            exit();
        }
    }
    
