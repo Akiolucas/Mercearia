@@ -11,6 +11,7 @@ class Login extends Model
 {
     private array $obrigatorio = ['credencial', 'senha', 'btnAcessar'];
     private $usuario;
+    private $paginasUsuario;
     private array $credencial;
     private bool $formularioValido;
     private bool $resultado = false;
@@ -47,13 +48,27 @@ class Login extends Model
     {
         if(password_verify($senha, $senhabd))
         {
+            $this->gerarPaginas();
+            $this->gerarNovoIdSessao();
             $_SESSION['usuario_id'] = $this->usuario['id'];
             $_SESSION['usuario_nome'] = $this->usuario['nome'];
             $_SESSION['usuario_cargo'] = $this->usuario['cargo'];
+            $_SESSION['usuario_paginas'] = $this->paginasUsuario;
             $msg = parent::alertaSucesso("Bem vindo " . $_SESSION['usuario_nome']);
             $_SESSION['msg'] = $msg;
             $this->resultado = true;
         }
+    }
+    private function gerarPaginas(): void
+    {
+        $id['id'] = $this->usuario['id'];
+        $paginas = new \App\Model\Paginas();
+        $this->paginasUsuario = $paginas->acessoPaginas($id);
+    }
+
+    private function gerarNovoIdSessao()
+    {
+        session_regenerate_id();
     }
 
 }
