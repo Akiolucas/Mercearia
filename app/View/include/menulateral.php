@@ -24,16 +24,19 @@ if (isset($_SESSION['usuario_paginas']))
         </a>
       </li>
 <?php
-  foreach ($_SESSION['usuario_paginas'] as $pagina) 
+  
+  foreach ($_SESSION['usuario_paginas'] as $key => $pagina) 
   {
-    
+    if($pagina != "Perfil")
+    {
 ?>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?php echo URL . $pagina?>">
           <?php echo $pagina; ?>
         </a>
       </li>
 <?php
+    }
   } 
 } 
 ?>
