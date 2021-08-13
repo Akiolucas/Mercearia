@@ -14,6 +14,7 @@
                 $_SESSION['usuario_nome'],
                 $_SESSION['usuario_cargo'],
                 $_SESSION['usuario_paginas'],
+                $_SESSION['paginas_publicas'],
                 $_SESSION['msg']
             );
          }
