@@ -10,8 +10,9 @@ namespace App\Model;
 class Login extends Model
 {
     private array $obrigatorio = ['credencial', 'senha', 'btnAcessar'];
-    private $usuario;
-    private $paginasUsuario;
+    private array $usuario;
+    private array $paginasUsuario = array();
+    private array $paginasPublicas = array();
     private array $credencial;
     private bool $formularioValido;
     private bool $resultado = false;
@@ -54,6 +55,7 @@ class Login extends Model
             $_SESSION['usuario_nome'] = $this->usuario['nome'];
             $_SESSION['usuario_cargo'] = $this->usuario['cargo'];
             $_SESSION['usuario_paginas'] = $this->paginasUsuario;
+            $_SESSION['paginas_publicas'] = $this->paginasPublicas;
             $msg = parent::alertaSucesso("Bem vindo " . $_SESSION['usuario_nome']);
             $_SESSION['msg'] = $msg;
             $this->resultado = true;
@@ -64,6 +66,7 @@ class Login extends Model
         $id['id'] = $this->usuario['id'];
         $paginas = new \App\Model\Paginas();
         $this->paginasUsuario = $paginas->acessoPaginas($id);
+        $this->paginasPublicas = $paginas->listaPgPublicas();
     }
 
     private function gerarNovoIdSessao()
