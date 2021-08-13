@@ -41,13 +41,7 @@ class ConfigController
     {
         $site = new \Core\Endereco();
         $site->urlPublica();
-
-        if($this->urlController != 'login')
-        {   
-            $permissao = new \App\Model\Paginas();
-            $listaPaginas = $permissao->permissaoPaginas();
-            $this->permissao($listaPaginas);
-        }
+        $this->permissao();
         
         $paramArquivo = "./app/Controller/" . ucfirst($this->urlController) . ".php";
         $paramClasse = ucfirst($this->urlController);
@@ -87,22 +81,34 @@ class ConfigController
         return true;
     }
 
-    private function permissao($paginas)
+    private function permissao()
     {
-       if(empty($paginas['publicas']) && empty($paginas['privadas'])){
-           echo "aqui estou";
-           $this->urlController = "login";
-           $this->urlMetodo = 'index';
+        $this->urlController = ucfirst($this->urlController);
+
+        if(isset($_SESSION['usuario_id']))
+        {
+            if($this->urlController != "Login")
+            {
+                if(!in_array($this->urlController,$_SESSION['usuario_paginas']) && !in_array($this->urlController, $_SESSION['paginas_publicas']))
+                { 
+                    $this->urlController = "PaginaInvalida";
+                }
+               
+            }
+            else{
+                    $this->urlController = "Home";
+            }
+        }
+
+       else{ 
+            if($this->urlController != "Login")
+            { 
+                $this->urlController = "PaginaInvalida";
+            }
        }
-       else if(isset($_SESSION['usuario_id']))
-       {
-           if(!in_array($this->urlController,$paginas['publicas']) && !in_array($this->urlController,$_SESSION['usuario_paginas']))
-           {
-            $this->urlController = "home";
-            $this->urlMetodo = "index";
-           }
-       }
+      
     }
+    
 
     
 }
