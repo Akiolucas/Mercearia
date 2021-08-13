@@ -349,31 +349,6 @@ INSERT INTO `produto` VALUES (1,'Pão integral',7,2,1,0.5,'2021-07-29 08:27:37')
 UNLOCK TABLES;
 
 --
--- Table structure for table `teste`
---
-
-DROP TABLE IF EXISTS `teste`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `teste` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `nome` double NOT NULL DEFAULT '12345',
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `teste`
---
-
-LOCK TABLES `teste` WRITE;
-/*!40000 ALTER TABLE `teste` DISABLE KEYS */;
-INSERT INTO `teste` VALUES (24,12345),(25,12346),(26,12347),(27,12348),(28,12349),(29,12350);
-/*!40000 ALTER TABLE `teste` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping routines for database 'mercearia'
 --
 /*!50003 DROP PROCEDURE IF EXISTS `cadastrar_codigo_produto_estoque` */;
@@ -444,4 +419,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-12  0:11:29
+-- Dump completed on 2021-08-13 20:55:18
