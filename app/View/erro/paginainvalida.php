@@ -39,7 +39,7 @@ if(isset($_SESSION['msg']))
         <div class="alertaPagina">
             <h1>Desculpe! página não existe ou foi removida</h1>
             <h5> Verifique se você digitou correntamente o endereço.</h5>
-            <a href="<?php echo isset($_SESSION['usuario_nome'])?URL.'home/' :URL.'home/'?>"><button>Ir para página inicial</button></a>
+            <a href="<?php echo isset($_SESSION['usuario_nome'])?URL.'home/' :URL.'login/'?>"><button>Ir para página inicial</button></a>
         </div>    
     </main>
     <?php
