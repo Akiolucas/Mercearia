@@ -33,7 +33,7 @@ class ConfigController
         }
         else{
             
-            $this->urlController = "home";
+            $this->urlController = "login";
             $this->urlMetodo = "index";
         }
     }
@@ -41,6 +41,13 @@ class ConfigController
     {
         $site = new \Core\Endereco();
         $site->urlPublica();
+
+        if($this->urlController != 'login')
+        {   
+            $permissao = new \App\Model\Paginas();
+            $listaPaginas = $permissao->permissaoPaginas();
+            $this->permissao($listaPaginas);
+        }
         
         $paramArquivo = "./app/Controller/" . ucfirst($this->urlController) . ".php";
         $paramClasse = ucfirst($this->urlController);
@@ -78,6 +85,23 @@ class ConfigController
         }
 
         return true;
+    }
+
+    private function permissao($paginas)
+    {
+       if(empty($paginas['publicas']) && empty($paginas['privadas'])){
+           echo "aqui estou";
+           $this->urlController = "login";
+           $this->urlMetodo = 'index';
+       }
+       else if(isset($_SESSION['usuario_id']))
+       {
+           if(!in_array($this->urlController,$paginas['publicas']) && !in_array($this->urlController,$_SESSION['usuario_paginas']))
+           {
+            $this->urlController = "home";
+            $this->urlMetodo = "index";
+           }
+       }
     }
 
     
