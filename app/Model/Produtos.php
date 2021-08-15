@@ -12,7 +12,7 @@
         public function listar(): array
         {
             $listar = parent::projetarTodos(
-            "SELECT p.nome, p.preco AS preço, f.nome AS fornecedor, c.barra AS código, p.kilograma, p.dt_registro
+            "SELECT p.id, p.nome, p.preco AS preço, f.nome AS fornecedor, c.barra AS código, p.kilograma, p.dt_registro
             FROM produto p
             INNER JOIN fornecedor f
             ON p.fornecedor_id = f.id
