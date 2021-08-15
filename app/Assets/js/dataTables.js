@@ -1,5 +1,8 @@
 $(document).ready(function() {
     $('#listar-produtos').DataTable( {
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+        },
         "processing": true,
         "serverSide": false,
         "ajax": {
@@ -7,6 +10,7 @@ $(document).ready(function() {
             "dataSrc":""
         },
         "columns":[
+            {"data": "id"},
             {"data": "nome"},
             {"data": "preço"},
             {"data": "fornecedor"},
