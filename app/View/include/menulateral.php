@@ -19,7 +19,7 @@ if (isset($_SESSION['usuario_paginas']))
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link bg-danger text-center" href="<?php echo URL; ?>sair">
+        <a class="nav-link text-center" href="<?php echo URL; ?>sair" id="link-sair">
           Sair <i class="fas fa-sign-out-alt"></i>
         </a>
       </li>
