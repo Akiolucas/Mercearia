@@ -149,3 +149,12 @@ main{
   line-height: 60px;
   background-color: #17a2b8;
 }
+#link-sair{
+  background-color:rgb(255,38,25);
+  color:white;
+}
+#link-sair:hover{
+   background-image:linear-gradient(to right, rgb(100,0,0),rgb(255,0,0));
+}
+
+
