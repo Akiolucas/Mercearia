@@ -156,5 +156,10 @@ main{
 #link-sair:hover{
    background-image:linear-gradient(to right, rgb(100,0,0),rgb(255,0,0));
 }
+#listar-produtos tbody tr:hover{
+  color:white;
+  font-size:13pt;
+  font-weight:bold;
+}
 
 
