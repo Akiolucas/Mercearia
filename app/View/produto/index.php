@@ -38,25 +38,26 @@ include_once "app/View/include/header.php";
                 }
 
                 ?>
-                <h2 class="text-center mb-3">Tabela Produtos</h2>
+                <h2 class="text-center mb-3">Tabela de Produtos</h2>
                 <div class="table-responsive">
                     <table id="listar-produtos" class="table table-striped table-sm">
-                        <thead>
+                        <thead class="bg-info">
                             <tr>
+                                <th>Id</th>
                                 <th>Nome</th>
                                 <th>Preço</th>
                                 <th>Fornecedor</th>
                                 <th>Código</th>
-                                <th>kilograma</th>
+                                <th>Kilograma</th>
                                 <th>Registro</th>
-                               
                             </tr>
                         </thead>
                         <tbody>
 
                         </tbody>
-                        <tfoot>
+                        <tfoot class="bg-info">
                             <tr>
+                                <th>Id</th>
                                 <th>Nome</th>
                                 <th>Preço</th>
                                 <th>Fornecedor</th>
