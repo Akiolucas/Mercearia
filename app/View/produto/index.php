@@ -40,7 +40,7 @@ include_once "app/View/include/header.php";
                 ?>
                 <h2 class="text-center mb-3">Tabela de Produtos</h2>
                 <div class="table-responsive">
-                    <table id="listar-produtos" class="table table-striped table-sm">
+                    <table id="listar-produtos" class="table bg-info table-hover">
                         <thead class="bg-info">
                             <tr>
                                 <th>Id</th>
@@ -62,7 +62,7 @@ include_once "app/View/include/header.php";
                                 <th>Preço</th>
                                 <th>Fornecedor</th>
                                 <th>Código</th>
-                                <th>kilograma</th>
+                                <th>Kilograma</th>
                                 <th>Registro</th>
                             </tr>
                         </tfoot>
