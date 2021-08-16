@@ -24,21 +24,31 @@
     <li>:gift: :heart_eyes: Pronto seguindo os passos acima, deverá estar tudo funcionando</li>
 </ul>
  <br>
-<p align="center">Veja como está algumas páginas do projeto:</p>
+<p align="center">Veja como está algumas páginas do projeto :camera::</p>
 <hr>
 <figure>
     <img src="app/Assets/image/projeto/login.png" alt="imagem página login">
-    <figcaption>Página login</figcaption>
+    <figcaption>:camera: Página login</figcaption>
 </figure>
 <hr>
 <figure>
     <img src="app/Assets/image/projeto/home.png" alt="imagem página home">
-    <figcaption>Página home</figcaption>
+    <figcaption>:camera: Página home</figcaption>
 </figure>
 <hr>
 <figure>
     <img src="app/Assets/image/projeto/paginainvalida.png" alt="imagem página inválida">
-    <figcaption>Página inválida</figcaption>
+    <figcaption>:camera: Página inválida</figcaption>
+</figure>
+ <hr>
+<figure>
+    <img src="app/Assets/image/projeto/produtos.png" alt="imagem página de produtos">
+    <figcaption>:camera: Página produtos</figcaption>
+</figure>
+ <hr>
+<figure>
+    <img src="app/Assets/image/projeto/produtos-pesquisa.png" alt="imagem da pesquisa na página produtos">
+    <figcaption>:camera: Página produtos, usando campo de pesquisa</figcaption>
 </figure>
 
 
