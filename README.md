@@ -38,7 +38,7 @@
 <hr>
 <figure>
     <img src="app/Assets/image/projeto/paginainvalida.png" alt="imagem página inválida">
-    <figcaption>:camera: Página inválida</figcaption>
+    <figcaption>:camera: Página inválida, observe que não existe no menu do usuário essa página</figcaption>
 </figure>
  <hr>
 <figure>
