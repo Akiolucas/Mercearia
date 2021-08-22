@@ -18,12 +18,27 @@
             $pagina->renderizar();
            
         }
-        public function listar()
+        private function listar()
         {
             $tabela = new \App\Model\Produtos();
-            $dados = $tabela->listar();
+            $this->dados = $tabela->listar();
+        }
+        public function editar()
+        {
+            if(filter_input(INPUT_GET,'id',FILTER_VALIDATE_INT))
+            {
+                echo "valido";
+            }
+            else{
+                $msg = "Produto não encontrado";
+                $_SESSION['msg'] = parent::alertaFalha($msg);
 
-            print json_encode($dados, JSON_UNESCAPED_UNICODE);
+                header("Location:". URL . "produtos");
+                exit();
+            }
+            $dados = filter_input(INPUT_GET,'id',FILTER_VALIDATE_INT);
+            var_dump($dados);
+            exit();
         }
     }
 ?>
