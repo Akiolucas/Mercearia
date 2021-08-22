@@ -16,8 +16,8 @@ class Sair extends Controller
         $logout = new \App\Model\Sair();
         $logout->logout();
         
-        $msg = parent::alertaFalha("deslogado com sucesso");
-        $_SESSION['msg'] = $msg;
+        $msg = "deslogado com sucesso";
+        $_SESSION['msg'] = parent::alertaFalha($msg);
         
         header("location:". URL . "login/index");
         exit();
