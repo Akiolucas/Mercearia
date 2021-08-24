@@ -161,10 +161,9 @@ main{
   border-radius: 5px;
 }
 #listar-produtos tbody tr:hover{
-  color:white;
-  font-size:13pt;
+  color:black;
   font-weight:bold;
-  background-color: #17a2b8;
+  background-color: #ffefd9;
 }
 /* Margin para a tabela datatables*/
 .dataTables_wrapper{
