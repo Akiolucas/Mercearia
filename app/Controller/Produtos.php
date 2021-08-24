@@ -10,10 +10,11 @@
     class Produtos extends Controller
     {
         private $dados;
+        private $id;
 
         public function index()
         {
-    
+            $this->listar();
             $pagina = new \Core\ConfigView("View/produto/index",$this->dados);
             $pagina->renderizar();
            
@@ -27,18 +28,20 @@
         {
             if(filter_input(INPUT_GET,'id',FILTER_VALIDATE_INT))
             {
-                echo "valido";
+                $this->id['id'] = filter_input(INPUT_GET,'id',FILTER_VALIDATE_INT);
+                $produto = new \App\Model\Produtos();
+
+                $this->dados = $produto->editar($this->id);
+                $pagina = new \Core\ConfigView("View/produto/editar",$this->dados);
+                $pagina->renderizar();
+               
             }
             else{
                 $msg = "Produto não encontrado";
                 $_SESSION['msg'] = parent::alertaFalha($msg);
-
-                header("Location:". URL . "produtos");
+                header("Location:". URL . "produtos/index");
                 exit();
             }
-            $dados = filter_input(INPUT_GET,'id',FILTER_VALIDATE_INT);
-            var_dump($dados);
-            exit();
         }
     }
 ?>
