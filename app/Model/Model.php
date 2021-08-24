@@ -77,7 +77,7 @@ class Model extends Conexao
         return true;        
     }
     
-    final protected function formularioValido($validacao): bool
+    final protected function formularioValido(array $validacao): bool
     {
         foreach($validacao as $boolean)
         {
@@ -101,6 +101,42 @@ class Model extends Conexao
     private function valoresParam($query,$parametro,$valor): void
     {
         $query->bindParam(":$parametro",$valor);  
+    }
+    final protected function valida_int(array $campos): bool
+    {
+        foreach($campos as $campo)
+        {
+            if(!is_int($campo))
+            {
+                return false;
+                exit();
+            }
+            return true;
+        }
+    }
+    final protected function valida_float(array $campos): bool
+    {
+        foreach($campos as $campo)
+        {
+            if(!is_float($campo))
+            {
+                return false;
+                exit();
+            }
+            return true;
+        }
+    }
+    final protected  function valida_date(array $campos): bool
+    {
+        foreach($campos as $campo)
+        {
+            if(!date_create_from_format('d/m/Y H:i:s',$campo))
+            {
+                return false;
+                exit();
+            }
+            return true;
+        }
     }
 
 }
