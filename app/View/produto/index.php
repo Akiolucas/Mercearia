@@ -67,8 +67,8 @@ include_once "app/View/include/header.php";
                                     <td><?php echo $item['kilograma']; ?></td>
                                     <td><?php echo $item['dt_registro']; ?></td>
                                     <td>
-                                        <a href="<?php echo URL; ?>produtos/editar&id=if-1ld9a.a>" class="btn btn-primary col-mb-3">Editar</a>
-                                        <a href="<?php echo URL; ?>produtos/excluir&id=7" class="btn btn-primary col-mb-3">Excluir</a>
+                                        <a href="<?php echo URL; ?>produtos/editar/&id=<?php echo $item['id'] ?>" class="btn btn-primary col-mb-3">Editar</a>
+                                        <a href="<?php echo URL; ?>produtos/excluir/&id=<?php echo $item['id'] ?>" class="btn btn-primary col-mb-3">Excluir</a>
                                     </td>
                                 </tr>
                             <?php
