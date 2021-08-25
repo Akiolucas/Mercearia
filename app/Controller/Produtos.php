@@ -43,5 +43,29 @@
                 exit();
             }
         }
+        public function atualizar()
+        {
+            $this->dados = filter_input_array(INPUT_POST,FILTER_DEFAULT);
+
+            if(!empty($this->dados['btn_atualizar'])){
+                $atualizar = new \App\Model\Produtos();
+                $atualizar->atualizar($this->dados);
+
+            }
+            else{
+                $msg = "Não foi possivel atualizar o produto";
+                $_SESSION['msg'] = parent::alertaFalha($msg);
+                header("Location:". URL . "produtos/index");
+                exit();
+            }
+        }
+        public function fornecedorAjax()
+        {
+            $listar = new \App\Model\Produtos();
+            $fornecedores = $listar->listarFornecedor();
+        
+            
+            echo json_encode($fornecedores,JSON_UNESCAPED_UNICODE);
+        }
     }
 ?>
