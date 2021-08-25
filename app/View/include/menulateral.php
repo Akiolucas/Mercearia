@@ -31,7 +31,7 @@ if (isset($_SESSION['usuario_paginas']))
     {
 ?>
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo URL . $pagina?>">
+        <a class="nav-link" href="<?php echo URL . lcfirst($pagina)?>">
           <?php echo $pagina; ?>
         </a>
       </li>
