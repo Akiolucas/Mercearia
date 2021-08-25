@@ -35,21 +35,61 @@ include_once "app/View/include/header.php";
                 if (isset($_SESSION['msg'])) {
                     echo $_SESSION['msg'];
                     unset($_SESSION['msg']);
-                    
                 }
+                $produto = $this->dados[0];
+                var_dump($produto);
                 ?>
-                <form method="post">
-                <input type="hidden" name="id" value="<?php echo $this->dados['id']?>">
-                <input type="text" name="nome" id="form_nome" value="<?php echo $this->dados['nome']?>">
-                <input type="number" name="preco" id="preco" value="<?php echo $this->dados['preço']?>">
-                <select name="fornecedor_id" id="fornecedor">
-                </select>
 
-                </form>
+                <div id="form-atualizar">
+                    <h1 class="text-center mt-2">Produto</h1>
+                    <form method="post">
+                        <div class="form-row">
+                            <div class="form-group col-12 col-sm-6">
+                                <input type="hidden" name="id" value="<?php echo $produto['id'] ?>">
+                                <label for="form_nome">Nome</label>
+                                <input type="text" name="nome" class="form-control" id="form_nome" value="<?php echo $produto['nome'] ?>">
+                            </div>
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="form_preco">Preço</label>
+                                <input type="number" name="preco" id="form_preco" class="form-control" value="<?php echo $produto['preço'] ?>">
+                            </div>
+                            <div class="form-group col-6 col-sm-3">
+                                <label for="form_kilograma">Kg</label>
+                                <input type="number" name="kilograma" id="form_kilograma" class="form-control" value="<?php echo $produto['kilograma'] ?>">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-12 col-sm-8">
+                                <input type="hidden" name="dt_registro" value="<?php echo $produto['dt_registro'] ?>">
+                                
+                                <label for="form_fornecedor">Fornecedor</label>
+                                <select name="fornecedor_id" class="form-control" id="form_fornecedor">
+                                    <option value="<?php echo $produto['fornecedor']?>" id="option_padrao" selected><?php echo $produto['fornecedor']?></option>
+                                </select>
+                            </div>
+                            <div class="form-group col-12 col-sm-4">
+                                <label for="form-codigo">Código</label>
+                                <input type="text" name="codigo_id" value="<?php echo $produto['código'] ?>" class="form-control" id="form-codigo" disabled>
+                                
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-6">
+                                <a href="<?php echo URL ?>produtos/index" class="form-control btn btn-danger">Cancelar</a>
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="submit" value="Atualizar" name="btn_atualizar" class="form-control btn btn-success">
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
             </main>
             <?php
             include_once "app/View/include/footer.php";
             ?>
             <script src="<?php echo URL; ?>app/Assets/js/eventos.js"></script>
-</body>
-</html>
+            <script src="<?php echo URL; ?>app/Assets/js/produtos-ajax.js"></script>
+            </body>
+
+</html
