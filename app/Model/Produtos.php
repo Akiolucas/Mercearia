@@ -33,7 +33,7 @@
             ON p.fornecedor_id = f.id
             INNER JOIN codigo c
             ON p.codigo_id = c.id
-            WHERE p.id = :id",$id,false);
+            WHERE p.id = :id LIMIT 1",$id,false);
 
             if(!empty($produto)){
                 return $produto;
@@ -55,6 +55,11 @@
                 exit();
             }
 
+        }
+        public function listarFornecedor()
+        {
+            $fornecedores = parent::projetarTodos("SELECT id, nome FROM fornecedor");
+            return $fornecedores;
         }
         
         public function excluir()
