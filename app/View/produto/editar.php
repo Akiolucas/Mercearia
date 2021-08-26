@@ -37,12 +37,11 @@ include_once "app/View/include/header.php";
                     unset($_SESSION['msg']);
                 }
                 $produto = $this->dados[0];
-                var_dump($produto);
                 ?>
 
                 <div id="form-atualizar">
                     <h1 class="text-center mt-2">Produto</h1>
-                    <form method="post">
+                    <form action="<?php echo URL;?>produtos/atualizar" method="POST">
                         <div class="form-row">
                             <div class="form-group col-12 col-sm-6">
                                 <input type="hidden" name="id" value="<?php echo $produto['id'] ?>">
@@ -51,11 +50,11 @@ include_once "app/View/include/header.php";
                             </div>
                             <div class="form-group col-6 col-sm-3">
                                 <label for="form_preco">Preço</label>
-                                <input type="number" name="preco" id="form_preco" class="form-control" value="<?php echo $produto['preço'] ?>">
+                                <input type="number" name="preco" id="form_preco" class="form-control" value="<?php echo $produto['preco'] ?>" step="0.01">
                             </div>
                             <div class="form-group col-6 col-sm-3">
                                 <label for="form_kilograma">Kg</label>
-                                <input type="number" name="kilograma" id="form_kilograma" class="form-control" value="<?php echo $produto['kilograma'] ?>">
+                                <input type="number" name="kilograma" id="form_kilograma" class="form-control" value="<?php echo $produto['kilograma'] ?>" step="0.01">
                             </div>
                         </div>
                         <div class="form-row">
@@ -64,13 +63,13 @@ include_once "app/View/include/header.php";
                                 
                                 <label for="form_fornecedor">Fornecedor</label>
                                 <select name="fornecedor_id" class="form-control" id="form_fornecedor">
-                                    <option value="<?php echo $produto['fornecedor']?>" id="option_padrao" selected><?php echo $produto['fornecedor']?></option>
+                                    <option value="<?php echo $produto['fornecedor_id']?>" id="option_padrao" selected><?php echo $produto['fornecedor']?></option>
                                 </select>
                             </div>
                             <div class="form-group col-12 col-sm-4">
                                 <label for="form-codigo">Código</label>
-                                <input type="text" name="codigo_id" value="<?php echo $produto['código'] ?>" class="form-control" id="form-codigo" disabled>
-                                
+                                <input type="text" name="codigo" value="<?php echo $produto['codigo']?>" id="form-codigo" class="form-control" disabled>
+                                <input type="hidden" name="codigo_id" value="<?php echo $produto['codigo_id']?>">
                             </div>
                         </div>
                         <div class="form-row">
