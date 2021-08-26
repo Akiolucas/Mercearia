@@ -40,7 +40,7 @@ include_once "app/View/include/header.php";
 
                 ?>
                 <h2 class="text-center mb-3">Tabela de Produtos</h2>
-                <button type="button" class="btn btn-primary m-button-table" data-toggle="modal" data-target="#modalCadastrar">Cadastrar</button>
+                <button type="button" class="btn btn-success m-button-table" data-toggle="modal" data-target="#modalCadastrar"><i class="fas fa-pen"></i> Cadastrar</button>
                 <div class="table-responsive">
                     <table id="listar-produtos" class="table table-hover text-center">
                         <thead class="bg-info">
@@ -51,8 +51,10 @@ include_once "app/View/include/header.php";
                                 <th>Fornecedor</th>
                                 <th>Código</th>
                                 <th>Kilograma</th>
+                                <th>Estoque</th>
                                 <th>Registro</th>
-                                <th>Ferramentas</th>
+                                <th>Editar</th>
+                                <th>Excluir</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,14 +63,17 @@ include_once "app/View/include/header.php";
                             ?> <tr>
                                     <td><?php echo $item['id']; ?></td>
                                     <td><?php echo $item['nome']; ?></td>
-                                    <td><?php echo $item['preço']; ?></td>
+                                    <td><?php echo "R$ " . number_format($item['preco'], 2, ",", "."); ?></td>
                                     <td><?php echo $item['fornecedor']; ?></td>
-                                    <td><?php echo $item['código']; ?></td>
-                                    <td><?php echo $item['kilograma']; ?></td>
-                                    <td><?php echo $item['dt_registro']; ?></td>
+                                    <td><?php echo $item['codigo']; ?></td>
+                                    <td><?php echo number_format($item['kilograma'], 3, ',', '.') . " Kg"; ?></td>
+                                    <td><?php echo $item['estoque']; ?></td>
+                                    <td><?php echo date('d/m/Y', strtotime($item['dt_registro'])); ?></td>
                                     <td>
-                                        <a href="<?php echo URL; ?>produtos/editar/&id=<?php echo $item['id'] ?>" class="btn btn-primary col-mb-3">Editar</a>
-                                        <a href="<?php echo URL; ?>produtos/excluir/&id=<?php echo $item['id'] ?>" class="btn btn-primary col-mb-3">Excluir</a>
+                                        <a href="<?php echo URL; ?>produtos/editar/&id=<?php echo $item['id'] ?>" class="btn btn-warning col-mb-3"><i class="fas fa-edit"></i></a>
+                                    </td>
+                                    <td>
+                                        <a href="<?php echo URL; ?>produtos/excluir/&id=<?php echo $item['id'] ?>" class="btn btn-danger col-mb-3"><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             <?php
@@ -83,8 +88,10 @@ include_once "app/View/include/header.php";
                                 <th>Fornecedor</th>
                                 <th>Código</th>
                                 <th>Kilograma</th>
+                                <th>Estoque</th>
                                 <th>Registro</th>
-                                <th>Ferramentas</th>
+                                <th>Editar</th>
+                                <th>Excluir</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -124,8 +131,8 @@ include_once "app/View/include/header.php";
             include_once "app/View/include/footer.php";
             ?>
             <script src="<?php echo URL; ?>app/Assets/js/eventos.js"></script>
-            <script src="<?php echo URL;?>app/Assets/jquery/jquery.dataTables.min.js"></script>
-            <script src="<?php echo URL;?>app/Assets/js/dataTables.js"></script>
+            <script src="<?php echo URL; ?>app/Assets/jquery/jquery.dataTables.min.js"></script>
+            <script src="<?php echo URL; ?>app/Assets/js/dataTables.js"></script>
             </body>
 
 </html>
