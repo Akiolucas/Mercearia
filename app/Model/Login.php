@@ -10,6 +10,7 @@ namespace App\Model;
 class Login extends Model
 {
     private array $obrigatorio = ['credencial', 'senha', 'btnAcessar'];
+    private int $quantidade_obrigatorio;
     private array $usuario;
     private array $paginasUsuario = array();
     private array $paginasPublicas = array();
@@ -21,7 +22,8 @@ class Login extends Model
     {
         $this->credencial['credencial'] = $dadosFormulario['credencial'];
 
-        $this->formularioValido = parent::existeCamposFormulario($dadosFormulario,$this->obrigatorio);
+        $this->quantidade_obrigatorio = count($this->obrigatorio);
+        $this->formularioValido = parent::existeCamposFormulario($dadosFormulario,$this->obrigatorio,$this->quantidade_obrigatorio);
         
         if($this->formularioValido)
         { 
