@@ -46,11 +46,13 @@
         public function atualizar()
         {
             $this->dados = filter_input_array(INPUT_POST,FILTER_DEFAULT);
-
+          
             if(!empty($this->dados['btn_atualizar'])){
                 $atualizar = new \App\Model\Produtos();
                 $atualizar->atualizar($this->dados);
 
+                header("location:". URL . "produtos/index");
+                exit();
             }
             else{
                 $msg = "Não foi possivel atualizar o produto";
