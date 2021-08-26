@@ -64,17 +64,22 @@ class Model extends Conexao
         $this->query->execute();
     }
 
-    final protected function existeCamposFormulario(array $dados, array $obrigatorio): bool
+    final protected function existeCamposFormulario(array $dados, array $obrigatorio, int $tamanho): bool
     {   
-        foreach($obrigatorio as $valor)
-        {
-            if(!array_key_exists($valor,$dados))
-            {   
-                return false;
-                exit();
-            }
+        if(count($dados) != $tamanho){
+            return false;
         }
-        return true;        
+        else{
+            foreach($obrigatorio as $valor)
+            {
+                if(!array_key_exists($valor,$dados))
+                {   
+                    return false;
+                    exit();
+                }
+            }
+            return true;    
+        }    
     }
     
     final protected function formularioValido(array $validacao): bool
@@ -106,6 +111,7 @@ class Model extends Conexao
     {
         foreach($campos as $campo)
         {
+            $campo = intval($campo);
             if(!is_int($campo))
             {
                 return false;
@@ -118,6 +124,8 @@ class Model extends Conexao
     {
         foreach($campos as $campo)
         {
+            $campo = floatval($campo);
+            
             if(!is_float($campo))
             {
                 return false;
@@ -130,7 +138,7 @@ class Model extends Conexao
     {
         foreach($campos as $campo)
         {
-            if(!date_create_from_format('d/m/Y H:i:s',$campo))
+            if(!date_create_from_format('Y-m-d H:i:s',$campo))
             {
                 return false;
                 exit();
