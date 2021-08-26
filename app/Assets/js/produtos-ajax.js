@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    let fornecedor = $("#option_padrao").val();
+    let fornecedor_id = $("#option_padrao").val();
 
     $.post("http://localhost/mercearia/produtos/fornecedorAjax",function(result, status){
        let objeto = JSON.parse(result);
@@ -12,10 +12,7 @@ $(document).ready(function(){
 
        function listar(item, index)
        {
-        if(item['nome'] == fornecedor){
-            $('#option_padrao').val(item['id']);
-        }
-        else{
+        if(item['id'] != fornecedor_id){
             text +="<option value=" + item['id'] + ">" + item['nome'] + "</option>"; 
         }
        }
