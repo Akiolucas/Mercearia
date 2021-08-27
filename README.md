@@ -50,6 +50,22 @@
     <img src="app/Assets/image/projeto/produtos-pesquisa.png" alt="imagem da pesquisa na página produtos">
     <figcaption>:camera: Página produtos, usando campo de pesquisa</figcaption>
 </figure>
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/produtos-botao-editar.png" alt="imagem do botão de editar na página produtos">
+    <figcaption>:camera: Página produtos, clicando no botão de editar</figcaption>
+</figure>
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/produtos-editar.png" alt="imagem da página de editar produtos">
+    <figcaption>:camera: Página de editar produtos</figcaption>
+</figure>
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/produtos-cadastrar.png" alt="imagem do modal de cadastrar na página produtos">
+    <figcaption>:camera:ao clicar em cadastrar abre esse modal de cadastro de produto</figcaption>
+</figure>
+ 
 
 
 
