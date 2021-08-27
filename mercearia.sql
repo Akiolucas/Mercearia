@@ -107,7 +107,7 @@ CREATE TABLE `estoque` (
   `quantidade` int NOT NULL,
   PRIMARY KEY (`id`,`produto_id`),
   KEY `fk_estoque_produto_idx` (`produto_id`) /*!80000 INVISIBLE */,
-  CONSTRAINT `fk_estoque_produto` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE
+  CONSTRAINT `fk_estoque_produto` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -117,7 +117,7 @@ CREATE TABLE `estoque` (
 
 LOCK TABLES `estoque` WRITE;
 /*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
-INSERT INTO `estoque` VALUES (1,1,30),(2,2,30),(3,3,20),(4,4,30),(8,16,1),(9,17,60),(10,18,30),(11,19,30),(12,20,10),(13,21,5),(14,22,45),(15,23,100),(16,24,100),(17,25,350),(18,26,90),(19,27,250);
+INSERT INTO `estoque` VALUES (1,1,30),(2,2,30),(3,3,20),(4,4,30),(5,5,70),(8,16,1),(9,17,60),(10,18,30),(11,19,30),(12,20,10),(13,21,5),(14,22,45),(15,23,100),(16,24,100),(17,25,350),(18,26,90);
 /*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -344,7 +344,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (1,'Pão integral',7,2,1,0.5,'2021-07-29 08:27:37'),(2,'Pão de forma',5.5,2,2,0.5,'2021-07-29 08:27:37'),(3,'Queijo prato',46,1,3,1,'2021-07-29 08:27:37'),(4,'Bolo de limão',25,2,4,1,'2021-08-11 21:24:17'),(16,'Requeijão',5,2,19,1,'2021-08-12 00:03:57'),(17,'Goiabada',4.5,2,20,0.5,'2021-08-12 00:04:50'),(18,'Bolo de maracujá',25,2,21,1,'2021-08-12 00:05:04'),(19,'Bolo de chocolate',25,2,22,1,'2021-08-12 00:05:04'),(20,'Bolo de cenoura',20,2,23,1,'2021-08-12 00:05:04'),(21,'Bolo de abacaxi',20,2,24,1,'2021-08-12 00:05:04'),(22,'Presunto Marques Monte',39.5,1,25,1,'2021-08-12 00:05:04'),(23,'Molho de tomate Heinz',4,3,26,0.4,'2021-08-12 00:05:04'),(24,'Catchup Heinz',5.5,3,27,0.26,'2021-08-12 00:05:05'),(25,'Maionese Sachê Heinz',0.5,3,28,0.8,'2021-08-12 00:05:05'),(26,'Maionese Tradicional Heinz',6.7,3,29,0.215,'2021-08-12 00:05:05'),(27,'Molho Barbecue Heinz',7,3,30,0.397,'2021-08-12 00:05:05');
+INSERT INTO `produto` VALUES (1,'Pão integral',7.49,2,1,0.5,'2021-08-25 23:35:39'),(2,'Pão de forma',5.5,2,2,0.5,'2021-07-29 08:27:37'),(3,'Queijo prato',46,1,3,1,'2021-07-29 08:27:37'),(4,'Bolo de limão',25,2,4,1,'2021-08-11 21:24:17'),(5,'Molho Barbecue Heinz',7,3,30,0.397,'2021-08-12 00:05:05'),(16,'Requeijão',5,2,19,1,'2021-08-12 00:03:57'),(17,'Goiabada',4.5,2,20,0.5,'2021-08-12 00:04:50'),(18,'Bolo de maracujá',25,2,21,1,'2021-08-12 00:05:04'),(19,'Bolo de chocolate',25,2,22,1,'2021-08-12 00:05:04'),(20,'Bolo de cenoura',20,2,23,1,'2021-08-12 00:05:04'),(21,'Bolo de abacaxi',20,2,24,1.5,'2021-08-26 20:19:32'),(22,'Presunto Marques Monte',39.5,1,25,1,'2021-08-12 00:05:04'),(23,'Molho de tomate Heinz',4,3,26,0.4,'2021-08-12 00:05:04'),(24,'Catchup Heinz',5.5,3,27,0.26,'2021-08-12 00:05:05'),(25,'Maionese Sachê Heinz',0.5,3,28,0.8,'2021-08-12 00:05:05'),(26,'Maionese Tradicional Heinz',6.7,3,29,0.215,'2021-08-12 00:05:05');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -419,4 +419,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-13 20:55:18
+-- Dump completed on 2021-08-27  0:29:54
