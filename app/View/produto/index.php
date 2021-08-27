@@ -68,7 +68,7 @@ include_once "app/View/include/header.php";
                                     <td><?php echo $item['codigo']; ?></td>
                                     <td><?php echo number_format($item['kilograma'], 3, ',', '.') . " Kg"; ?></td>
                                     <td><?php echo $item['estoque']; ?></td>
-                                    <td><?php echo date('d/m/Y', strtotime($item['dt_registro'])); ?></td>
+                                    <td data-order="<?php echo date('Y/m/d', strtotime($item['dt_registro']));?>"><?php echo date('d/m/Y', strtotime($item['dt_registro']));?></td>
                                     <td>
                                         <a href="<?php echo URL; ?>produtos/editar/&id=<?php echo $item['id'] ?>" class="btn btn-warning col-mb-3"><i class="fas fa-edit"></i></a>
                                     </td>
