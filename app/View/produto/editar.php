@@ -50,11 +50,11 @@ include_once "app/View/include/header.php";
                             </div>
                             <div class="form-group col-6 col-sm-3">
                                 <label for="form_preco">Preço</label>
-                                <input type="number" name="preco" id="form_preco" class="form-control" value="<?php echo $produto['preco'] ?>" step="0.01">
+                                <input type="number" name="preco" id="form_preco" class="form-control" value="<?php echo $produto['preco'] ?>" min="0.10" step="0.01">
                             </div>
                             <div class="form-group col-6 col-sm-3">
                                 <label for="form_kilograma">Kg</label>
-                                <input type="number" name="kilograma" id="form_kilograma" class="form-control" value="<?php echo $produto['kilograma'] ?>" step="0.01">
+                                <input type="number" name="kilograma" id="form_kilograma" class="form-control" value="<?php echo $produto['kilograma'] ?>" min='0.001' step="0.001">
                             </div>
                         </div>
                         <div class="form-row">
@@ -89,6 +89,9 @@ include_once "app/View/include/header.php";
             ?>
             <script src="<?php echo URL; ?>app/Assets/js/eventos.js"></script>
             <script src="<?php echo URL; ?>app/Assets/js/produtos-ajax.js"></script>
+            <script>
+                 window.addEventListener("load",editarProdutos());
+            </script>
             </body>
 
 </html
