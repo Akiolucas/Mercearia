@@ -40,7 +40,7 @@ include_once "app/View/include/header.php";
 
                 ?>
                 <h2 class="text-center mb-3">Tabela de Produtos</h2>
-                <button type="button" class="btn btn-success m-button-table" data-toggle="modal" data-target="#modalCadastrar"><i class="fas fa-pen"></i> Cadastrar</button>
+                <button type="button" class="btn btn-success m-button-table" data-toggle="modal" data-target="#modalCadastrar" onclick="indexProdutos()"><i class="fas fa-pen"></i> Cadastrar</button>
                 <div class="table-responsive">
                     <table id="listar-produtos" class="table table-hover text-center">
                         <thead class="bg-info">
@@ -68,7 +68,7 @@ include_once "app/View/include/header.php";
                                     <td><?php echo $item['codigo']; ?></td>
                                     <td><?php echo number_format($item['kilograma'], 3, ',', '.') . " Kg"; ?></td>
                                     <td><?php echo $item['estoque']; ?></td>
-                                    <td data-order="<?php echo date('Y/m/d', strtotime($item['dt_registro']));?>"><?php echo date('d/m/Y', strtotime($item['dt_registro']));?></td>
+                                    <td data-order="<?php echo date('Y/m/d', strtotime($item['dt_registro'])); ?>"><?php echo date('d/m/Y', strtotime($item['dt_registro'])); ?></td>
                                     <td>
                                         <a href="<?php echo URL; ?>produtos/editar/&id=<?php echo $item['id'] ?>" class="btn btn-warning col-mb-3"><i class="fas fa-edit"></i></a>
                                     </td>
@@ -97,32 +97,43 @@ include_once "app/View/include/header.php";
                     </table>
                 </div>
                 <div class="modal fade" id="modalCadastrar" tabindex="-1" role="dialog" aria-labelledby="cadastrarProduto" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="cadastrarProduto">Produto</h5>
-                                <form action="<?php echo URL; ?>app/produto/cadastrar" method="post">
-                                    <label for="form-nome">Nome:</label>
-                                    <input type="text" name="nome" id="form-nome">
-                                    <label for="form-preco">Preço:</label>
-                                    <input type="number" name="preco" id="form-preco">
-                                    <label for="form-fornecedor">Fornecedor:</label>
-                                    <select name="fornecedor" id="form-fornecedor">
-                                        <option value=""></option>
-                                    </select>
-
-                                </form>
+                                <h5 class="modal-title text-center w-100" id="cadastrarProduto">Produto</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
-                                ...
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
+                            <form action="<?php echo URL; ?>/produto/cadastrar" method="POST">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="form-nome" class="col-form-label">Nome:</label>
+                                        <input type="text" name="nome" id="form-nome" class="form-control" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-preco" class="col-form-label">Preço:</label>
+                                        <input type="number" name="preco" id="form-preco" class="form-control" min="0.10" step="0.01" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-fornecedor" class="col-form-label">Fornecedor:</label>
+                                        <select name="fornecedor_id" id="form-fornecedor" class="form-control" required>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-kilograma" class="col-form-label">Kilograma:</label>
+                                        <input type="number" name="kilograma" id="form-kilograma" class="form-control" min='0.001' step="0.001" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-quantidade" class="col-form-label">Quantidade:</label>
+                                        <input type="number" name="quantidade" id="form-quantidade" min="1" class="form-control" step="1" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    <input type="submit" class="btn btn-success" name="btn_cadastar" value="Cadastrar">
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -133,6 +144,7 @@ include_once "app/View/include/header.php";
             <script src="<?php echo URL; ?>app/Assets/js/eventos.js"></script>
             <script src="<?php echo URL; ?>app/Assets/jquery/jquery.dataTables.min.js"></script>
             <script src="<?php echo URL; ?>app/Assets/js/dataTables.js"></script>
+            <script src="<?php echo URL; ?>app/Assets/js/produtos-ajax.js"></script>
             </body>
 
 </html>
