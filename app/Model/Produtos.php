@@ -30,12 +30,14 @@
         public function editar($id): array
         {
             $produto = parent::projetarExpecifico(
-            "SELECT p.id, p.nome, p.preco, p.fornecedor_id, f.nome AS fornecedor, p.codigo_id, c.barra AS codigo, p.kilograma, p.dt_registro
+            "SELECT p.id, p.nome, p.preco, p.fornecedor_id, f.nome AS fornecedor, p.codigo_id, c.barra AS codigo, p.kilograma, e.quantidade AS quantidade, p.dt_registro
             FROM produto p 
             INNER JOIN fornecedor f
             ON p.fornecedor_id = f.id
             INNER JOIN codigo c
             ON p.codigo_id = c.id
+            INNER JOIN estoque e
+            ON p.id = e.produto_id
             WHERE p.id = :id LIMIT 1",$id,false);
 
             if(!empty($produto)){
@@ -49,35 +51,62 @@
         
         public function atualizar($dados): void
         {   
-            $this->form_obrigatorio = array('id','nome','preco','fornecedor_id','codigo_id','kilograma','dt_registro','btn_atualizar');
+            $this->form_obrigatorio = array('id','nome','preco','fornecedor_id','codigo_id','kilograma','quantidade','btn_atualizar');
             $this->form_obrigatorio_quantidade = count($this->form_obrigatorio);
 
-            if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade)){
+            if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade))
+            {
                 array_push($this->form_valido,
-                parent::valida_int(array($dados['id'],$dados['codigo_id'])),
-                parent::valida_date(array($dados['dt_registro'])),
+                parent::valida_int(array($dados['id'],$dados['codigo_id'],$dados['quantidade'])),
                 parent::valida_float(array($dados['preco'],$dados['kilograma']))
                 );
 
                 if(parent::formularioValido($this->form_valido))
                 {
-                    $dados['dt_registro'] = date('Y-m-d H:i:s');
                     unset($dados['btn_atualizar']);
 
-                    parent::implementar(
-                    "UPDATE produto 
-                    SET
-                    nome =:nome,
-                    preco = :preco,
-                    fornecedor_id = :fornecedor_id,
-                    codigo_id = :codigo_id,
-                    kilograma = :kilograma,
-                    dt_registro = :dt_registro
-                    WHERE id = :id",
-                    $dados);
+                    $atualizar = parent::projetarExpecifico(
+                    "CALL atualizar_produto_estoque
+                    (:id, :nome, :preco, :fornecedor_id, :codigo_id, :kilograma, :quantidade)",
+                    $dados,true);
 
-                    $msg = "Produto atualizado com sucesso";
-                    $_SESSION['msg'] = parent::alertaSucesso($msg);
+                    switch ($atualizar['Mensagem']) {
+                        case 'Erro ao atualizar na tabela produto':
+                            $msg = 'Erro ao atualizar o produto tente novamente';
+                            $resultado = false;
+                            break;
+
+                        case 'Erro ao atualizar no estoque':
+                            $msg = 'Erro ao atualizar quantidade no estoque';
+                            $resultado = false;
+                            break;
+
+                        case 'Produto atualizado com sucesso':
+                            $msg = 'Produto atualizado com sucesso';
+                            $resultado = true;
+                            break;
+
+                        case 'Preencha todos os campos e tente novamente!';
+                            $msg = 'Preencha todos os campos e tente novamente!';
+                            $resultado = false;
+                        break;
+
+                        default:
+                            $msg = 'Falha ao atualizar tente novamente mais tarde!';
+                            $resultado = false;
+                            break;
+                    }
+
+                    if($resultado)
+                    {
+                        $_SESSION['msg'] = parent::alertaSucesso($msg);
+                    }
+                    else{
+                        $_SESSION['msg'] = parent::alertaFalha($msg);
+                        header("location:". URL . "produtos/editar/&id=". $dados['id']);
+                        exit();
+                    }
+
                 }
                 else{
                     $msg = "Não foi possível atualizar o produto tente novamente";
@@ -85,6 +114,12 @@
                     header("location:". URL . "produtos/editar/&id=". $dados['id']);
                     exit();
                 }
+            }
+            else{
+                $msg = "Preecha todos os campos corretamente!";
+                $_SESSION['msg'] = parent::alertaFalha($msg);
+                header("location:". URL . "produtos/editar/&id=". $dados['id']);
+                exit();
             }
 
         }
