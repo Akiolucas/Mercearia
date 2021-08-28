@@ -50,14 +50,10 @@
             if(isset($this->dados['btn_atualizar']) && !empty($this->dados['btn_atualizar'])){
                 $atualizar = new \App\Model\Produtos();
                 $atualizar->atualizar($this->dados);
-
-                header("location:". URL . "produtos/index");
-                exit();
             }
-            else{
-                header("Location:". URL . "produtos/index");
-                exit();
-            }
+            header("Location:". URL . "produtos/index");
+            exit();
+            
         }
         public function fornecedorAjax()
         {
@@ -71,17 +67,13 @@
         {
             $this->dados = filter_input_array(INPUT_POST,FILTER_DEFAULT);
     
-            if(isset($this->dados['btn_cadastrar']) && !empty($this->dados['btn_cadastrar'])){
+            if(isset($this->dados['btn_cadastrar']) && !empty($this->dados['btn_cadastrar']))
+            {
                 $cadastrar = new \App\Model\Produtos();
                 $cadastrar->cadastrar($this->dados);
-
-                header("location:". URL . "produtos/index");
-                exit();
             }
-            else{
-                header("Location:". URL . "produtos/index");
-                exit();
-            }
+            header("Location:". URL . "produtos/index");
+            exit();
         }
     }
 ?>
