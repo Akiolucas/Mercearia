@@ -40,7 +40,7 @@ include_once "app/View/include/header.php";
 
                 ?>
                 <h2 class="text-center mb-3">Tabela de Produtos</h2>
-                <button type="button" class="btn btn-success m-button-table" data-toggle="modal" data-target="#modalCadastrar" onclick="indexProdutos()"><i class="fas fa-pen"></i> Cadastrar</button>
+                <button type="button" class="btn btn-success m-button-table" data-toggle="modal" data-target="#modalCadastrar"><i class="fas fa-pen"></i> Cadastrar</button>
                 <div class="table-responsive">
                     <table id="listar-produtos" class="table table-hover text-center">
                         <thead class="bg-info">
@@ -105,7 +105,7 @@ include_once "app/View/include/header.php";
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="<?php echo URL; ?>/produto/cadastrar" method="POST">
+                            <form action="<?php echo URL; ?>produtos/cadastrar" method="POST">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="form-nome" class="col-form-label">Nome:</label>
@@ -131,7 +131,7 @@ include_once "app/View/include/header.php";
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                    <input type="submit" class="btn btn-success" name="btn_cadastar" value="Cadastrar">
+                                    <input type="submit" class="btn btn-success" name="btn_cadastrar" value="Cadastrar">
                                 </div>
                             </form>
                         </div>
@@ -145,6 +145,9 @@ include_once "app/View/include/header.php";
             <script src="<?php echo URL; ?>app/Assets/jquery/jquery.dataTables.min.js"></script>
             <script src="<?php echo URL; ?>app/Assets/js/dataTables.js"></script>
             <script src="<?php echo URL; ?>app/Assets/js/produtos-ajax.js"></script>
+            <script>
+                 window.addEventListener("load",indexProdutos());
+            </script>
             </body>
 
 </html>
