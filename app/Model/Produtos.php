@@ -9,7 +9,7 @@
 
     class Produtos extends Model
     {
-        private $form_obrigatorio = array('id','nome','preco','fornecedor_id','codigo_id','kilograma','dt_registro','btn_atualizar');
+        private  array $form_obrigatorio;
         private int $form_obrigatorio_quantidade;
         private array $form_valido = array();
         public function listar(): array
@@ -47,8 +47,9 @@
             exit();
         }
         
-        public function atualizar($dados)
+        public function atualizar($dados): void
         {   
+            $this->form_obrigatorio = array('id','nome','preco','fornecedor_id','codigo_id','kilograma','dt_registro','btn_atualizar');
             $this->form_obrigatorio_quantidade = count($this->form_obrigatorio);
 
             if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade)){
@@ -87,10 +88,78 @@
             }
 
         }
-        public function listarFornecedor()
+
+        public function listarFornecedor(): array
         {
             $fornecedores = parent::projetarTodos("SELECT id, nome FROM fornecedor");
             return $fornecedores;
+        }
+
+        public function cadastrar($dados): void
+        {
+            $this->form_obrigatorio = array('nome','preco','fornecedor_id','kilograma','quantidade','btn_cadastrar');
+            $this->form_obrigatorio_quantidade = count($this->form_obrigatorio);
+
+            if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade))
+            {
+                array_push($this->form_valido,
+                parent::valida_int(array($dados['fornecedor_id'],$dados['quantidade'])),
+                parent::valida_float(array($dados['preco'],$dados['kilograma']))    
+                );
+                
+                if(parent::formularioValido($this->form_valido))
+                {
+                    unset($dados['btn_cadastrar']);
+                    $cadastrar = parent::projetarExpecifico(
+                        "CALL cadastrar_codigo_produto_estoque(
+                           :nome, :preco, :fornecedor_id, :kilograma, :quantidade
+                        )",$dados,true
+                    );
+                   
+                    switch ($cadastrar['Mensagem']) {
+                        case 'Erro ao inserir na tabela de código':
+                            $msg = 'Não foi possível cadastrar, erro no código do produto';
+                            $resultado = false;
+                            break;
+
+                        case 'Erro ao inserir na tabela de produto':
+                            $msg = 'Não foi possível cadastrar, erro nos detalhes do produto';
+                            $resultado = false;
+                            break;
+
+                        case 'Erro ao inserir na tabela de estoque':
+                            $msg = 'Não foi possível cadastrar, preencha corretamente a quantidade';
+                            $resultado = false;
+                            break;
+
+                        case 'Cadastro efetuado com sucesso':
+                            $msg = 'Cadastro efetuado com sucesso';
+                            $resultado = true;
+                            break;
+
+                        case 'Preencha todos os campos e tente novamente!';
+                            $msg = 'Preencha todos os campos e tente novamente!';
+                            $resultado = false;
+                            break;
+
+                        default:
+                            $msg = 'Falha ao cadastrar tente novamente mais tarde!';
+                            $resultado = false;
+                            break;
+                    }
+                    if($resultado){
+                        $_SESSION['msg'] = parent::alertaSucesso($msg);
+                    }
+                    else{
+                        $_SESSION['msg'] = parent::alertaFalha($msg);
+                    }
+                    
+                }
+                else{
+                    $msg = "Não foi possível cadastrar o produto tente novamente!";
+                    $_SESSION['msg'] = parent::alertaFalha($msg);
+                }
+            }
         }
         
         public function excluir()
