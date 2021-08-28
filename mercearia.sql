@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `mercearia` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `mercearia` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `mercearia`;
 -- MySQL dump 10.13  Distrib 8.0.25, for Win64 (x86_64)
 --
@@ -33,7 +33,7 @@ CREATE TABLE `caixa` (
   PRIMARY KEY (`id`,`produto_id`),
   KEY `fk_caixa_produto_idx` (`produto_id`),
   CONSTRAINT `fk_caixa_produto` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,9 +54,9 @@ DROP TABLE IF EXISTS `cargo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `cargo` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `nome` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,10 +78,10 @@ DROP TABLE IF EXISTS `codigo`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `codigo` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `barra` varchar(43) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '1234567890',
+  `barra` varchar(43) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL DEFAULT '1234567890',
   PRIMARY KEY (`id`),
   UNIQUE KEY `barra_UNIQUE` (`barra`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +90,7 @@ CREATE TABLE `codigo` (
 
 LOCK TABLES `codigo` WRITE;
 /*!40000 ALTER TABLE `codigo` DISABLE KEYS */;
-INSERT INTO `codigo` VALUES (1,'1234567890'),(2,'1234567891'),(3,'1234567892'),(4,'1234567893'),(19,'1234567894'),(20,'1234567895'),(21,'1234567896'),(22,'1234567897'),(23,'1234567898'),(24,'1234567899'),(25,'1234567900'),(26,'1234567901'),(27,'1234567902'),(28,'1234567903'),(29,'1234567904'),(30,'1234567905');
+INSERT INTO `codigo` VALUES (1,'1234567890'),(2,'1234567891'),(3,'1234567892'),(4,'1234567893'),(5,'1234567894'),(6,'1234567895'),(7,'1234567896'),(8,'1234567897'),(9,'1234567898'),(10,'1234567899'),(11,'1234567900'),(12,'1234567901'),(13,'1234567902'),(14,'1234567903'),(15,'1234567904'),(16,'1234567905'),(17,'1234567906'),(18,'1234567907'),(19,'1234567908'),(20,'1234567909');
 /*!40000 ALTER TABLE `codigo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,7 +108,7 @@ CREATE TABLE `estoque` (
   PRIMARY KEY (`id`,`produto_id`),
   KEY `fk_estoque_produto_idx` (`produto_id`) /*!80000 INVISIBLE */,
   CONSTRAINT `fk_estoque_produto` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -117,7 +117,7 @@ CREATE TABLE `estoque` (
 
 LOCK TABLES `estoque` WRITE;
 /*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
-INSERT INTO `estoque` VALUES (1,1,30),(2,2,30),(3,3,20),(4,4,30),(5,5,70),(8,16,1),(9,17,60),(10,18,30),(11,19,30),(12,20,10),(13,21,5),(14,22,45),(15,23,100),(16,24,100),(17,25,350),(18,26,90);
+INSERT INTO `estoque` VALUES (1,1,30),(2,2,30),(3,3,20),(4,4,30),(5,5,70),(6,6,1),(7,7,60),(8,8,30),(9,9,30),(10,10,10),(11,11,5),(12,12,45),(13,13,100),(14,14,100),(15,15,350),(16,16,90),(17,17,60),(18,18,50),(19,19,40),(20,20,73);
 /*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,12 +130,12 @@ DROP TABLE IF EXISTS `fornecedor`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `fornecedor` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `cnpj` varchar(18) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `nome` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
+  `cnpj` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   `dt_registro` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cnpj_UNIQUE` (`cnpj`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -157,11 +157,11 @@ DROP TABLE IF EXISTS `funcionario`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `funcionario` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(70) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `nome` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   `cargo_id` int NOT NULL,
   `nivel_id` int NOT NULL,
-  `credencial` varchar(45) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `senha` varchar(256) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `credencial` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
+  `senha` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   `dt_registro` datetime NOT NULL,
   PRIMARY KEY (`id`,`cargo_id`,`nivel_id`),
   UNIQUE KEY `credencial_UNIQUE` (`credencial`),
@@ -169,7 +169,7 @@ CREATE TABLE `funcionario` (
   KEY `fk_funcionario_nivel_idx` (`nivel_id`),
   CONSTRAINT `fk_funcionario_cargo` FOREIGN KEY (`cargo_id`) REFERENCES `cargo` (`id`),
   CONSTRAINT `fk_funcionario_nivel` FOREIGN KEY (`nivel_id`) REFERENCES `nivel` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -198,7 +198,7 @@ CREATE TABLE `funcionario_pg_privada` (
   KEY `fk_funcionario_pg_privada_funcionario_idx` (`funcionario_id`) /*!80000 INVISIBLE */,
   CONSTRAINT `fk_funcionario_pg_privada_funcionario` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionario` (`id`),
   CONSTRAINT `fk_funcionario_pg_privada_pg_privada` FOREIGN KEY (`pg_privada_id`) REFERENCES `pg_privada` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,12 +221,12 @@ DROP TABLE IF EXISTS `imagem`;
 CREATE TABLE `imagem` (
   `id` int NOT NULL AUTO_INCREMENT,
   `produto_id` int NOT NULL,
-  `endereco` varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `endereco` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   PRIMARY KEY (`id`,`produto_id`),
   UNIQUE KEY `endereco_UNIQUE` (`endereco`),
   KEY `fk_imagem_produto_idx` (`produto_id`),
   CONSTRAINT `fk_imagem_produto` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -247,10 +247,10 @@ DROP TABLE IF EXISTS `nivel`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nivel` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(7) NOT NULL,
+  `nome` varchar(7) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -272,11 +272,11 @@ DROP TABLE IF EXISTS `pg_privada`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pg_privada` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(30) NOT NULL,
+  `nome` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   `dt_registro` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -298,11 +298,11 @@ DROP TABLE IF EXISTS `pg_publica`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pg_publica` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(30) NOT NULL,
+  `nome` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   `dt_registro` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -324,7 +324,7 @@ DROP TABLE IF EXISTS `produto`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `produto` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(30) NOT NULL,
+  `nome` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   `preco` double NOT NULL,
   `fornecedor_id` int NOT NULL,
   `codigo_id` int NOT NULL,
@@ -335,7 +335,7 @@ CREATE TABLE `produto` (
   KEY `fk_produto_codigo_idx` (`codigo_id`),
   CONSTRAINT `fk_produto_codigo` FOREIGN KEY (`codigo_id`) REFERENCES `codigo` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `fk_produto_fornecedor` FOREIGN KEY (`fornecedor_id`) REFERENCES `fornecedor` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -344,13 +344,65 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (1,'Pão integral',7.49,2,1,0.5,'2021-08-25 23:35:39'),(2,'Pão de forma',5.5,2,2,0.5,'2021-07-29 08:27:37'),(3,'Queijo prato',46,1,3,1,'2021-07-29 08:27:37'),(4,'Bolo de limão',25,2,4,1,'2021-08-11 21:24:17'),(5,'Molho Barbecue Heinz',7,3,30,0.397,'2021-08-12 00:05:05'),(16,'Requeijão',5,2,19,1,'2021-08-12 00:03:57'),(17,'Goiabada',4.5,2,20,0.5,'2021-08-12 00:04:50'),(18,'Bolo de maracujá',25,2,21,1,'2021-08-12 00:05:04'),(19,'Bolo de chocolate',25,2,22,1,'2021-08-12 00:05:04'),(20,'Bolo de cenoura',20,2,23,1,'2021-08-12 00:05:04'),(21,'Bolo de abacaxi',20,2,24,1.5,'2021-08-26 20:19:32'),(22,'Presunto Marques Monte',39.5,1,25,1,'2021-08-12 00:05:04'),(23,'Molho de tomate Heinz',4,3,26,0.4,'2021-08-12 00:05:04'),(24,'Catchup Heinz',5.5,3,27,0.26,'2021-08-12 00:05:05'),(25,'Maionese Sachê Heinz',0.5,3,28,0.8,'2021-08-12 00:05:05'),(26,'Maionese Tradicional Heinz',6.7,3,29,0.215,'2021-08-12 00:05:05');
+INSERT INTO `produto` VALUES (1,'Pão integral',7.49,2,1,0.5,'2021-08-25 23:35:39'),(2,'Pão de forma',5.5,2,2,0.5,'2021-07-29 08:27:37'),(3,'Queijo prato',46,1,3,1,'2021-07-29 08:27:37'),(4,'Bolo de limão',25,2,4,1,'2021-08-11 21:24:17'),(5,'Molho Barbecue Heinz',7,3,5,0.397,'2021-08-12 00:05:05'),(6,'Requeijão',5,2,6,1,'2021-08-12 00:03:57'),(7,'Goiabada',4.5,2,7,0.5,'2021-08-12 00:04:50'),(8,'Bolo de maracujá',25,2,8,1,'2021-08-12 00:05:04'),(9,'Bolo de chocolate',25,2,9,1,'2021-08-12 00:05:04'),(10,'Bolo de cenoura',20,2,10,1,'2021-08-12 00:05:04'),(11,'Bolo de abacaxi',20,2,11,1.5,'2021-08-26 20:19:32'),(12,'Presunto Marques Monte',39.5,1,12,1,'2021-08-12 00:05:04'),(13,'Molho de tomate Heinz',4,3,13,0.4,'2021-08-12 00:05:04'),(14,'Catchup Heinz',5.5,3,14,0.26,'2021-08-12 00:05:05'),(15,'Maionese Sachê Heinz',0.5,3,15,0.8,'2021-08-12 00:05:05'),(16,'Maionese Tradicional Heinz',6.7,3,16,0.215,'2021-08-12 00:05:05'),(17,'Leite condensado Moça',6.85,2,17,0.395,'2021-08-28 11:09:01'),(18,'Creme de leite nestlé',3.5,1,18,0.25,'2021-08-28 16:06:53'),(19,'Biscoito de morango Trakinas ',2.5,1,19,0.126,'2021-08-28 16:10:04'),(20,'Farinha de trigo Dona Benta',3.9,2,20,1,'2021-08-28 16:56:53');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
 -- Dumping routines for database 'mercearia'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `atualizar_produto_estoque` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `atualizar_produto_estoque`(
+id int,
+nome varchar(30), 
+preco double ,
+fornecedor_id int,
+codigo_id int,
+kilograma double,
+quantidade int
+)
+BEGIN
+DECLARE erro_sql TINYINT DEFAULT FALSE;
+DECLARE CONTINUE HANDLER FOR SQLEXCEPTION SET erro_sql = TRUE;
+
+IF(id <> "" and nome <> "" and preco <> "" and fornecedor_id <> "" and kilograma <> "" and codigo_id <> "" and quantidade <> "") THEN
+
+	START TRANSACTION;
+	UPDATE produto AS p SET p.nome = nome, p.preco = preco, p.fornecedor_id = fornecedor_id, p.kilograma = kilograma, p.codigo_id = codigo_id, p.dt_registro = now() WHERE p.id = id;
+	IF erro_sql = true
+		THEN
+		SELECT 'Erro ao atualizar na tabela produto' AS Mensagem;
+	ROLLBACK;
+    
+	ELSE
+		UPDATE estoque AS e SET e.quantidade = quantidade WHERE e.id = id and e.produto_id = id;
+		IF erro_sql = true
+			THEN
+			SELECT 'Erro ao atualizar no estoque' AS Mensagem;
+		ROLLBACK;
+		ELSE
+			 SELECT 'Produto atualizado com sucesso' AS Mensagem;
+			  COMMIT;
+		END IF;
+	END IF;
+ELSE
+	SELECT 'Preencha todos os campos e tente novamente!' AS Mensagem;
+  END IF;              
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `cadastrar_codigo_produto_estoque` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -400,7 +452,7 @@ IF(nome <> "" and preco <> "" and fornecedor_id <> "" and kilograma <> "" and qu
 		END IF;
 	END IF;
 ELSE
-	SELECT 'Parâmetros vazios' AS Mensagem;
+	SELECT 'Preencha todos os campos e tente novamente!' AS Mensagem;
 END IF;
                 
 END ;;
@@ -419,4 +471,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-27  0:29:54
+-- Dump completed on 2021-08-28 17:34:47
