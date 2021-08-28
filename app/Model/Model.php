@@ -69,6 +69,7 @@ class Model extends Conexao
         if(count($dados) != $tamanho){
             return false;
         }
+        
         else{
             foreach($obrigatorio as $valor)
             {
@@ -77,9 +78,24 @@ class Model extends Conexao
                     return false;
                     exit();
                 }
+            }    
+        }
+        
+        foreach($dados as $item)
+        {
+            if(strlen($item) == 0)
+            {
+                return false;
+                exit();
             }
-            return true;    
-        }    
+
+            $vazio = trim($item);
+            if($vazio == ""){
+                return false;
+                exit();
+            }
+        }
+        return true;
     }
     
     final protected function formularioValido(array $validacao): bool
@@ -107,18 +123,25 @@ class Model extends Conexao
     {
         $query->bindParam(":$parametro",$valor);  
     }
+
     final protected function valida_int(array $campos): bool
     {
         foreach($campos as $campo)
         {
             $campo = intval($campo);
-            if(!is_int($campo))
+
+            if($campo == 0 || $campo < 0){
+                return false;
+                exit();
+            }
+
+            else if(!is_int($campo))
             {
                 return false;
                 exit();
             }
-            return true;
         }
+        return true;
     }
     final protected function valida_float(array $campos): bool
     {
@@ -126,13 +149,18 @@ class Model extends Conexao
         {
             $campo = floatval($campo);
             
-            if(!is_float($campo))
+            if($campo == 0 || $campo < 0){
+                return false;
+                exit();
+            }
+
+            else if(!is_float($campo))
             {
                 return false;
                 exit();
             }
-            return true;
         }
+        return true;
     }
     final protected  function valida_date(array $campos): bool
     {
@@ -143,8 +171,8 @@ class Model extends Conexao
                 return false;
                 exit();
             }
-            return true;
         }
+        return true;
     }
 
 }
