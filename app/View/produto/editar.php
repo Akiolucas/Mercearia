@@ -43,24 +43,30 @@ include_once "app/View/include/header.php";
                     <h1 class="text-center mt-2">Produto</h1>
                     <form action="<?php echo URL;?>produtos/atualizar" method="POST">
                         <div class="form-row">
-                            <div class="form-group col-12 col-sm-6">
+                            <div class="form-group col-12 col-sm-8">
                                 <input type="hidden" name="id" value="<?php echo $produto['id'] ?>">
                                 <label for="form_nome">Nome</label>
                                 <input type="text" name="nome" class="form-control" id="form_nome" value="<?php echo $produto['nome'] ?>">
                             </div>
-                            <div class="form-group col-6 col-sm-3">
+
+                            <div class="form-group col-4 col-sm-4">
+                                <label for="form_kilograma">Kg</label>
+                                <input type="number" name="kilograma" id="form_kilograma" class="form-control" value="<?php echo $produto['kilograma'] ?>" min='0.001' step="0.001">
+                            </div>
+
+                            <div class="form-group col-4 col-sm-6">
                                 <label for="form_preco">Preço</label>
                                 <input type="number" name="preco" id="form_preco" class="form-control" value="<?php echo $produto['preco'] ?>" min="0.10" step="0.01">
                             </div>
-                            <div class="form-group col-6 col-sm-3">
-                                <label for="form_kilograma">Kg</label>
-                                <input type="number" name="kilograma" id="form_kilograma" class="form-control" value="<?php echo $produto['kilograma'] ?>" min='0.001' step="0.001">
+                            
+                            <div class="form-group col-4 col-sm-6">
+                                <label for="form_quantidade">Quantidade</label>
+                                <input type="number" name="quantidade" id="form_quantidade" class="form-control" value="<?php echo $produto['quantidade'] ?>" min="0" step="1">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12 col-sm-8">
-                                <input type="hidden" name="dt_registro" value="<?php echo $produto['dt_registro'] ?>">
-                                
+                               
                                 <label for="form_fornecedor">Fornecedor</label>
                                 <select name="fornecedor_id" class="form-control" id="form_fornecedor">
                                     <option value="<?php echo $produto['fornecedor_id']?>" id="option_padrao" selected><?php echo $produto['fornecedor']?></option>
