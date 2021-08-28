@@ -47,7 +47,7 @@
         {
             $this->dados = filter_input_array(INPUT_POST,FILTER_DEFAULT);
           
-            if(!empty($this->dados['btn_atualizar'])){
+            if(isset($this->dados['btn_atualizar']) && !empty($this->dados['btn_atualizar'])){
                 $atualizar = new \App\Model\Produtos();
                 $atualizar->atualizar($this->dados);
 
@@ -55,8 +55,6 @@
                 exit();
             }
             else{
-                $msg = "Não foi possivel atualizar o produto";
-                $_SESSION['msg'] = parent::alertaFalha($msg);
                 header("Location:". URL . "produtos/index");
                 exit();
             }
@@ -68,6 +66,22 @@
         
             
             echo json_encode($fornecedores,JSON_UNESCAPED_UNICODE);
+        }
+        public function cadastrar()
+        {
+            $this->dados = filter_input_array(INPUT_POST,FILTER_DEFAULT);
+    
+            if(isset($this->dados['btn_cadastrar']) && !empty($this->dados['btn_cadastrar'])){
+                $cadastrar = new \App\Model\Produtos();
+                $cadastrar->cadastrar($this->dados);
+
+                header("location:". URL . "produtos/index");
+                exit();
+            }
+            else{
+                header("Location:". URL . "produtos/index");
+                exit();
+            }
         }
     }
 ?>
