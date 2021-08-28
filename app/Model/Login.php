@@ -11,7 +11,7 @@ class Login extends Model
 {
     private array $obrigatorio = ['credencial', 'senha', 'btnAcessar'];
     private int $quantidade_obrigatorio;
-    private array $usuario;
+    private $usuario;
     private array $paginasUsuario = array();
     private array $paginasPublicas = array();
     private array $credencial;
@@ -34,7 +34,7 @@ class Login extends Model
                 INNER JOIN cargo c
                 ON f.cargo_id = c.id
                 WHERE credencial = :credencial LIMIT 1", $this->credencial);
-
+            
             if($this->usuario)
             {
                 $this->validaUsuario($dadosFormulario['senha'], $this->usuario['senha']);
