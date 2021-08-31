@@ -75,5 +75,23 @@
             header("Location:". URL . "produtos/index");
             exit();
         }
+
+        public function excluir()
+        {
+            $this->id['id'] = filter_input(INPUT_GET ,'id',FILTER_VALIDATE_INT);
+
+            if(!$this->id['id'] == false)
+            {
+                $excluir = new \App\Model\Produtos();
+                $excluir->excluir($this->id);
+            }
+            else{
+                $msg = "Não foi possivel excluir o produto tente novamente!";
+                $_SESSION['msg'] = parent::alertaFalha($msg);
+                header("Location:". URL . "produtos/index");
+                exit();
+            }
+            
+        }
     }
 ?>
