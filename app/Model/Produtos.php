@@ -1,5 +1,6 @@
 <?php 
     namespace App\Model;
+    use PDOException;
 
     if(!defined("MERCEARIA2021")) // verificar se a constante criada no index, foi definida!
     {   
@@ -12,6 +13,7 @@
         private  array $form_obrigatorio;
         private int $form_obrigatorio_quantidade;
         private array $form_valido = array();
+
         public function listar(): array
         {
             $listar = parent::projetarTodos(
@@ -197,9 +199,23 @@
             }
         }
         
-        public function excluir()
+        public function excluir($id)
         {
+           try {
+            parent::implementar("DELETE FROM produto WHERE id = :id",$id);
+            parent::implementar("DELETE FROM codigo WHERE id = :id",$id);
+            $msg = "Produto excluído com sucesso!";
+            $_SESSION['msg'] = parent::alertaSucesso($msg);
+            header("location:" . URL . "produtos/index");
+            exit();
 
+           } catch (PDOException $e) {
+           $msg = "Não foi possivel excluir o produto tente novamente!";
+            $_SESSION['msg'] = parent::alertaFalha($msg);
+            header("location:" . URL . "produtos/index");
+            exit();
+           }
+            
         }
     }
 
