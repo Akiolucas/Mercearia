@@ -196,4 +196,13 @@ main{
   }
 }
 
+/* fim */
 
+#confirm-delete{
+  padding-left: 17px;
+}
+
+#confirm-delete p {
+  font-size:11pt;
+  margin:1px;
+}
