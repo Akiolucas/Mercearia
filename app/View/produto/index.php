@@ -68,12 +68,12 @@ include_once "app/View/include/header.php";
                                     <td><?php echo $item['codigo']; ?></td>
                                     <td><?php echo number_format($item['kilograma'], 3, ',', '.') . " Kg"; ?></td>
                                     <td><?php echo $item['estoque']; ?></td>
-                                    <td data-order="<?php echo date('Y/m/d', strtotime($item['dt_registro'])); ?>"><?php echo date('d/m/Y', strtotime($item['dt_registro'])); ?></td>
+                                    <td data-order="<?php echo date('Y/m/d H:i:s', strtotime($item['dt_registro'])); ?>"><?php echo date('d/m/Y', strtotime($item['dt_registro'])); ?></td>
                                     <td>
                                         <a href="<?php echo URL; ?>produtos/editar/&id=<?php echo $item['id'] ?>" class="btn btn-warning col-mb-3"><i class="fas fa-edit"></i></a>
                                     </td>
                                     <td>
-                                        <a href="<?php echo URL; ?>produtos/excluir/&id=<?php echo $item['id'] ?>" class="btn btn-danger col-mb-3"><i class="fas fa-trash-alt"></i></a>
+                                        <a href="<?php echo URL; ?>produtos/excluir/&id=<?php echo $item['id'] ?>" class="btn btn-danger col-mb-3" id='link_excluir_p'><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             <?php
@@ -137,6 +137,25 @@ include_once "app/View/include/header.php";
                         </div>
                     </div>
                 </div>
+                <div class="modal fade" id="confirm-delete" tabindex="-1" aria-labelledby="modalExcluirProduto" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalExcluirProduto">Excluir produto</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Deseja realmente excluir esse produto?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-info" data-dismiss="modal">Cancelar</button>
+                                <a class="btn btn-danger" id="excluir_ok">Excluir</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </main>
             <?php
             include_once "app/View/include/footer.php";
@@ -146,7 +165,7 @@ include_once "app/View/include/header.php";
             <script src="<?php echo URL; ?>app/Assets/js/dataTables.js"></script>
             <script src="<?php echo URL; ?>app/Assets/js/produtos-ajax.js"></script>
             <script>
-                 window.addEventListener("load",indexProdutos());
+                window.addEventListener("load", indexProdutos());
             </script>
             </body>
 
