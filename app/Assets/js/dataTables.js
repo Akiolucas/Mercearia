@@ -11,4 +11,14 @@ $(document).ready(function() {
         },
         "order":[[3,'desc']]
     });
+    $('#listar-estoque').DataTable( {
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+        }
+    });
+    $('#listar-cargos').DataTable( {
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+        }
+    });
 });
