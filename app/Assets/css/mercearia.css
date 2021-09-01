@@ -157,11 +157,11 @@ main{
 #link-sair:hover{
    background-image:linear-gradient(to right, rgb(100,0,0),rgb(255,0,0));
 }
-#listar-produtos{
+.tabela-personalizada{
   border:2px solid #17a2b8;
   border-radius: 5px;
 }
-#listar-produtos tbody tr:hover{
+.tabela-personalizada tbody tr:hover{
   color:black;
   font-weight:bold;
   background-color: #ffefd9;
