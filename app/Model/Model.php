@@ -174,7 +174,27 @@ class Model extends Conexao
         }
         return true;
     }
+    final protected function valida_tamanho(array $variaveis, array $tamanhos): bool
+    {
+        if(count($variaveis) == count($tamanhos))
+        {
+            foreach ($variaveis as $key => $item)
+            {
 
+                if(strlen($item) > $tamanhos[$key])
+                {
+                   return false;
+                  
+                }
+                $tamanhos[$key] ++;
+
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
 
 ?>
