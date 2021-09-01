@@ -31,8 +31,44 @@ if (isset($_SESSION['usuario_paginas']))
     {
 ?>
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo URL . strtolower($pagina)?>">
-          <?php echo $pagina; ?>
+        <a class="nav-link" href="<?php 
+        
+        switch ($pagina) {
+          case 'Pg_privada':
+            echo URL . 'pagina_privada';
+            ?>">
+            <?php
+            echo 'Páginas Privadas';
+            break;
+
+          case 'Pg_publica':
+            echo URL . 'pagina_publica';
+            ?>">
+            <?php
+            echo 'Páginas Públicas';
+            break;
+          
+          case 'Pg_funcionario':
+            echo URL . 'pagina_funcionario';
+            ?>"> 
+            <?php
+            echo 'Páginas de acesso';
+            break;
+          
+          case 'Nivel':
+            echo URL . 'nivel';
+            ?>">
+            <?php
+            echo 'Nível de acesso';
+            break;
+          
+          default:
+            echo URL. strtolower($pagina); ?>">
+            <?php echo $pagina; 
+
+            break;
+        }?>
+        
         </a>
       </li>
 <?php
