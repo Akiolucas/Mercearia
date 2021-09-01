@@ -100,7 +100,7 @@ class Cargo extends Model
        else{
         $msg = "Não foi possivel excluir o cargo, verifique os dados e tente novamente!";
         $_SESSION['msg'] = parent::alertaFalha($msg);
-        header("Location:". URL . "fornecedor/index");
+        header("Location:". URL . "cargo/index");
         exit();
        }
     }
