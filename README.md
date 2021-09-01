@@ -65,6 +65,11 @@
     <img src="app/Assets/image/projeto/produtos-cadastrar.png" alt="imagem do modal de cadastrar na página produtos">
     <figcaption>:camera:ao clicar em cadastrar abre esse modal de cadastro de produto</figcaption>
 </figure>
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/fornecedores.png" alt="imagem da página de fornecedores">
+    <figcaption>:camera:Imagem da página de fornecedores com CRUD também</figcaption>
+</figure>
  
 
 
