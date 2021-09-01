@@ -42,7 +42,7 @@ include_once "app/View/include/header.php";
                 <h2 class="text-center mb-3">Tabela de Produtos</h2>
                 <button type="button" class="btn btn-success m-button-table" data-toggle="modal" data-target="#modalCadastrar"><i class="fas fa-pen"></i> Cadastrar</button>
                 <div class="table-responsive">
-                    <table id="listar-produtos" class="table table-hover text-center">
+                    <table id="listar-produtos" class="table table-hover text-center tabela-personalizada">
                         <thead class="bg-info">
                             <tr>
                                 <th>Id</th>
@@ -73,7 +73,7 @@ include_once "app/View/include/header.php";
                                         <a href="<?php echo URL; ?>produtos/editar/&id=<?php echo $item['id'] ?>" class="btn btn-warning col-mb-3"><i class="fas fa-edit"></i></a>
                                     </td>
                                     <td>
-                                        <a href="<?php echo URL; ?>produtos/excluir/&id=<?php echo $item['id'] ?>" class="btn btn-danger col-mb-3" id='link_excluir_p'><i class="fas fa-trash-alt"></i></a>
+                                        <a href="<?php echo URL; ?>produtos/excluir/&id=<?php echo $item['id'] ?>" class="btn btn-danger col-mb-3" id='link_excluir'><i class="fas fa-trash-alt"></i></a>
                                     </td>
                                 </tr>
                             <?php
