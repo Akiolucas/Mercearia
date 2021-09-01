@@ -8,7 +8,7 @@ $('#btn-menu').click( function () {
     $('#btn-menu').removeClass("border-btn-menu");
   })
 
-  $('td #link_excluir_p').click(function(e){
+  $('td #link_excluir').click(function(e){
     e.preventDefault();
     var href = $(this).attr('href');
     $('#confirm-delete').modal({show:true});
