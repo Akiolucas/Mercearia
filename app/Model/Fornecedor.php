@@ -132,13 +132,12 @@ class Fornecedor extends Model
                 $dados['dt_registro'] = date('Y-m-d H:i:s');
 
                 try {
-                    var_dump($dados);
                     parent::implementar("UPDATE fornecedor SET id =:id, nome =:nome, cnpj =:cnpj, dt_registro =:dt_registro WHERE id =:id",$dados);
                     $msg = "Fornecedor atualizado com sucesso!";
                     $_SESSION['msg'] = parent::alertaSucesso($msg);
 
                 } catch (PDOException $e) {
-                    echo $e ; exit();
+            
                     $msg = "Não foi possivel atualizar o fornecedor, tente novamente!";
                     $_SESSION['msg'] = parent::alertaSucesso($msg);
                     header("Location:". URL . "fornecedor/editar/&id=". $dados['id']);
