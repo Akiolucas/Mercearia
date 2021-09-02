@@ -26,4 +26,16 @@ $(document).ready(function() {
             "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
         }
     });
+    $('#listar-paginas-publicas').DataTable( {
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+        },
+        "order":[[2,'desc']]
+    });
+    $('#listar-paginas-privadas').DataTable( {
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+        },
+        "order":[[2,'desc']]
+    });
 });
