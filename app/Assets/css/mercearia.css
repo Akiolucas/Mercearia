@@ -206,3 +206,24 @@ main{
   font-size:11pt;
   margin:1px;
 }
+
+/* form cadastrar funcionário */
+#form-pg-privada-id{
+  border: 1px solid #ced4da;
+  border-radius: .25rem;
+}
+
+#form-pg-privada-id div:first-child{
+margin-top:15px;
+}
+#form-pg-privada-id div:last-child{
+margin-bottom:15px;
+}
+
+#form-pg-privada-id div input[type="checkbox"] {
+ margin-left:2px;
+}
+
+#form-pg-privada-id div label{
+  margin-left:25px;
+}
