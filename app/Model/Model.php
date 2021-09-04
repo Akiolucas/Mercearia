@@ -11,7 +11,7 @@ namespace App\Model;
 
 class Model extends Conexao
 {
-    private $conn;
+    protected $conn;
     private $query;
     private object $alerta;
     protected $mensagem;
@@ -62,6 +62,7 @@ class Model extends Conexao
         $this->query = $this->conn->prepare($query);
         $this->parametros($this->query,$parametros);
         $this->query->execute();
+ 
     }
 
     final protected function existeCamposFormulario(array $dados, array $obrigatorio, int $tamanho): bool
@@ -76,24 +77,42 @@ class Model extends Conexao
                 if(!array_key_exists($valor,$dados))
                 {   
                     return false;
-                    exit();
                 }
             }    
         }
         
         foreach($dados as $item)
         {
-            if(strlen($item) == 0)
-            {
-                return false;
-                exit();
+            if(!is_array($item)){
+                if(!$this->valida_string_vazio($item)){
+                    return false;
+                }
             }
+            else{
+                
+                foreach($item as $subItem)
+                {
+                    if(!$this->valida_string_vazio($subItem))
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
 
-            $vazio = trim($item);
-            if($vazio == ""){
-                return false;
-                exit();
-            }
+    final protected function valida_string_vazio($item): bool
+    {
+        if(strlen($item) == 0)
+        {
+            return false;
+        }
+
+        $vazio = trim($item);
+
+        if($vazio == ""){
+            return false;
         }
         return true;
     }
@@ -104,7 +123,6 @@ class Model extends Conexao
         {
             if(!$boolean){
                 return false;
-                exit();
             }
         }
         return true;
@@ -131,14 +149,12 @@ class Model extends Conexao
             $campo = intval($campo);
 
             if($campo == 0 || $campo < 0){
-                return false;
-                exit();
+                return false;               
             }
 
             else if(!is_int($campo))
             {
-                return false;
-                exit();
+                return false;                
             }
         }
         return true;
@@ -151,13 +167,11 @@ class Model extends Conexao
             
             if($campo == 0 || $campo < 0){
                 return false;
-                exit();
             }
 
             else if(!is_float($campo))
             {
                 return false;
-                exit();
             }
         }
         return true;
@@ -169,7 +183,6 @@ class Model extends Conexao
             if(!date_create_from_format('Y-m-d H:i:s',$campo))
             {
                 return false;
-                exit();
             }
         }
         return true;
@@ -195,6 +208,18 @@ class Model extends Conexao
             return false;
         }
     }
+    final protected function valida_bool(array $variaveis): bool
+    {
+        foreach($variaveis as $item)
+        {
+            if($item != '0' && $item != '1' && $item != 0 && $item != 1)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+    
 }
 
 ?>
