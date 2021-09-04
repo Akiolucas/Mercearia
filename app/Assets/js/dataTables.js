@@ -38,4 +38,10 @@ $(document).ready(function() {
         },
         "order":[[2,'desc']]
     });
+    $('#listar-funcionarios').DataTable( {
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+        },
+        "order":[[5,'desc']]
+    });
 });
