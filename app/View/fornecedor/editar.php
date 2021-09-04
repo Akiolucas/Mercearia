@@ -40,7 +40,7 @@ include_once "app/View/include/header.php";
                 ?>
 
                 <div id="form-atualizar">
-                    <h1 class="text-center mt-2">Produto</h1>
+                    <h1 class="text-center mt-2">Fornecedor</h1>
                     <form action="<?php echo URL;?>fornecedor/atualizar" method="POST">
                         <div class="form-row">
                             <div class="form-group col-12">
