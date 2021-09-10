@@ -125,6 +125,78 @@ $(document).ready(function(){
         e.preventDefault();
       }
     });
+    //fim da validação do formulário de atualizar funcionário
+
+    //cargo cadastrar
+    let f_cadastrar = $('#form-cadastrar-cargo');
+    f_cadastrar.submit(function(e)
+    {
+      let f_nome = $('#form-nome').val();
+
+       let f_valido =[
+        validatamanho(f_nome,2,45)
+      ];
+      
+      if(!form_valido(f_valido))
+      {
+        let form_nome = [
+          ['form-nome','*Preencha este campo, limite máximo permitido é 45 caracteres']
+        ];
+    
+        for(var i = 0; i < f_valido.length; i ++)
+        {
+          $('#'+form_nome[i][0]).removeClass('is-invalid');
+          $('#d-'+form_nome[i][0]).remove();
+
+          if(f_valido[i] == false)
+          {
+            var elemento = $('#'+form_nome[i]).addClass('is-invalid');
+            
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_nome[i][0]+">" +form_nome[i][1] + "</div>");
+          }
+        }
+       
+        e.preventDefault();
+      }
+    });
+    //fim da validação do formulário de cadastrar cargo
+
+    //cargo atualizar
+    
+    let f_a_cadastrar = $('#form-atualizar-cargo');
+    f_a_cadastrar.submit(function(e)
+    {
+      let f_nome = $('#form-nome').val();
+
+       let f_valido =[
+        validatamanho(f_nome,2,45)
+      ];
+      
+      if(!form_valido(f_valido))
+      {
+        let form_nome = [
+          ['form-nome','*Preencha este campo, limite máximo permitido é 45 caracteres']
+        ];
+    
+        for(var i = 0; i < f_valido.length; i ++)
+        {
+          $('#'+form_nome[i][0]).removeClass('is-invalid');
+          $('#d-'+form_nome[i][0]).remove();
+
+          if(f_valido[i] == false)
+          {
+            var elemento = $('#'+form_nome[i]).addClass('is-invalid');
+            
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_nome[i][0]+">" +form_nome[i][1] + "</div>");
+          }
+        }
+       
+        e.preventDefault();
+      }
+    });
+    //fim da validação do formulário de atualizar cargo
+
+
   // funções de validação
   function validaOpcoes(array)
   {
