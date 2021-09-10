@@ -41,12 +41,22 @@ include_once "app/View/include/header.php";
 
                 <div id="form-atualizar">
                     <h1 class="text-center mt-2">Cargo</h1>
-                    <form action="<?php echo URL;?>cargo/atualizar" method="POST">
+                    <form action="<?php echo URL;?>cargo/atualizar" method="POST" id="form-atualizar-cargo">
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <input type="hidden" name="id" value="<?php echo $cargo['id'] ?>">
                                 <label for="form_nome">Nome</label>
-                                <input type="text" name="nome" class="form-control" id="form_nome" value="<?php echo $cargo['nome'] ?>">
+                                <input type="text" name="nome" class="form-control <?php echo isset($_SESSION['Erro_form']['nome']) ? 'is-invalid' : '' ?>" aria-describedby="serverNome" id="form-nome" value="<?php echo $cargo['nome'] ?>">
+                                <?php
+                                if (isset($_SESSION['Erro_form']['nome'])) { ?>
+                                    <div id='serverNome' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['nome'];
+                                        unset($_SESSION['Erro_form']['nome']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
                             </div>
                         </div>
                         <div class="form-row">
