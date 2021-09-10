@@ -117,7 +117,7 @@ include_once "app/View/include/header.php";
                                     </div>
                                     <div class="form-group">
                                         <label for="form-cnpj" class="col-form-label">Cnpj:</label>
-                                        <input type="text" name="cnpj" id="form-cnpj" class="form-control <?php echo isset($_SESSION['Erro_form']['cnpj']) ? 'is-invalid' : '' ?>" aria-describedby="serverCnpj" <?php echo isset($_SESSION['form']['cnpj']) ? 'value =' . $_SESSION['form']['cnpj'] : "" ?> maxlength="18">
+                                        <input type="text" name="cnpj" id="form-cnpj" class="form-control <?php echo isset($_SESSION['Erro_form']['cnpj']) ? 'is-invalid' : '' ?>" aria-describedby="serverCnpj" <?php echo isset($_SESSION['form']['cnpj']) ? 'value =' . $_SESSION['form']['cnpj'] : "" ?>>
                                             <?php
                                             if (isset($_SESSION['Erro_form']['cnpj'])) { ?>
                                                 <div id='serverCnpj' class="invalid-feedback">
