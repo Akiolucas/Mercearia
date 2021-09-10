@@ -114,7 +114,7 @@ class Model extends Conexao
     {
         $campo = intval($campo);
 
-        if($campo <= $minimo){
+        if($campo < $minimo){
             $_SESSION['Erro_form'][$chave] = $mensagem;
             return false;               
         }
@@ -126,12 +126,12 @@ class Model extends Conexao
         }
         return true;
     }
-    final protected function valida_float($campo, string $chave, string $mensagem): bool
+    final protected function valida_float($campo, string $chave, string $mensagem, float $minimo): bool
     {
        
         $campo = floatval($campo);
         
-        if($campo == 0 || $campo < 0){
+        if($campo < $minimo){
             $_SESSION['Erro_form'][$chave] = $mensagem;
             return false;
         }
