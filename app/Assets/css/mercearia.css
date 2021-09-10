@@ -208,10 +208,6 @@ main{
 }
 
 /* form cadastrar funcionário */
-#form-pg-privada-id{
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-}
 
 #form-pg-privada-id div:first-child{
 margin-top:15px;
@@ -226,4 +222,13 @@ margin-bottom:15px;
 
 #form-pg-privada-id div label{
   margin-left:25px;
+}
+
+#form-pg-privada-id{
+  border-radius:0.25rem;
+  border: 1px solid #ced4da;
+}
+
+#form-pg-privada-id.form-check.is-invalid{
+  border-color: #dc3545;
 }
