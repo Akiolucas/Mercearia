@@ -59,6 +59,7 @@ class Model extends Conexao
     
     final protected function implementar($query,$parametros = array()): void
     {
+
         $this->query = $this->conn->prepare($query);
         $this->parametros($this->query,$parametros);
         $this->query->execute();
@@ -81,39 +82,6 @@ class Model extends Conexao
             }    
         }
         
-        foreach($dados as $item)
-        {
-            if(!is_array($item)){
-                if(!$this->valida_string_vazio($item)){
-                    return false;
-                }
-            }
-            else{
-                
-                foreach($item as $subItem)
-                {
-                    if(!$this->valida_string_vazio($subItem))
-                    {
-                        return false;
-                    }
-                }
-            }
-        }
-        return true;
-    }
-
-    final protected function valida_string_vazio($item): bool
-    {
-        if(strlen($item) == 0)
-        {
-            return false;
-        }
-
-        $vazio = trim($item);
-
-        if($vazio == ""){
-            return false;
-        }
         return true;
     }
     
@@ -142,81 +110,75 @@ class Model extends Conexao
         $query->bindParam(":$parametro",$valor);  
     }
 
-    final protected function valida_int(array $campos): bool
+    final protected function valida_int($campo, string $chave, string $mensagem, int $minimo): bool
     {
-        foreach($campos as $campo)
+        $campo = intval($campo);
+
+        if($campo <= $minimo){
+            $_SESSION['Erro_form'][$chave] = $mensagem;
+            return false;               
+        }
+
+        else if(!is_int($campo))
         {
-            $campo = intval($campo);
-
-            if($campo == 0 || $campo < 0){
-                return false;               
-            }
-
-            else if(!is_int($campo))
-            {
-                return false;                
-            }
+            $_SESSION['Erro_form'][$chave] = $mensagem;
+            return false;                
         }
         return true;
     }
-    final protected function valida_float(array $campos): bool
+    final protected function valida_float($campo, string $chave, string $mensagem): bool
     {
-        foreach($campos as $campo)
-        {
-            $campo = floatval($campo);
-            
-            if($campo == 0 || $campo < 0){
-                return false;
-            }
-
-            else if(!is_float($campo))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-    final protected  function valida_date(array $campos): bool
-    {
-        foreach($campos as $campo)
-        {
-            if(!date_create_from_format('Y-m-d H:i:s',$campo))
-            {
-                return false;
-            }
-        }
-        return true;
-    }
-    final protected function valida_tamanho(array $variaveis, array $tamanhos): bool
-    {
-        if(count($variaveis) == count($tamanhos))
-        {
-            foreach ($variaveis as $key => $item)
-            {
-
-                if(strlen($item) > $tamanhos[$key])
-                {
-                   return false;
-                  
-                }
-                $tamanhos[$key] ++;
-
-            }
-            return true;
-        }
-        else{
+       
+        $campo = floatval($campo);
+        
+        if($campo == 0 || $campo < 0){
+            $_SESSION['Erro_form'][$chave] = $mensagem;
             return false;
         }
-    }
-    final protected function valida_bool(array $variaveis): bool
-    {
-        foreach($variaveis as $item)
+
+        else if(!is_float($campo))
         {
-            if($item != '0' && $item != '1' && $item != 0 && $item != 1)
-            {
-                return false;
-            }
+            $_SESSION['Erro_form'][$chave] = $mensagem;
+            return false;
         }
+        return true;
+    }
+
+    final protected  function valida_date($campo, string $chave, string $mensagem): bool
+    {
+        if(!date_create_from_format('Y-m-d H:i:s',$campo))
+        {
+            $_SESSION['Erro_form'][$chave] = $mensagem;
+            return false;
+        }
+        return true;
+    }
+    final protected function valida_tamanho(string $variavel, string $chave, string $mensagem, int $maximo, int $minimo): bool
+    {
+        $variavel = trim($variavel);
+
+        if(strlen($variavel) == 0)
+        { 
+            $_SESSION['Erro_form'][$chave] = '*Preencha esse campo corretamente!';
+            return false;
+        }
+
+        else if(strlen($variavel) < $minimo || strlen($variavel) > $maximo)
+        {
+            $_SESSION['Erro_form'][$chave] = $mensagem;
+            return false;
+            
+        }
+        return true;
+    }
+    final protected function valida_bool($variavel, string $chave, string $mensagem): bool
+    {
+        if($variavel != '0' && $variavel != '1' && $variavel != 0 && $variavel != 1)
+        {
+            $_SESSION['Erro_form'][$chave] = $mensagem;
+            return false;
+        }
+    
         return true;
     }
     
