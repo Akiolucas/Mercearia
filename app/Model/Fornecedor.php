@@ -49,7 +49,9 @@ class Fornecedor extends Model
         $this->form_obrigatorio_quantidade = count($this->form_obrigatorio);
 
         if (parent::existeCamposFormulario($dados, $this->form_obrigatorio, $this->form_obrigatorio_quantidade)){
-            array_push($this->form_valido, $this->validaCnpj($dados['cnpj']));
+            array_push($this->form_valido,
+            $this->valida_tamanho($dados['nome'],'nome','*Informe um nome, limite 50 caracteres!',50,1),
+            $this->validaCnpj($dados['cnpj'],'cnpj','*Informe um cnpj válido!'));
 
             if (parent::formularioValido($this->form_valido)) 
             {
@@ -61,26 +63,34 @@ class Fornecedor extends Model
                     parent::implementar("INSERT INTO fornecedor VALUES (:id, :nome, :cnpj, :dt_registro)", $dados);
                     $msg = "Fornecedor cadastrado com sucesso!";
                     $_SESSION['msg'] = parent::alertaSucesso($msg);
+                    unset($_SESSION['form']);
 
                 } catch (PDOException $e) {
-                    $msg = "Não foi possível cadastrar o fornecedor!";
-                    $_SESSION['msg'] = parent::alertaFalha($msg);
+                    $_SESSION['form'] = $dados;
+                    $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
+                    $msg = "Não foi possível cadastrar o fornecedor, verifique os dados e tente novamente!";
+                    $_SESSION['alerta'] = parent::alertaFalha($msg);
                 }
             }
             else {
+                $_SESSION['form'] = $dados;
+                $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
                 $msg = "Não foi possível cadastrar o fornecedor, verifique os dados e tente novamente!";
-                $_SESSION['msg'] = parent::alertaFalha($msg);
+                $_SESSION['alerta'] = parent::alertaFalha($msg);
             }
         }
         else{
+            $_SESSION['form'] = $dados;
+            $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
             $msg = "Preencha todos os campos corretamente e tente novamente!";
-            $_SESSION['msg'] = parent::alertaFalha($msg);
+            $_SESSION['alerta'] = parent::alertaFalha($msg);
         }
     }
 
-    private function validaCnpj($cnpj): bool
+    private function validaCnpj($cnpj, $chave, $mensagem): bool
     {
         if (strlen($cnpj) != 18) {
+            $_SESSION['Erro_form'][$chave] = $mensagem;
             return false;
         }
         return true;
@@ -89,7 +99,7 @@ class Fornecedor extends Model
     public function excluir($id): void
     {
 
-       array_push($this->form_valido,parent::valida_int($id));
+       array_push($this->form_valido,parent::valida_int($id,'id','*Id inválido',1));
 
        if(parent::formularioValido($this->form_valido))
        {
@@ -124,7 +134,9 @@ class Fornecedor extends Model
 
         if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade))
         {
-            array_push($this->form_valido,parent::valida_int(array($dados['id'])),$this->validaCnpj($dados['cnpj']));
+            array_push($this->form_valido,
+            parent::valida_int($dados['id'],'id','*Id inválido',1),
+            $this->validaCnpj($dados['cnpj'],'cnpj','*Informe um cnpj válido'));
 
             if(parent::formularioValido($this->form_valido))
             {
