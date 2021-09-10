@@ -87,21 +87,47 @@ include_once "app/View/include/header.php";
                 <div class="modal fade" id="modalCadastrar" tabindex="-1" role="dialog" aria-labelledby="cadastrarFornecedor" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
+                            <?php
+                            if (isset($_SESSION['alerta'])) {
+                                echo $_SESSION['alerta'];
+                                unset($_SESSION['alerta']);
+                            }
+                            ?>
                             <div class="modal-header">
                                 <h5 class="modal-title text-center w-100" id="cadastrarFornecedor">Fornecedor</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="<?php echo URL; ?>fornecedor/cadastrar" method="POST">
+                            <form action="<?php echo URL; ?>fornecedor/cadastrar" method="POST" id="form-fornecedor">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="form-nome" class="col-form-label">Nome:</label>
-                                        <input type="text" name="nome" id="form-nome" class="form-control" required>
+                                        <input type="text" name="nome" id="form-nome" class="form-control <?php echo isset($_SESSION['Erro_form']['nome']) ? 'is-invalid' : '' ?>" aria-describedby="serverNome" <?php echo isset($_SESSION['form']['nome']) ? 'value =' . $_SESSION['form']['nome'] : "" ?>>
+                                            <?php
+                                            if (isset($_SESSION['Erro_form']['nome'])) { ?>
+                                                <div id='serverNome' class="invalid-feedback">
+                                                    <?php
+                                                    echo $_SESSION['Erro_form']['nome'];
+                                                    unset($_SESSION['Erro_form']['nome']);
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            } ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="form-cnpj" class="col-form-label">Cnpj:</label>
-                                        <input type="text" name="cnpj" id="form-cnpj" class="form-control" required>
+                                        <input type="text" name="cnpj" id="form-cnpj" class="form-control <?php echo isset($_SESSION['Erro_form']['cnpj']) ? 'is-invalid' : '' ?>" aria-describedby="serverCnpj" <?php echo isset($_SESSION['form']['cnpj']) ? 'value =' . $_SESSION['form']['cnpj'] : "" ?> maxlength="18">
+                                            <?php
+                                            if (isset($_SESSION['Erro_form']['cnpj'])) { ?>
+                                                <div id='serverCnpj' class="invalid-feedback">
+                                                    <?php
+                                                    echo $_SESSION['Erro_form']['cnpj'];
+                                                    unset($_SESSION['Erro_form']['cnpj']);
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            } ?>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -138,6 +164,14 @@ include_once "app/View/include/header.php";
             <script src="<?php echo URL; ?>app/Assets/js/eventos.js"></script>
             <script src="<?php echo URL; ?>app/Assets/jquery/jquery.dataTables.min.js"></script>
             <script src="<?php echo URL; ?>app/Assets/js/dataTables.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="<?php echo URL; ?>app/Assets/js/mask.js"></script> 
+            <?php
+            if (isset($_SESSION['script'])) {
+                echo $_SESSION['script'];
+                unset($_SESSION['script']);
+            }
+            ?>
             </body>
 
 </html>
