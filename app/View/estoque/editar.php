@@ -41,23 +41,33 @@ include_once "app/View/include/header.php";
 
                 <div id="form-atualizar">
                     <h1 class="text-center mt-2">Produto</h1>
-                    <form action="<?php echo URL;?>estoque/atualizar" method="POST">
+                    <form action="<?php echo URL;?>estoque/atualizar" method="POST" id='form-atualizar-estoque'>
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <input type="hidden" name="id" value="<?php echo $estoque['id'] ?>">
                                 <input type="hidden" name="produto_id" value="<?php echo $estoque['produto_id'] ?>">
                                 <label for="form_produto">Produto</label>
-                                <input type="text" name="produto" id="form_produto" class="form-control" value="<?php echo $estoque['produto'] ?>" disabled>
+                                <input type="text" name="produto" class="form-control" value="<?php echo $estoque['produto'] ?>" disabled>
                             </div>
 
                             <div class="form-group col-12">
                                 <label for="form_quantidade">Quantidade</label>
-                                <input type="text" name="quantidade" class="form-control" id="form_quantidade" value="<?php echo $estoque['quantidade'] ?>">
+                                <input type="text" name="quantidade" class="form-control <?php echo isset($_SESSION['Erro_form']['quantidade']) ? 'is-invalid' : '' ?>" aria-describedby="serverQuantidade" id="form-quantidade" value="<?php echo $estoque['quantidade'] ?>">
+                                <?php
+                                if (isset($_SESSION['Erro_form']['quantidade'])) { ?>
+                                    <div id='serverQuantidade' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['quantidade'];
+                                        unset($_SESSION['Erro_form']['quantidade']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-6">
-                                <a href="<?php echo URL ?>fornecedor/index" class="form-control btn btn-danger">Cancelar</a>
+                                <a href="<?php echo URL ?>estoque/index" class="form-control btn btn-danger">Cancelar</a>
                             </div>
                             <div class="form-group col-6">
                                 <input type="submit" value="Atualizar" name="btn_atualizar" class="form-control btn btn-success">
