@@ -57,6 +57,7 @@ class Cargo extends Model
                     parent::implementar("INSERT INTO cargo VALUES (:id, :nome)", $dados);
                     $msg = "Cargo cadastrado com sucesso!";
                     $_SESSION['msg'] = parent::alertaSucesso($msg);
+                    unset($_SESSION['form']);
 
                 } catch (PDOException $e) {
                     $_SESSION['form'] = $dados;
