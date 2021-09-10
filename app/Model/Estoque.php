@@ -57,7 +57,11 @@ class Estoque extends Model
 
         if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade))
         {
-            array_push($this->form_valido,parent::valida_int(array($dados['id'],$dados['produto_id'],$dados['quantidade'])));
+            array_push(
+            $this->form_valido,
+            parent::valida_int($dados['id'],'id','*Id do estoque inválido',1),
+            parent::valida_int($dados['produto_id'],'produto_id','*Id do produto inválido',1),
+            parent::valida_int($dados['quantidade'],'quantidade','*Quantidade informada inválida',0));
 
             if(parent::formularioValido($this->form_valido))
             {
