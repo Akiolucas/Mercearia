@@ -41,17 +41,37 @@ include_once "app/View/include/header.php";
 
                 <div id="form-atualizar">
                     <h1 class="text-center mt-2">Fornecedor</h1>
-                    <form action="<?php echo URL;?>fornecedor/atualizar" method="POST">
+                    <form action="<?php echo URL; ?>fornecedor/atualizar" method="POST" id='form-atualizar-fornecedor'>
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <input type="hidden" name="id" value="<?php echo $fornecedor['id'] ?>">
                                 <label for="form_nome">Nome</label>
-                                <input type="text" name="nome" class="form-control" id="form_nome" value="<?php echo $fornecedor['nome'] ?>">
+                                <input type="text" name="nome" id="form-nome" class="form-control <?php echo isset($_SESSION['Erro_form']['nome']) ? 'is-invalid' : '' ?>" aria-describedby="serverNome" value="<?php echo $fornecedor['nome'] ?>">
+                                <?php
+                                if (isset($_SESSION['Erro_form']['nome'])) { ?>
+                                    <div id='serverNome' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['nome'];
+                                        unset($_SESSION['Erro_form']['nome']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
                             </div>
 
                             <div class="form-group col-12">
                                 <label for="form_cnpj">Cnpj</label>
-                                <input type="text" name="cnpj" id="form_cnpj" class="form-control" value="<?php echo $fornecedor['cnpj'] ?>">
+                                <input type="text" name="cnpj" id="form-cnpj" class="form-control <?php echo isset($_SESSION['Erro_form']['cnpj']) ? 'is-invalid' : '' ?>" aria-describedby="serverCnpj" value="<?php echo $fornecedor['cnpj'] ?>">
+                                <?php
+                                if (isset($_SESSION['Erro_form']['cnpj'])) { ?>
+                                    <div id='serverCnpj' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['cnpj'];
+                                        unset($_SESSION['Erro_form']['cnpj']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
                             </div>
                         </div>
                         <div class="form-row">
@@ -70,6 +90,8 @@ include_once "app/View/include/header.php";
             include_once "app/View/include/footer.php";
             ?>
             <script src="<?php echo URL; ?>app/Assets/js/eventos.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="<?php echo URL; ?>app/Assets/js/mask.js"></script>
             </body>
 
 </html
