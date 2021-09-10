@@ -21,7 +21,6 @@ if (!defined("MERCEARIA2021")) // verificar se a constante criada no index, foi 
     <title>Funcionários | Mercearia</title>
 </head>
 <?php
-
 include_once "app/View/include/header.php";
 
 ?>
@@ -37,7 +36,6 @@ include_once "app/View/include/header.php";
                     echo $_SESSION['msg'];
                     unset($_SESSION['msg']);
                 }
-
                 ?>
                 <h2 class="text-center mb-3">Tabela de Funcionários</h2>
                 <button type="button" class="btn btn-success m-button-table" data-toggle="modal" data-target="#modalCadastrar"><i class="fas fa-pen"></i> Cadastrar</button>
@@ -90,60 +88,138 @@ include_once "app/View/include/header.php";
                         </tfoot>
                     </table>
                 </div>
-                <div class="modal fade" id="modalCadastrar" tabindex="-1" role="dialog" aria-labelledby="cadastrarFuncionario" aria-hidden="true">
+                <div class="modal fade" id="modalCadastrar" tabindex="-1" role="dialog" aria-labelledby="cadastrarFuncionario">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
+                            <?php
+                            if (isset($_SESSION['alerta'])) {
+                                echo $_SESSION['alerta'];
+                                unset($_SESSION['alerta']);
+                            }
+                            ?>
                             <div class="modal-header">
                                 <h5 class="modal-title text-center w-100" id="cadastrarFucionario">Funcionário</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="<?php echo URL; ?>funcionario/cadastrar" method="POST">
+                            <form action="<?php echo URL; ?>funcionario/cadastrar" method="POST" id='form-funcionario'>
                                 <div class="modal-body">
                                     <div class="form-row">
                                         <div class="form-group col-9">
                                             <label for="form-nome" class="col-form-label">Nome:</label>
-                                            <input type="text" name="nome" id="form-nome" class="form-control" required>
+                                            <input type="text" name="nome" id="form-nome" class="form-control <?php echo isset($_SESSION['Erro_form']['nome']) ? 'is-invalid' : '' ?>" aria-describedby="serverNome" <?php echo isset($_SESSION['form']['nome']) ? 'value =' . $_SESSION['form']['nome'] : "" ?>>
+                                            <?php
+                                            if (isset($_SESSION['Erro_form']['nome'])) { ?>
+                                                <div id='serverNome' class="invalid-feedback">
+                                                    <?php
+                                                    echo $_SESSION['Erro_form']['nome'];
+                                                    unset($_SESSION['Erro_form']['nome']);
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            } ?>
                                         </div>
                                         <div class="form-group col-3">
                                             <label for="form-ativo" class="col-form-label">Ativo:</label>
-                                            <select name="ativo" id="form-ativo" class="form-control" required>
-                                                <option value="1" selected>Sim</option>
-                                                <option value="0">Não</option>
+                                            <select name="ativo" id="form-ativo" class="form-control <?php echo isset($_SESSION['Erro_form']['ativo']) ? 'is-invalid' : '' ?>" aria-describedby="serverAtivo" required>
+                                                <option value="1" <?php echo isset($_SESSION['form']['ativo']) == 1 ? 'selected' : "" ?>>Sim</option>
+                                                <option value="0" <?php echo isset($_SESSION['form']['ativo']) == 0 ? 'selected' : "" ?>>Não</option>
                                             </select>
+                                            <?php if (isset($_SESSION['Erro_form']['ativo'])) { ?>
+
+                                                <div id='serverAtivo' class="invalid-feedback">
+                                                    <?php
+                                                    echo $_SESSION['Erro_form']['ativo'];
+                                                    unset($_SESSION['Erro_form']['ativo']);
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            } ?>
                                         </div>
 
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-8">
                                             <label for="form-cargo" class="col-form-label">Cargo:</label>
-                                            <select name="cargo_id" class="form-control" id="form-cargo" required>
+                                            <select name="cargo_id" class="form-control <?php echo isset($_SESSION['Erro_form']['cargo_id']) ? 'is-invalid' : '' ?>" id="form-cargo" aria-describedby="serverCargo" required>
                                             </select>
+                                            <?php if (isset($_SESSION['Erro_form']['cargo_id'])) { ?>
+
+                                                <div id='serverCargo' class="invalid-feedback">
+                                                    <?php
+                                                    echo $_SESSION['Erro_form']['cargo_id'];
+                                                    unset($_SESSION['Erro_form']['cargo_id']);
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            } ?>
                                         </div>
                                         <div class="form-group col-4">
                                             <label for="form-nivel" class="col-form-label">Nível:</label>
-                                            <select name="nivel_id" id="form-nivel" class="form-control" required>
+                                            <select name="nivel_id" id="form-nivel" class="form-control <?php echo isset($_SESSION['Erro_form']['nivel_id']) ? 'is-invalid' : '' ?>" aria-describedby="serverNivel" required>
                                             </select>
+                                            <?php if (isset($_SESSION['Erro_form']['nivel_id'])) { ?>
+
+                                                <div id='serverNivel' class="invalid-feedback">
+                                                    <?php
+                                                    echo $_SESSION['Erro_form']['nivel_id'];
+                                                    unset($_SESSION['Erro_form']['nivel_id']);
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            } ?>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-12">
                                             <label for="form-credencial" class="col-form-label">Credencial:</label>
-                                            <input type="text" name="credencial" id="form-credencial" class="form-control" required>
+                                            <input type="text" name="credencial" id="form-credencial" class="form-control <?php echo isset($_SESSION['Erro_form']['credencial']) ? 'is-invalid' : '' ?>" aria-describedby="serverCredencial" <?php echo isset($_SESSION['form']['credencial']) ? 'value = ' . $_SESSION['form']['credencial'] : ""?> required>
+                                            <?php if (isset($_SESSION['Erro_form']['credencial'])) { ?>
+
+                                                <div id='serverCredencial' class="invalid-feedback">
+                                                    <?php
+                                                    echo $_SESSION['Erro_form']['credencial'];
+                                                    unset($_SESSION['Erro_form']['credencial']);
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            } ?>
+
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-12">
                                             <label for="form-senha" class="col-form-label">Senha:</label>
-                                            <input type="text" name="senha" id="form-senha" class="form-control" required>
+                                            <input type="text" name="senha" id="form-senha" class="form-control <?php echo isset($_SESSION['Erro_form']['senha']) ? 'is-invalid' : '' ?>" aria-describedby="serverSenha" <?php echo isset($_SESSION['form']['senha']) ? 'value = ' . $_SESSION['form']['senha'] : "" ?> required>
+                                            <?php if (isset($_SESSION['Erro_form']['senha'])) { ?>
+
+                                                <div id='serverSenha' class="invalid-feedback">
+                                                    <?php
+                                                    echo $_SESSION['Erro_form']['senha'];
+                                                    unset($_SESSION['Erro_form']['senha']);
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-12">
-                                            <label for="form-pg-privada-id" class="col-form-label">Selecione as páginas de acesso:</label>
-                                           <div id="form-pg-privada-id">
-                                           </div>
+                                            <label for="form-pg-privada-id" class="form-check-label">Selecione as páginas de acesso:</label>
+                                            <div id="form-pg-privada-id" class="form-check <?php echo isset($_SESSION['Erro_form']['pg_privada_id']) ? 'is-invalid' : '' ?>" aria-describedby="serverPg_privada">
+                                            </div>
+                                            <?php if (isset($_SESSION['Erro_form']['pg_privada_id'])) { ?>
+
+                                                <div id='serverPg_privada' class="invalid-feedback">
+                                                    <?php
+                                                    echo $_SESSION['Erro_form']['pg_privada_id'];
+                                                    unset($_SESSION['Erro_form']['pg_privada_id']);
+                                                    ?>
+                                                </div>
+                                            <?php
+                                            } ?>
                                         </div>
                                     </div>
                                 </div>
@@ -153,6 +229,7 @@ include_once "app/View/include/header.php";
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                                         </div>
                                         <div class="form-group col-6">
+                                            <?php unset($_SESSION['form']);?>
                                             <input type="submit" class="btn btn-success" name="btn_cadastrar" value="Cadastrar">
                                         </div>
                                     </div>
@@ -191,6 +268,13 @@ include_once "app/View/include/header.php";
             <script>
                 window.addEventListener("load", dadosCadastro());
             </script>
+            <?php
+            if (isset($_SESSION['script'])) {
+                echo $_SESSION['script'];
+                unset($_SESSION['script']);
+            }
+
+            ?>
             </body>
 
 </html>
