@@ -231,8 +231,84 @@ $(document).ready(function(){
 
     });
     //fim da validação do formulário de atualizar estoque
-    
 
+    // fornecedor cadastrar
+    let f_fornecedor = $('#form-fornecedor');
+    f_fornecedor.submit(function(e)
+    {
+    
+      let f_nome = $('#form-nome').val();
+      let f_cnpj = $('#form-cnpj').val();
+      let f_valido =[
+        validatamanho(f_nome,1,50),
+        validatamanho(f_cnpj,18,18)
+      ];
+
+      if(!form_valido(f_valido))
+      {
+        let form_campos = [
+          ['form-nome','*Preencha este campo, limite máximo permitido é 50 caracteres'],
+          ['form-cnpj','*Cnpj inválido']
+        ];
+    
+        for(var i = 0; i < f_valido.length; i ++)
+        {
+          $('#'+form_campos[i][0]).removeClass('is-invalid');
+          $('#d-'+form_campos[i][0]).remove();
+
+          if(f_valido[i] == false)
+          {
+            var elemento = $('#'+form_campos[i]).addClass('is-invalid');
+            
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
+          }
+        }
+       
+        e.preventDefault();
+      }
+
+    });
+    // fim da validação do formulário de cadastro de fornecedor
+
+    //fornecedor atualizar
+    let f_a_fornecedor = $('#form-atualizar-fornecedor');
+    f_a_fornecedor.submit(function(e)
+    {
+      let f_a_nome = $('#form-nome').val();
+      let f_a_cnpj = $('#form-cnpj').val();
+      
+      let f_valido = [
+        validatamanho(f_a_nome,1,50),
+        validatamanho(f_a_cnpj,18,18)
+      ];
+
+      if(!form_valido(f_valido))
+      {
+        let form_campos = [
+          ['form-nome','*Preencha este campo, limite máximo permitido é 50 caracteres'],
+          ['form-cnpj','*Cnpj inválido']
+        ];
+
+        for(var i = 0; i < f_valido.length; i ++)
+        {
+          $('#'+form_campos[i][0]).removeClass('is-invalid');
+          $('#d-'+form_campos[i][0]).remove();
+
+          if(f_valido[i] == false)
+          {
+            var elemento = $('#'+form_campos[i]).addClass('is-invalid');
+            
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
+          }
+        }
+
+        e.preventDefault();
+      }
+
+      
+    });
+  // fim da validação do formulário de atualizar fornecedor
+  
   // funções de validação
   function validaOpcoes(array)
   {
