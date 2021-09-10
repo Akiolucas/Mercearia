@@ -47,7 +47,8 @@ class Nivel extends Model
 
         if (parent::existeCamposFormulario($dados, $this->form_obrigatorio, $this->form_obrigatorio_quantidade)){
 
-            $this->form_valido = array(parent::valida_tamanho(array($dados['nome']),array(7)));
+            $this->form_valido = array(parent::valida_tamanho($dados['nome'],'nome','*Informe um nome, limite 7 caracteres',7,1));
+
             if (parent::formularioValido($this->form_valido)) 
             {
                 unset($dados['btn_cadastrar']);
@@ -57,27 +58,34 @@ class Nivel extends Model
                     parent::implementar("INSERT INTO nivel VALUES (:id, :nome)", $dados);
                     $msg = "Nível cadastrado com sucesso!";
                     $_SESSION['msg'] = parent::alertaSucesso($msg);
+                    unset($_SESSION['form']);
 
                 } catch (PDOException $e) {
-                    $msg = "Não foi possível cadastrar o nível!";
-                    $_SESSION['msg'] = parent::alertaFalha($msg);
+                    $_SESSION['form'] = $dados;
+                    $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
+                    $msg = "Não foi possível cadastrar o fornecedor, verifique os dados e tente novamente!";
+                    $_SESSION['alerta'] = parent::alertaFalha($msg);
                 }
             }
             else {
-                $msg = "Não foi possível cadastrar o nível, verifique os dados e tente novamente!";
-                $_SESSION['msg'] = parent::alertaFalha($msg);
+                $_SESSION['form'] = $dados;
+                $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
+                $msg = "Não foi possível cadastrar o fornecedor, verifique os dados e tente novamente!";
+                $_SESSION['alerta'] = parent::alertaFalha($msg);
             }
         }
         else{
-            $msg = "Preencha todos os campos corretamente e tente novamente!";
-            $_SESSION['msg'] = parent::alertaFalha($msg);
+            $_SESSION['form'] = $dados;
+            $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
+            $msg = "Não foi possível cadastrar o fornecedor, verifique os dados e tente novamente!";
+            $_SESSION['alerta'] = parent::alertaFalha($msg);
         }
     }
 
     public function excluir($id): void
     {
 
-       array_push($this->form_valido,parent::valida_int($id));
+       array_push($this->form_valido,parent::valida_int($id,'id','*Id inválido',1));
 
        if(parent::formularioValido($this->form_valido))
        {
@@ -112,7 +120,9 @@ class Nivel extends Model
 
         if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade))
         {
-            array_push($this->form_valido,parent::valida_int(array($dados['id'])),parent::valida_tamanho(array($dados['nome']),array(7)));
+            array_push($this->form_valido,
+            parent::valida_int($dados['id'],'id','*Id inválido',1),
+            parent::valida_tamanho($dados['nome'],'nome','*Informe um nome, limite 7 caracteres',7,1));
 
             if(parent::formularioValido($this->form_valido))
             {
