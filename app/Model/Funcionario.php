@@ -109,6 +109,7 @@ class Funcionario extends Model
     
                         $msg = "Funcionário cadastrado com sucesso!";
                         $_SESSION['msg'] = parent::alertaSucesso($msg);
+                        unset($_SESSION['form']);
                         $this->conn->commit();
                     }
                     catch(PDOException $e){
