@@ -97,9 +97,9 @@ if(!defined("MERCEARIA2021")) // verificar se a constante criada no index, foi d
             echo json_encode($funcionario,JSON_UNESCAPED_UNICODE);    
         }
         public function funcionarioDetalhesAjax()
-        {
+        {   $id= $_POST['id'];
             $listar = new \App\Model\Funcionario();
-            $funcionario = $listar->listarDetalhesAjax();
+            $funcionario = $listar->listarDetalhesAjax($id);
         
             echo json_encode($funcionario,JSON_UNESCAPED_UNICODE);    
         }
