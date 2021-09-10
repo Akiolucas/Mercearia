@@ -15,6 +15,8 @@
                 $_SESSION['usuario_cargo'],
                 $_SESSION['usuario_paginas'],
                 $_SESSION['paginas_publicas'],
+                $_SESSION['form'],
+                $_SESSION['Erro_form'],
                 $_SESSION['msg']
             );
          }
