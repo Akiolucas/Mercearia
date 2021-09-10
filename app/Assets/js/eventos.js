@@ -48,7 +48,7 @@ $(document).ready(function(){
 
       if(!form_valido(f_validos))
       {
-        let form_nome = [
+        let form_campos = [
           ['form-nome','*Preencha este campo, limite máximo permitido é 70 caracteres'],
           ['form-ativo','*Selecione uma opção'],
           ['form-cargo','*Selecione uma opção'],
@@ -60,14 +60,14 @@ $(document).ready(function(){
     
         for(var i = 0; i < f_validos.length; i ++)
         {
-          $('#'+form_nome[i][0]).removeClass('is-invalid');
-          $('#d-'+form_nome[i][0]).remove();
+          $('#'+form_campos[i][0]).removeClass('is-invalid');
+          $('#d-'+form_campos[i][0]).remove();
 
           if(f_validos[i] == false)
           {
-            var elemento = $('#'+form_nome[i]).addClass('is-invalid');
+            var elemento = $('#'+form_campos[i]).addClass('is-invalid');
             
-            elemento.after("<div class='invalid-feedback' id=d-"+ form_nome[i][0]+">" +form_nome[i][1] + "</div>");
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
           }
         }
         e.preventDefault();
@@ -101,7 +101,7 @@ $(document).ready(function(){
       
       if(!form_valido(f_a_validos))
       {
-        let form_nome = [
+        let form_campos = [
           ['form-nome','*Preencha este campo, limite máximo permitido é 70 caracteres'],
           ['form-ativo','*Selecione uma opção'],
           ['form-cargo','*Selecione uma opção'],
@@ -111,14 +111,14 @@ $(document).ready(function(){
     
         for(var i = 0; i < f_a_validos.length; i ++)
         {
-          $('#'+form_nome[i][0]).removeClass('is-invalid');
-          $('#d-'+form_nome[i][0]).remove();
+          $('#'+form_campos[i][0]).removeClass('is-invalid');
+          $('#d-'+form_campos[i][0]).remove();
 
           if(f_a_validos[i] == false)
           {
-            var elemento = $('#'+form_nome[i]).addClass('is-invalid');
+            var elemento = $('#'+form_campos[i]).addClass('is-invalid');
             
-            elemento.after("<div class='invalid-feedback' id=d-"+ form_nome[i][0]+">" +form_nome[i][1] + "</div>");
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
           }
         }
        
@@ -139,20 +139,20 @@ $(document).ready(function(){
       
       if(!form_valido(f_valido))
       {
-        let form_nome = [
+        let form_campos = [
           ['form-nome','*Preencha este campo, limite máximo permitido é 45 caracteres']
         ];
     
         for(var i = 0; i < f_valido.length; i ++)
         {
-          $('#'+form_nome[i][0]).removeClass('is-invalid');
-          $('#d-'+form_nome[i][0]).remove();
+          $('#'+form_campos[i][0]).removeClass('is-invalid');
+          $('#d-'+form_campos[i][0]).remove();
 
           if(f_valido[i] == false)
           {
-            var elemento = $('#'+form_nome[i]).addClass('is-invalid');
+            var elemento = $('#'+form_campos[i]).addClass('is-invalid');
             
-            elemento.after("<div class='invalid-feedback' id=d-"+ form_nome[i][0]+">" +form_nome[i][1] + "</div>");
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
           }
         }
        
@@ -174,20 +174,20 @@ $(document).ready(function(){
       
       if(!form_valido(f_valido))
       {
-        let form_nome = [
+        let form_campos = [
           ['form-nome','*Preencha este campo, limite máximo permitido é 45 caracteres']
         ];
     
         for(var i = 0; i < f_valido.length; i ++)
         {
-          $('#'+form_nome[i][0]).removeClass('is-invalid');
-          $('#d-'+form_nome[i][0]).remove();
+          $('#'+form_campos[i][0]).removeClass('is-invalid');
+          $('#d-'+form_campos[i][0]).remove();
 
           if(f_valido[i] == false)
           {
-            var elemento = $('#'+form_nome[i]).addClass('is-invalid');
+            var elemento = $('#'+form_campos[i]).addClass('is-invalid');
             
-            elemento.after("<div class='invalid-feedback' id=d-"+ form_nome[i][0]+">" +form_nome[i][1] + "</div>");
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
           }
         }
        
@@ -195,7 +195,43 @@ $(document).ready(function(){
       }
     });
     //fim da validação do formulário de atualizar cargo
+    
+    //estoque atualizar
+    let f_estoque = $('#form-atualizar-estoque');
+    f_estoque.submit(function(e)
+    {
+     
+      let f_quantidade = $('#form-quantidade').val();
 
+      let f_valido =[
+        validaInt(0,f_quantidade)
+      ];
+
+      if(!form_valido(f_valido))
+      {
+        let form_campos = [
+          ['form-quantidade','*Quantidade informada inválida']
+        ];
+    
+        for(var i = 0; i < f_valido.length; i ++)
+        {
+          $('#'+form_campos[i][0]).removeClass('is-invalid');
+          $('#d-'+form_campos[i][0]).remove();
+
+          if(f_valido[i] == false)
+          {
+            var elemento = $('#'+form_campos[i]).addClass('is-invalid');
+            
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
+          }
+        }
+       
+        e.preventDefault();
+      }
+
+    });
+    //fim da validação do formulário de atualizar estoque
+    
 
   // funções de validação
   function validaOpcoes(array)
