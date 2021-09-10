@@ -309,6 +309,77 @@ $(document).ready(function(){
     });
   // fim da validação do formulário de atualizar fornecedor
   
+  // nivel cadastrar
+  let f_nivel = $('#form-nivel');
+  f_nivel.submit(function(e)
+  {
+  
+    let f_nome = $('#form-nome').val();
+    let f_valido =[
+      validatamanho(f_nome,1,7)
+    ];
+
+    if(!form_valido(f_valido))
+    {
+      let form_campos = [
+        ['form-nome','*Preencha este campo, limite máximo permitido é 7 caracteres']
+      ];
+  
+      for(var i = 0; i < f_valido.length; i ++)
+      {
+        $('#'+form_campos[i][0]).removeClass('is-invalid');
+        $('#d-'+form_campos[i][0]).remove();
+
+        if(f_valido[i] == false)
+        {
+          var elemento = $('#'+form_campos[i]).addClass('is-invalid');
+          
+          elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
+        }
+      }
+     
+      e.preventDefault();
+    }
+
+  });
+  // fim da validação do formulário de cadastro de nivel
+
+  //nivel atualizar
+  let f_a_nivel = $('#form-atualizar-nivel');
+  f_a_nivel.submit(function(e)
+  {
+    let f_a_nome = $('#form-nome').val();
+    
+    let f_valido = [
+      validatamanho(f_a_nome,1,7)
+    ];
+
+    if(!form_valido(f_valido))
+    {
+      let form_campos = [
+        ['form-nome','*Preencha este campo, limite máximo permitido é 7 caracteres']
+      ];
+
+      for(var i = 0; i < f_valido.length; i ++)
+      {
+        $('#'+form_campos[i][0]).removeClass('is-invalid');
+        $('#d-'+form_campos[i][0]).remove();
+
+        if(f_valido[i] == false)
+        {
+          var elemento = $('#'+form_campos[i]).addClass('is-invalid');
+          
+          elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
+        }
+      }
+
+      e.preventDefault();
+    }
+
+    
+  });
+// fim da validação do formulário de atualizar nivel
+
   // funções de validação
   function validaOpcoes(array)
   {
