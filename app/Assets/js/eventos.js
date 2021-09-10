@@ -46,24 +46,96 @@ $(document).ready(function(){
         validaOpcoes(f_pg_privada)
       ];
 
-      if(form_valido(f_validos))
+      if(!form_valido(f_validos))
       {
-        alert('form valido');
-        e.preventDefault();
-      }
-      else{
-        alert('form invalido');
+        let form_nome = [
+          ['form-nome','*Preencha este campo, limite máximo permitido é 70 caracteres'],
+          ['form-ativo','*Selecione uma opção'],
+          ['form-cargo','*Selecione uma opção'],
+          ['form-nivel','*Selecione uma opção'],
+          ['form-credencial','*A credencial deve conter entre 8 a 20 caracteres'],
+          ['form-senha','*A senha deve conter entre 8 a 64 caracteres'],
+          ['form-pg-privada-id','*Selecione pelo menos uma opção']
+        ];
+    
+        for(var i = 0; i < f_validos.length; i ++)
+        {
+          $('#'+form_nome[i][0]).removeClass('is-invalid');
+          $('#d-'+form_nome[i][0]).remove();
+
+          if(f_validos[i] == false)
+          {
+            var elemento = $('#'+form_nome[i]).addClass('is-invalid');
+            
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_nome[i][0]+">" +form_nome[i][1] + "</div>");
+          }
+        }
         e.preventDefault();
       }
     });
     //fim da validação do formulário de cadastro de funcionário.
 
+    // funcionário atualizar
+
+    let f_a_funcionario = $('#form-atualizar-funcionario');
+    f_a_funcionario.submit(function(e)
+    {
+     
+      let f_a_nome = $('#form-nome').val();
+      let f_a_ativo = $('#form-ativo').val();
+      let f_a_cargo = $('#form-cargo').val();
+      let f_a_nivel = $('#form-nivel').val();
+      let f_a_pg_privada = [];
+      $("input[name='pg_privada_id[]']:checked").each(function()
+      {
+        f_a_pg_privada.push(parseInt($(this).val()));
+      });
+
+      let f_a_validos =[
+        validatamanho(f_a_nome,0,70),
+        validaBool(f_a_ativo),
+        validaInt(1,f_a_cargo),
+        validaInt(1,f_a_nivel),
+        validaOpcoes(f_a_pg_privada)
+      ];
+      
+      if(!form_valido(f_a_validos))
+      {
+        let form_nome = [
+          ['form-nome','*Preencha este campo, limite máximo permitido é 70 caracteres'],
+          ['form-ativo','*Selecione uma opção'],
+          ['form-cargo','*Selecione uma opção'],
+          ['form-nivel','*Selecione uma opção'],
+          ['form-pg-privada-id','*Selecione pelo menos uma opção']
+        ];
+    
+        for(var i = 0; i < f_a_validos.length; i ++)
+        {
+          $('#'+form_nome[i][0]).removeClass('is-invalid');
+          $('#d-'+form_nome[i][0]).remove();
+
+          if(f_a_validos[i] == false)
+          {
+            var elemento = $('#'+form_nome[i]).addClass('is-invalid');
+            
+            elemento.after("<div class='invalid-feedback' id=d-"+ form_nome[i][0]+">" +form_nome[i][1] + "</div>");
+          }
+        }
+       
+        e.preventDefault();
+      }
+    });
   // funções de validação
   function validaOpcoes(array)
   {
+    if(array.length <= 0)
+    {
+      return false;
+    }
+
     for(var i=0;i < array.length; i ++)
     { 
-      if(!validaInt(1,array[i]))
+       if(!validaInt(1,array[i]))
       {
         return false;
       }
