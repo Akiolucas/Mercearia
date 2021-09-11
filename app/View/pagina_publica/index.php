@@ -84,17 +84,33 @@ include_once "app/View/include/header.php";
                 <div class="modal fade" id="modalCadastrar" tabindex="-1" role="dialog" aria-labelledby="cadastrarPg_publica" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
+                            <?php
+                            if (isset($_SESSION['alerta'])) {
+                                echo $_SESSION['alerta'];
+                                unset($_SESSION['alerta']);
+                            }
+                            ?>
                             <div class="modal-header">
                                 <h5 class="modal-title text-center w-100" id="cadastrarPg_publica"></h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="<?php echo URL; ?>pagina_publica/cadastrar" method="POST">
+                            <form action="<?php echo URL; ?>pagina_publica/cadastrar" method="POST" id="form-paginaPublica">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="form-nome" class="col-form-label">Nome:</label>
-                                        <input type="text" name="nome" id="form-nome" class="form-control" required>
+                                        <input type="text" name="nome" id="form-nome" class="form-control <?php echo isset($_SESSION['Erro_form']['nome']) ? 'is-invalid' : '' ?>" aria-describedby="serverNome" <?php echo isset($_SESSION['form']['nome']) ? 'value =' . $_SESSION['form']['nome'] : "" ?>>
+                                        <?php
+                                        if (isset($_SESSION['Erro_form']['nome'])) { ?>
+                                            <div id='serverNome' class="invalid-feedback">
+                                                <?php
+                                                echo $_SESSION['Erro_form']['nome'];
+                                                unset($_SESSION['Erro_form']['nome']);
+                                                ?>
+                                            </div>
+                                        <?php
+                                        } ?>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -131,6 +147,12 @@ include_once "app/View/include/header.php";
             <script src="<?php echo URL; ?>app/Assets/js/eventos.js"></script>
             <script src="<?php echo URL; ?>app/Assets/jquery/jquery.dataTables.min.js"></script>
             <script src="<?php echo URL; ?>app/Assets/js/dataTables.js"></script>
+            <?php
+            if (isset($_SESSION['script'])) {
+                echo $_SESSION['script'];
+                unset($_SESSION['script']);
+            }
+            ?>
             </body>
 
 </html>
