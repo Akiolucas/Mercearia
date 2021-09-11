@@ -17,7 +17,7 @@
         public function listar(): array
         {
             $listar = parent::projetarTodos(
-            "SELECT p.id, p.nome, p.preco AS preco, f.nome AS fornecedor, c.barra AS codigo, p.kilograma, e.quantidade AS estoque, p.dt_registro
+            "SELECT p.id, p.nome, p.preco, f.nome AS fornecedor, c.barra AS codigo, p.kilograma, e.quantidade AS estoque, p.dt_registro
             FROM produto p
             INNER JOIN fornecedor f
             ON p.fornecedor_id = f.id
@@ -59,13 +59,20 @@
             if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade))
             {
                 array_push($this->form_valido,
-                parent::valida_int(array($dados['id'],$dados['codigo_id'],$dados['quantidade'])),
-                parent::valida_float(array($dados['preco'],$dados['kilograma']))
+                parent::valida_int($dados['id'],'id','*Id inválido!',1),
+                parent::valida_tamanho($dados['nome'],'nome','*Preencha este campo, limite 30 caracteres!',30,1),
+                parent::valida_float($dados['preco'],'preco','*Informe o preço corretamente, mínimo R$ 0,10!',0.10),
+                parent::valida_int($dados['fornecedor_id'],'fornecedor_id','*Id inválido!',1),
+                parent::valida_int($dados['codigo_id'],'codigo_id','*Código_id inválido!',1),
+                parent::valida_float($dados['kilograma'],'kilograma','*Informe o kilograma corretamente, mínimo 0,001 kg',0.001),
+                parent::valida_int($dados['quantidade'],'quantidade','*Quantidade informada inválida!',0)
                 );
 
                 if(parent::formularioValido($this->form_valido))
                 {
                     unset($dados['btn_atualizar']);
+                    $dados['preco'] = parent::converteFloat($dados['preco']);
+                    $dados['kilograma'] = parent::converteFloat($dados['kilograma']);
 
                     $atualizar = parent::projetarExpecifico(
                     "CALL atualizar_produto_estoque
@@ -140,13 +147,19 @@
             if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade))
             {
                 array_push($this->form_valido,
-                parent::valida_int(array($dados['fornecedor_id'],$dados['quantidade'])),
-                parent::valida_float(array($dados['preco'],$dados['kilograma']))    
+                parent::valida_tamanho($dados['nome'],'nome','*Preencha este campo, limite 30 caracteres!',30,1),
+                parent::valida_float($dados['preco'],'preco','*Informe o preço corretamente, mínimo R$ 0,10!',0.10),
+                parent::valida_int($dados['fornecedor_id'],'fornecedor_id','*Id inválido!',1),
+                parent::valida_float($dados['kilograma'],'kilograma','*Informe o kilograma corretamente, mínimo 0,001 kg',0.001),
+                parent::valida_int($dados['quantidade'],'quantidade','*Quantidade informada inválida!',1)
                 );
                 
                 if(parent::formularioValido($this->form_valido))
                 {
                     unset($dados['btn_cadastrar']);
+                    $dados['preco'] = parent::converteFloat($dados['preco']);
+                    $dados['kilograma'] = parent::converteFloat($dados['kilograma']);
+                    
                     $cadastrar = parent::projetarExpecifico(
                         "CALL cadastrar_codigo_produto_estoque(
                            :nome, :preco, :fornecedor_id, :kilograma, :quantidade
@@ -186,35 +199,51 @@
                     }
                     if($resultado){
                         $_SESSION['msg'] = parent::alertaSucesso($msg);
+                        unset($_SESSION['form']);
                     }
                     else{
-                        $_SESSION['msg'] = parent::alertaFalha($msg);
+                        $_SESSION['form'] = $dados;
+                        $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
+                        $_SESSION['alerta'] = parent::alertaFalha($msg);
                     }
                     
                 }
                 else{
+                    $_SESSION['form'] = $dados;
+                    $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
                     $msg = "Não foi possível cadastrar o produto tente novamente!";
-                    $_SESSION['msg'] = parent::alertaFalha($msg);
+                    $_SESSION['alerta'] = parent::alertaFalha($msg);
                 }
             }
         }
         
         public function excluir($id)
         {
-           try {
-            parent::implementar("DELETE FROM produto WHERE id = :id",$id);
-            parent::implementar("DELETE FROM codigo WHERE id = :id",$id);
-            $msg = "Produto excluído com sucesso!";
-            $_SESSION['msg'] = parent::alertaSucesso($msg);
-            header("location:" . URL . "produtos/index");
-            exit();
+            array_push($this->form_valido,parent::valida_int($id,'id','*Id inválido',1));
 
-           } catch (PDOException $e) {
-           $msg = "Não foi possivel excluir o produto tente novamente!";
-            $_SESSION['msg'] = parent::alertaFalha($msg);
-            header("location:" . URL . "produtos/index");
-            exit();
-           }
+            if(parent::formularioValido($this->form_valido))
+            {
+                try {
+                parent::implementar("DELETE FROM produto WHERE id = :id",$id);
+                parent::implementar("DELETE FROM codigo WHERE id = :id",$id);
+                $msg = "Produto excluído com sucesso!";
+                $_SESSION['msg'] = parent::alertaSucesso($msg);
+                header("location:" . URL . "produtos/index");
+                exit();
+
+                } catch (PDOException $e) {
+                $msg = "Não foi possivel excluir o produto tente novamente!";
+                $_SESSION['msg'] = parent::alertaFalha($msg);
+                header("location:" . URL . "produtos/index");
+                exit();
+                }
+            }
+            else{
+                $msg = "Não foi possível excluir o produto, verifique os dados e tente novamente!";
+                $_SESSION['msg'] = parent::alertaFalha($msg);
+                header("Location:". URL . "produtos/index");
+                exit();
+            }
             
         }
     }
