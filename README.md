@@ -41,7 +41,32 @@
     <figcaption>:camera: Página inválida, observe que não existe no menu do usuário essa página</figcaption>
 </figure>
  <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/cargo.png" alt="imagem página de cargo">
+    <figcaption>:camera: Página cargo</figcaption>
+</figure>
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/estoque.png" alt="imagem página do estoque">
+    <figcaption>:camera: Página estoque</figcaption>
+</figure>
+ <hr>
 <figure>
+    <img src="app/Assets/image/projeto/funcionario-cadastro.png" alt="imagem página de cadastro de funcionário">
+    <figcaption>:camera: Modal de cadastro de funcionário</figcaption>
+</figure>
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/funcionario-atualizar.png" alt="imagem página de atualizar funcionário">
+    <figcaption>:camera: Página funcionário atualizar</figcaption>
+</figure>
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/funcionario-atualizar2.png" alt="imagem página de atualizar funcionário 2">
+    <figcaption>:camera: Página funcionário atualizar, continuação</figcaption>
+</figure>
+ <hr>
+ <figure>
     <img src="app/Assets/image/projeto/produtos.png" alt="imagem página de produtos">
     <figcaption>:camera: Página produtos</figcaption>
 </figure>
@@ -62,8 +87,33 @@
 </figure>
  <hr>
  <figure>
+    <img src="app/Assets/image/projeto/produtos-validacao.png" alt="imagem página de editar produto validação">
+    <figcaption>:camera: Página de editar produtos, validação no front-end e back-end </figcaption>
+</figure>
+
+ <hr>
+ <figure>
     <img src="app/Assets/image/projeto/produtos-cadastrar.png" alt="imagem do modal de cadastrar na página produtos">
-    <figcaption>:camera:ao clicar em cadastrar abre esse modal de cadastro de produto</figcaption>
+    <figcaption>:camera:Ao clicar em cadastrar abre esse modal de cadastro de produto</figcaption>
+</figure>
+ <figure>
+    <img src="app/Assets/image/projeto/produtos-modal-excluir.png" alt="imagem página produtos modal excluir">
+    <figcaption>:camera: Página produtos modal excluir</figcaption>
+</figure>
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/funcionario-cadastro.png" alt="imagem página de funcionário cadastro">
+    <figcaption>:camera: Página funcionário, modal cadastro</figcaption>
+</figure>
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/funcionario-atualizar.png" alt="imagem página de funcionário atualizar">
+    <figcaption>:camera: Página funcionário atualizar</figcaption>
+</figure>
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/funcionario-atualizar2.png" alt="imagem página de funcionário atualizar continuação">
+    <figcaption>:camera: Página funcion</figcaption>
 </figure>
  <hr>
  <figure>
