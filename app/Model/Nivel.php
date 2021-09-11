@@ -63,21 +63,21 @@ class Nivel extends Model
                 } catch (PDOException $e) {
                     $_SESSION['form'] = $dados;
                     $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
-                    $msg = "Não foi possível cadastrar o fornecedor, verifique os dados e tente novamente!";
+                    $msg = "Não foi possível cadastrar o nível, verifique os dados e tente novamente!";
                     $_SESSION['alerta'] = parent::alertaFalha($msg);
                 }
             }
             else {
                 $_SESSION['form'] = $dados;
                 $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
-                $msg = "Não foi possível cadastrar o fornecedor, verifique os dados e tente novamente!";
+                $msg = "Não foi possível cadastrar o nível, verifique os dados e tente novamente!";
                 $_SESSION['alerta'] = parent::alertaFalha($msg);
             }
         }
         else{
             $_SESSION['form'] = $dados;
             $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
-            $msg = "Não foi possível cadastrar o fornecedor, verifique os dados e tente novamente!";
+            $msg = "Não foi possível cadastrar o nível, verifique os dados e tente novamente!";
             $_SESSION['alerta'] = parent::alertaFalha($msg);
         }
     }
