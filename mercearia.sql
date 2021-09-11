@@ -56,7 +56,7 @@ CREATE TABLE `cargo` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `cargo` (
 
 LOCK TABLES `cargo` WRITE;
 /*!40000 ALTER TABLE `cargo` DISABLE KEYS */;
-INSERT INTO `cargo` VALUES (1,'administrador');
+INSERT INTO `cargo` VALUES (1,'Administrador'),(2,'Operador de caixa'),(3,'Repositor');
 /*!40000 ALTER TABLE `cargo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -117,7 +117,7 @@ CREATE TABLE `estoque` (
 
 LOCK TABLES `estoque` WRITE;
 /*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
-INSERT INTO `estoque` VALUES (1,1,30),(2,2,30),(3,3,20),(4,4,30),(5,5,70),(6,6,1),(7,7,60),(8,8,30),(9,9,30),(10,10,10),(11,11,5),(12,12,45),(13,13,100),(14,14,100),(15,15,350),(16,16,90),(17,17,60),(18,18,50),(19,19,40),(20,20,73);
+INSERT INTO `estoque` VALUES (1,1,35),(2,2,30),(3,3,20),(4,4,30),(5,5,70),(6,6,59),(7,7,60),(8,8,30),(9,9,30),(10,10,45),(11,11,5),(12,12,45),(13,13,100),(14,14,100),(15,15,350),(16,16,90),(17,17,60),(18,18,50),(19,19,40),(20,20,50);
 /*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,7 +135,7 @@ CREATE TABLE `fornecedor` (
   `dt_registro` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `cnpj_UNIQUE` (`cnpj`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +144,7 @@ CREATE TABLE `fornecedor` (
 
 LOCK TABLES `fornecedor` WRITE;
 /*!40000 ALTER TABLE `fornecedor` DISABLE KEYS */;
-INSERT INTO `fornecedor` VALUES (1,'Marques Monte','12.123.456/0101-02','2021-07-29 08:10:30'),(2,'Panificadora Tomé','10.241.584/2014-54','2021-07-29 08:10:30'),(3,'Heinz','50.955.707/0001-20','2021-08-11 23:45:27');
+INSERT INTO `fornecedor` VALUES (1,'Marques Monte','12.123.456/0101-02','2021-07-29 08:10:30'),(2,'Panificadora Tomé','10.241.584/2014-54','2021-07-29 08:10:30'),(3,'Heinz','50.955.707/0001-20','2021-08-11 23:45:27'),(4,' Visconti','70.940.994/0040-18','2021-08-31 20:51:03'),(5,'Coca Cola Industriais LTDA','45.997.418/0001-53','2021-09-04 16:18:19');
 /*!40000 ALTER TABLE `fornecedor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -160,8 +160,9 @@ CREATE TABLE `funcionario` (
   `nome` varchar(70) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   `cargo_id` int NOT NULL,
   `nivel_id` int NOT NULL,
-  `credencial` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
+  `credencial` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
   `senha` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
+  `ativo` tinyint(1) NOT NULL DEFAULT '1',
   `dt_registro` datetime NOT NULL,
   PRIMARY KEY (`id`,`cargo_id`,`nivel_id`),
   UNIQUE KEY `credencial_UNIQUE` (`credencial`),
@@ -169,7 +170,7 @@ CREATE TABLE `funcionario` (
   KEY `fk_funcionario_nivel_idx` (`nivel_id`),
   CONSTRAINT `fk_funcionario_cargo` FOREIGN KEY (`cargo_id`) REFERENCES `cargo` (`id`),
   CONSTRAINT `fk_funcionario_nivel` FOREIGN KEY (`nivel_id`) REFERENCES `nivel` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +179,7 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,'Lucas Akio Turuda',1,3,'lucas','$2y$10$/h7bSGxgQvLA7WW2OnmybO1NqN20lCnettDvBn7mA3DGTLroYBSq.','2021-08-02 20:27:53');
+INSERT INTO `funcionario` VALUES (1,'Lucas Akio Turuda',1,3,'lucas','$2y$10$txRewOK602QZN61Grh2fZOiv9zaL7m6eyml5sqw4LyXB33KhrZnKi',1,'2021-09-03 23:46:27'),(2,'José Gomes Pereira',2,3,'joseamaro','$2y$10$IxAyR2Fj1K4dST.vURDj5uwyvd8fzIHt045Qga4VJkWOQpmzibGxa',1,'2021-09-09 21:02:24');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -196,8 +197,8 @@ CREATE TABLE `funcionario_pg_privada` (
   PRIMARY KEY (`funcionario_id`,`pg_privada_id`),
   KEY `fk_funcionario_pg_privada_pg_privada_idx` (`pg_privada_id`),
   KEY `fk_funcionario_pg_privada_funcionario_idx` (`funcionario_id`) /*!80000 INVISIBLE */,
-  CONSTRAINT `fk_funcionario_pg_privada_funcionario` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionario` (`id`),
-  CONSTRAINT `fk_funcionario_pg_privada_pg_privada` FOREIGN KEY (`pg_privada_id`) REFERENCES `pg_privada` (`id`)
+  CONSTRAINT `fk_funcionario_pg_privada_funcionario` FOREIGN KEY (`funcionario_id`) REFERENCES `funcionario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_funcionario_pg_privada_pg_privada` FOREIGN KEY (`pg_privada_id`) REFERENCES `pg_privada` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -207,7 +208,7 @@ CREATE TABLE `funcionario_pg_privada` (
 
 LOCK TABLES `funcionario_pg_privada` WRITE;
 /*!40000 ALTER TABLE `funcionario_pg_privada` DISABLE KEYS */;
-INSERT INTO `funcionario_pg_privada` VALUES (1,1,'2021-08-09 20:08:01'),(1,2,'2021-08-09 20:08:01'),(1,3,'2021-08-09 20:08:01');
+INSERT INTO `funcionario_pg_privada` VALUES (1,1,'2021-09-04 18:50:12'),(1,2,'2021-09-04 18:50:12'),(1,3,'2021-09-04 18:50:12'),(1,4,'2021-09-04 18:50:12'),(1,5,'2021-09-04 18:50:12'),(1,6,'2021-09-04 18:50:12'),(1,7,'2021-09-04 18:50:12'),(1,8,'2021-09-04 18:50:12'),(1,9,'2021-09-04 18:50:12'),(1,10,'2021-09-04 18:50:12'),(1,11,'2021-09-04 18:50:12'),(2,1,'2021-09-09 21:02:24'),(2,11,'2021-09-09 21:02:24');
 /*!40000 ALTER TABLE `funcionario_pg_privada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,7 +260,7 @@ CREATE TABLE `nivel` (
 
 LOCK TABLES `nivel` WRITE;
 /*!40000 ALTER TABLE `nivel` DISABLE KEYS */;
-INSERT INTO `nivel` VALUES (1,'inicial'),(2,'parcial'),(3,'total');
+INSERT INTO `nivel` VALUES (1,'Inicial'),(2,'Parcial'),(3,'Total');
 /*!40000 ALTER TABLE `nivel` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -276,7 +277,7 @@ CREATE TABLE `pg_privada` (
   `dt_registro` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -285,7 +286,7 @@ CREATE TABLE `pg_privada` (
 
 LOCK TABLES `pg_privada` WRITE;
 /*!40000 ALTER TABLE `pg_privada` DISABLE KEYS */;
-INSERT INTO `pg_privada` VALUES (1,'Home','2021-08-09 19:55:47'),(2,'Produtos','2021-08-09 19:55:47'),(3,'Perfil','2021-08-09 19:55:47');
+INSERT INTO `pg_privada` VALUES (1,'Home','2021-08-09 19:55:47'),(2,'Produtos','2021-08-09 19:55:47'),(3,'Perfil','2021-08-09 19:55:47'),(4,'Fornecedor','2021-08-31 18:14:59'),(5,'Estoque','2021-09-01 16:05:55'),(6,'Cargo','2021-09-01 16:05:55'),(7,'Nivel','2021-09-01 18:39:38'),(8,'Pagina_privada','2021-09-01 18:55:45'),(9,'Pagina_publica','2021-09-01 18:55:45'),(10,'Funcionario','2021-09-01 19:05:43'),(11,'Caixa','2021-09-04 16:19:38');
 /*!40000 ALTER TABLE `pg_privada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,7 +312,7 @@ CREATE TABLE `pg_publica` (
 
 LOCK TABLES `pg_publica` WRITE;
 /*!40000 ALTER TABLE `pg_publica` DISABLE KEYS */;
-INSERT INTO `pg_publica` VALUES (1,'Login','2021-08-09 19:57:27'),(2,'PaginaInvalida','2021-08-09 19:57:27'),(3,'Sair','2021-08-09 19:57:27');
+INSERT INTO `pg_publica` VALUES (1,'Login','2021-09-04 16:20:03'),(2,'PaginaInvalida','2021-09-02 09:41:26'),(3,'Sair','2021-09-02 09:47:08');
 /*!40000 ALTER TABLE `pg_publica` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +334,7 @@ CREATE TABLE `produto` (
   PRIMARY KEY (`id`,`fornecedor_id`,`codigo_id`),
   KEY `fk_produto_fornecedor_idx` (`fornecedor_id`),
   KEY `fk_produto_codigo_idx` (`codigo_id`),
-  CONSTRAINT `fk_produto_codigo` FOREIGN KEY (`codigo_id`) REFERENCES `codigo` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_produto_codigo` FOREIGN KEY (`codigo_id`) REFERENCES `codigo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_produto_fornecedor` FOREIGN KEY (`fornecedor_id`) REFERENCES `fornecedor` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -344,7 +345,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (1,'Pão integral',7.49,2,1,0.5,'2021-08-25 23:35:39'),(2,'Pão de forma',5.5,2,2,0.5,'2021-07-29 08:27:37'),(3,'Queijo prato',46,1,3,1,'2021-07-29 08:27:37'),(4,'Bolo de limão',25,2,4,1,'2021-08-11 21:24:17'),(5,'Molho Barbecue Heinz',7,3,5,0.397,'2021-08-12 00:05:05'),(6,'Requeijão',5,2,6,1,'2021-08-12 00:03:57'),(7,'Goiabada',4.5,2,7,0.5,'2021-08-12 00:04:50'),(8,'Bolo de maracujá',25,2,8,1,'2021-08-12 00:05:04'),(9,'Bolo de chocolate',25,2,9,1,'2021-08-12 00:05:04'),(10,'Bolo de cenoura',20,2,10,1,'2021-08-12 00:05:04'),(11,'Bolo de abacaxi',20,2,11,1.5,'2021-08-26 20:19:32'),(12,'Presunto Marques Monte',39.5,1,12,1,'2021-08-12 00:05:04'),(13,'Molho de tomate Heinz',4,3,13,0.4,'2021-08-12 00:05:04'),(14,'Catchup Heinz',5.5,3,14,0.26,'2021-08-12 00:05:05'),(15,'Maionese Sachê Heinz',0.5,3,15,0.8,'2021-08-12 00:05:05'),(16,'Maionese Tradicional Heinz',6.7,3,16,0.215,'2021-08-12 00:05:05'),(17,'Leite condensado Moça',6.85,2,17,0.395,'2021-08-28 11:09:01'),(18,'Creme de leite nestlé',3.5,1,18,0.25,'2021-08-28 16:06:53'),(19,'Biscoito de morango Trakinas ',2.5,1,19,0.126,'2021-08-28 16:10:04'),(20,'Farinha de trigo Dona Benta',3.9,2,20,1,'2021-08-28 16:56:53');
+INSERT INTO `produto` VALUES (1,'Pão integral',7.49,2,1,0.5,'2021-08-25 23:35:39'),(2,'Pão de forma',5.5,2,2,0.5,'2021-07-29 08:27:37'),(3,'Queijo prato',46,1,3,1,'2021-07-29 08:27:37'),(4,'Bolo de limão',25,2,4,1,'2021-08-11 21:24:17'),(5,'Molho Barbecue Heinz',7,3,5,0.397,'2021-08-12 00:05:05'),(6,'Requeijão',5,2,6,1,'2021-08-12 00:03:57'),(7,'Goiabada',4.5,2,7,0.5,'2021-08-12 00:04:50'),(8,'Bolo de maracujá',25,2,8,1,'2021-08-12 00:05:04'),(9,'Bolo de chocolate',25,2,9,1,'2021-08-12 00:05:04'),(10,'Bolo de cenoura',20,2,10,1,'2021-08-12 00:05:04'),(11,'Bolo de abacaxi',20,2,11,1.5,'2021-08-26 20:19:32'),(12,'Presunto Marques Monte',39.5,1,12,1,'2021-08-12 00:05:04'),(13,'Molho de tomate Heinz',4,3,13,0.4,'2021-08-12 00:05:04'),(14,'Catchup Heinz',5.5,3,14,0.26,'2021-08-12 00:05:05'),(15,'Maionese Sachê Heinz',0.5,3,15,0.8,'2021-08-12 00:05:05'),(16,'Maionese Tradicional Heinz',6.7,3,16,0.215,'2021-08-12 00:05:05'),(17,'Leite condensado Moça',6.85,2,17,0.395,'2021-08-28 11:09:01'),(18,'Creme de leite nestlé',3.5,1,18,0.25,'2021-08-28 16:06:53'),(19,'Biscoito de morango Trakinas ',2.7,1,19,0.13,'2021-09-11 16:26:09'),(20,'Fermento biológico Dona Benta',1,2,20,0.05,'2021-09-11 16:37:31');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -471,4 +472,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-28 17:34:47
+-- Dump completed on 2021-09-11 16:52:22
