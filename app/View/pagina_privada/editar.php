@@ -41,12 +41,22 @@ include_once "app/View/include/header.php";
 
                 <div id="form-atualizar">
                     <h1 class="text-center mt-2">Página privada</h1>
-                    <form action="<?php echo URL;?>pagina_privada/atualizar" method="POST">
+                    <form action="<?php echo URL;?>pagina_privada/atualizar" method="POST" id="form-atualizar-paginaPrivada">
                         <div class="form-row">
                             <div class="form-group col-12">
                                 <input type="hidden" name="id" value="<?php echo $pg_privada['id'] ?>">
                                 <label for="form_nome">Nome</label>
-                                <input type="text" name="nome" class="form-control" id="form_nome" value="<?php echo $pg_privada['nome'] ?>">
+                                <input type="text" name="nome" id="form-nome" class="form-control <?php echo isset($_SESSION['Erro_form']['nome']) ? 'is-invalid' : '' ?>" aria-describedby="serverNome" value="<?php echo $pg_privada['nome'] ?>">
+                                <?php
+                                if (isset($_SESSION['Erro_form']['nome'])) { ?>
+                                    <div id='serverNome' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['nome'];
+                                        unset($_SESSION['Erro_form']['nome']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
                             </div>
                         </div>
                         <div class="form-row">
