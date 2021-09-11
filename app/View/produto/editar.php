@@ -41,41 +41,91 @@ include_once "app/View/include/header.php";
 
                 <div id="form-atualizar">
                     <h1 class="text-center mt-2">Produto</h1>
-                    <form action="<?php echo URL;?>produtos/atualizar" method="POST">
+                    <form action="<?php echo URL; ?>produtos/atualizar" method="POST" id='form-atualizar-produto'>
                         <div class="form-row">
                             <div class="form-group col-12 col-sm-8">
                                 <input type="hidden" name="id" value="<?php echo $produto['id'] ?>">
                                 <label for="form_nome">Nome</label>
-                                <input type="text" name="nome" class="form-control" id="form_nome" value="<?php echo $produto['nome'] ?>">
+                                <input type="text" name="nome" class="form-control <?php echo isset($_SESSION['Erro_form']['nome']) ? 'is-invalid' : '' ?>" aria-describedby="serverNome" id="form-nome" value="<?php echo $produto['nome'] ?>">
+                                <?php
+                                if (isset($_SESSION['Erro_form']['nome'])) { ?>
+                                    <div id='serverNome' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['nome'];
+                                        unset($_SESSION['Erro_form']['nome']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
                             </div>
 
                             <div class="form-group col-4 col-sm-4">
                                 <label for="form_kilograma">Kg</label>
-                                <input type="number" name="kilograma" id="form_kilograma" class="form-control" value="<?php echo $produto['kilograma'] ?>" min='0.001' step="0.001">
+                                <input type="text" name="kilograma" id="form-kilograma" class="form-control <?php echo isset($_SESSION['Erro_form']['kilograma']) ? 'is-invalid' : '' ?>" value="<?php echo number_format($produto['kilograma'], 3, ',', '.') ?>">
+                                <?php if (isset($_SESSION['Erro_form']['kilograma'])) { ?>
+                                    <div id='serverKilograma' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['kilograma'];
+                                        unset($_SESSION['Erro_form']['kilograma']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
                             </div>
 
                             <div class="form-group col-4 col-sm-6">
                                 <label for="form_preco">Preço</label>
-                                <input type="number" name="preco" id="form_preco" class="form-control" value="<?php echo $produto['preco'] ?>" min="0.10" step="0.01">
+                                <input type="text" name="preco" id="form-preco" class="form-control <?php echo isset($_SESSION['Erro_form']['preco']) ? 'is-invalid' : '' ?>" aria-describedby="serverPreco" value="<?php echo number_format($produto['preco'], 2, ',', '.')?>">
+                                <?php
+                                if (isset($_SESSION['Erro_form']['preco'])) { ?>
+
+                                    <div id='serverPreco' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['preco'];
+                                        unset($_SESSION['Erro_form']['preco']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
                             </div>
-                            
+
                             <div class="form-group col-4 col-sm-6">
                                 <label for="form_quantidade">Quantidade</label>
-                                <input type="number" name="quantidade" id="form_quantidade" class="form-control" value="<?php echo $produto['quantidade'] ?>" min="0" step="1">
+                                <input type="number" name="quantidade" id="form-quantidade" min="1" class="form-control <?php echo isset($_SESSION['Erro_form']['quantidade']) ? 'is-invalid' : '' ?>" aria-describedby="serverQuantidade" value="<?php echo $produto['quantidade'] ?>" min="0" step="1">
+                                <?php if (isset($_SESSION['Erro_form']['quantidade'])) { ?>
+
+                                    <div id='serverQuantidade' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['quantidade'];
+                                        unset($_SESSION['Erro_form']['quantidade']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-12 col-sm-8">
-                               
+
                                 <label for="form_fornecedor">Fornecedor</label>
-                                <select name="fornecedor_id" class="form-control" id="form_fornecedor">
-                                    <option value="<?php echo $produto['fornecedor_id']?>" id="option_padrao" selected><?php echo $produto['fornecedor']?></option>
+                                <select name="fornecedor_id" id="form-fornecedor_id" class="form-control <?php echo isset($_SESSION['Erro_form']['fornecedor_id']) ? 'is-invalid' : '' ?>" aria-describedby="serverFornecedor_id">
+                                    <option value="<?php echo $produto['fornecedor_id'] ?>" id="option_padrao" selected><?php echo $produto['fornecedor'] ?></option>
                                 </select>
+                                <?php if (isset($_SESSION['Erro_form']['fornecedor_id'])) { ?>
+
+                                    <div id='serverFornecedor_id' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['fornecedor_id'];
+                                        unset($_SESSION['Erro_form']['fornecedor_id']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
                             </div>
                             <div class="form-group col-12 col-sm-4">
                                 <label for="form-codigo">Código</label>
-                                <input type="text" name="codigo" value="<?php echo $produto['codigo']?>" id="form-codigo" class="form-control" disabled>
-                                <input type="hidden" name="codigo_id" value="<?php echo $produto['codigo_id']?>">
+                                <input type="text" name="codigo" value="<?php echo $produto['codigo'] ?>" id="form-codigo" class="form-control" disabled>
+                                <input type="hidden" name="codigo_id" value="<?php echo $produto['codigo_id'] ?>">
                             </div>
                         </div>
                         <div class="form-row">
@@ -94,9 +144,11 @@ include_once "app/View/include/header.php";
             include_once "app/View/include/footer.php";
             ?>
             <script src="<?php echo URL; ?>app/Assets/js/eventos.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="<?php echo URL; ?>app/Assets/js/mask.js"></script>
             <script src="<?php echo URL; ?>app/Assets/js/produtos-ajax.js"></script>
             <script>
-                 window.addEventListener("load",editarProdutos());
+                window.addEventListener("load", editarProdutos());
             </script>
             </body>
 
