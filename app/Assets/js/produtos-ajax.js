@@ -17,7 +17,7 @@ function editarProdutos()
         }
         }
         
-        $("#form_fornecedor").append(text);
+        $("#form-fornecedor_id").append(text);
     })
 
     .fail(function(){
@@ -41,7 +41,7 @@ function indexProdutos()
             text +="<option value=" + item['id'] + ">" + item['nome'] + "</option>"; 
         }
         
-        $("#form-fornecedor").append(text);
+        $("#form-fornecedor_id").append(text);
     })
     
     .fail(function(){
