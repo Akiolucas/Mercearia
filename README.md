@@ -2,7 +2,14 @@
 <h2>Esse é um projeto desenvolvido com o intuito de apresentar um pouco dos meus conhecimentos com programação web.</h2>
 <hr>
 <h3>Utilizando essa estrutura inicial desenvolvida por mim, você pode melhorá-la e aplicar no seu projeto pessoal, um E-commerce por exemplo.<h3>
-
+<h4>Este projeto contém validações no front-end e no back-end em todas as páginas, fique à vontade, acesse e faça testes!</h4>
+ <hr>
+ <h3>No formulário de login utilize esse usuário :star2: :point_down:</h3>
+ <hr>
+ :warning: Atenção: campos case sensitive :exclamation:
+ <h4>Credencial: lucas</h4>
+ <h4>Senha: 12345</h4>
+ <hr>
  :warning: Atenção: Esse projeto está em desenvolvimento ainda.
 <hr>
 
@@ -90,35 +97,37 @@
     <img src="app/Assets/image/projeto/produtos-validacao.png" alt="imagem página de editar produto validação">
     <figcaption>:camera: Página de editar produtos, validação no front-end e back-end </figcaption>
 </figure>
-
+ <hr>
+ <figure>
+    <img src="app/Assets/image/projeto/produto-atualizado.png" alt="imagem página produto atualizado">
+    <figcaption>:camera: Página produtos, mensagem produto atualizado com sucesso! </figcaption>
+</figure>
  <hr>
  <figure>
     <img src="app/Assets/image/projeto/produtos-cadastrar.png" alt="imagem do modal de cadastrar na página produtos">
     <figcaption>:camera:Ao clicar em cadastrar abre esse modal de cadastro de produto</figcaption>
 </figure>
+ <hr>
  <figure>
     <img src="app/Assets/image/projeto/produtos-modal-excluir.png" alt="imagem página produtos modal excluir">
     <figcaption>:camera: Página produtos modal excluir</figcaption>
 </figure>
  <hr>
  <figure>
-    <img src="app/Assets/image/projeto/funcionario-cadastro.png" alt="imagem página de funcionário cadastro">
-    <figcaption>:camera: Página funcionário, modal cadastro</figcaption>
-</figure>
- <hr>
- <figure>
-    <img src="app/Assets/image/projeto/funcionario-atualizar.png" alt="imagem página de funcionário atualizar">
-    <figcaption>:camera: Página funcionário atualizar</figcaption>
-</figure>
- <hr>
- <figure>
-    <img src="app/Assets/image/projeto/funcionario-atualizar2.png" alt="imagem página de funcionário atualizar continuação">
-    <figcaption>:camera: Página funcion</figcaption>
-</figure>
- <hr>
+<hr>
  <figure>
     <img src="app/Assets/image/projeto/fornecedores.png" alt="imagem da página de fornecedores">
     <figcaption>:camera:Imagem da página de fornecedores com CRUD também</figcaption>
+</figure>
+ <hr>
+  <figure>
+    <img src="app/Assets/image/projeto/paginasprivada.png" alt="imagem de páginas privada">
+    <figcaption>:camera: Página de cadastro de páginas privadas do sistema </figcaption>
+</figure>
+ <hr>
+  <figure>
+    <img src="app/Assets/image/projeto/paginaspublica.png" alt="imagem de páginas pública">
+    <figcaption>:camera: Página de cadastro de páginas públicas do sistema </figcaption>
 </figure>
  
 
