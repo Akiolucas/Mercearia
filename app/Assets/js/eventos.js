@@ -520,6 +520,102 @@ f_a_paginaPublica.submit(function(e)
 });
 // fim da validação do formulário de atualizar página pública
 
+// página produto cadastrar
+let f_produto = $('#form-produto');
+f_produto.submit(function(e)
+{
+  let f_nome = $('#form-nome').val();
+  let f_preco = $('#form-preco').val();
+  let f_fornecedor_id = $('#form-fornecedor_id').val();
+  let f_form_kilograma = $('#form-kilograma').val();
+  let f_quantidade = $('#form-quantidade').val();
+
+  let f_validos =[
+    validatamanho(f_nome,1,30),
+    validaFloat(f_preco,0.10),
+    validaInt(1,f_fornecedor_id),
+    validaFloat(f_form_kilograma,0.001),
+    validaInt(1,f_quantidade)
+  ];
+  
+  if(!form_valido(f_validos))
+  {
+    let form_campos = [
+      ['form-nome','*Preencha este campo, limite máximo permitido é 30 caracteres'],
+      ['form-preco',"* Informe o preço, mínimo 0,10 Reais"],
+      ['form-fornecedor_id','*Selecione uma opção'],
+      ['form-kilograma','*Informe o Kg, mínimo 0,001 kg'],
+      ['form-quantidade','*Informe a quantidade, mínimo 1']
+    ];
+    
+    for(var i = 0; i < f_validos.length; i ++)
+    {
+      
+      $('#'+form_campos[i][0]).removeClass('is-invalid');
+      $('#d-'+form_campos[i][0]).remove();
+      
+      if(f_validos[i] == false)
+      {
+        var elemento = $('#'+form_campos[i]).addClass('is-invalid');
+        
+        elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+"><p>" +form_campos[i][1] + "</p></div>");
+      }
+    }
+    e.preventDefault();
+  }
+
+});
+// fim da validação do formulário de cadastro de produto
+
+//produto atualizar
+
+let f_a_produto = $('#form-atualizar-produto');
+f_a_produto.submit(function(e)
+{
+  let f_nome = $('#form-nome').val();
+  let f_preco = $('#form-preco').val();
+  let f_fornecedor_id = $('#form-fornecedor_id').val();
+  let f_form_kilograma = $('#form-kilograma').val();
+  let f_quantidade = $('#form-quantidade').val();
+
+  let f_validos =[
+    validatamanho(f_nome,1,30),
+    validaFloat(f_preco,0.10),
+    validaInt(1,f_fornecedor_id),
+    validaFloat(f_form_kilograma,0.001),
+    validaInt(0,f_quantidade)
+  ];
+ 
+  
+  if(!form_valido(f_validos))
+  {
+    let form_campos = [
+      ['form-nome','*Preencha este campo, limite máximo permitido é 30 caracteres'],
+      ['form-preco',"* Informe o preço, mínimo 0,10 Reais"],
+      ['form-fornecedor_id','*Selecione uma opção'],
+      ['form-kilograma','*Informe o Kg, mínimo 0,001 kg'],
+      ['form-quantidade','*Informe a quantidade, mínimo 0']
+    ];
+    
+    for(var i = 0; i < f_validos.length; i ++)
+    {
+      
+      $('#'+form_campos[i][0]).removeClass('is-invalid');
+      $('#d-'+form_campos[i][0]).remove();
+      
+      if(f_validos[i] == false)
+      {
+        var elemento = $('#'+form_campos[i]).addClass('is-invalid');
+        
+        elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+"><p>" +form_campos[i][1] + "</p></div>");
+      }
+    }
+    e.preventDefault();
+  }
+
+});
+// fim da validação do formulário de atualizar produto
+
   // funções de validação
   function validaOpcoes(array)
   {
@@ -573,6 +669,24 @@ f_a_paginaPublica.submit(function(e)
       return false;
     }
     return true;
+  }
+
+  function validaFloat(variavel,minimo)
+  {
+    variavel = variavel.replace('.','');
+    variavel = variavel.replace(',','.');
+
+    parseFloat(variavel);
+
+    if(isNaN(variavel)){
+      return false;
+    }
+
+    else if(variavel < minimo){
+      return false;
+    }
+
+  return true;
   }
 
   function form_valido(dados)
