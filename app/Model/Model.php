@@ -128,7 +128,8 @@ class Model extends Conexao
     }
     final protected function valida_float($campo, string $chave, string $mensagem, float $minimo): bool
     {
-       
+        $campo = str_replace('.','',$campo);
+        $campo = str_replace(',','.',$campo);
         $campo = floatval($campo);
         
         if($campo < $minimo){
@@ -181,7 +182,16 @@ class Model extends Conexao
     
         return true;
     }
+
+    final protected function converteFloat($valor): float
+    {
+        $valor = str_replace('.','',$valor);
+        $valor = str_replace(',','.',$valor);
+        $valor = floatval($valor);
     
+         return $valor;
+    }
+
 }
 
 ?>
