@@ -99,34 +99,91 @@ include_once "app/View/include/header.php";
                 <div class="modal fade" id="modalCadastrar" tabindex="-1" role="dialog" aria-labelledby="cadastrarProduto" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
+                            <?php
+                            if (isset($_SESSION['alerta'])) {
+                                echo $_SESSION['alerta'];
+                                unset($_SESSION['alerta']);
+                            }
+                            ?>
                             <div class="modal-header">
                                 <h5 class="modal-title text-center w-100" id="cadastrarProduto">Produto</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <form action="<?php echo URL; ?>produtos/cadastrar" method="POST">
+                            <form action="<?php echo URL; ?>produtos/cadastrar" method="POST" id="form-produto">
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="form-nome" class="col-form-label">Nome:</label>
-                                        <input type="text" name="nome" id="form-nome" class="form-control" required>
+                                        <input type="text" name="nome" id="form-nome" class="form-control <?php echo isset($_SESSION['Erro_form']['nome']) ? 'is-invalid' : '' ?>" aria-describedby="serverNome" <?php echo isset($_SESSION['form']['nome']) ? 'value="' . $_SESSION['form']['nome'] . '"' : "" ?>>
+                                        <?php
+                                        if (isset($_SESSION['Erro_form']['nome'])) { ?>
+                                            <div id='serverNome' class="invalid-feedback">
+                                                <?php
+                                                echo $_SESSION['Erro_form']['nome'];
+                                                unset($_SESSION['Erro_form']['nome']);
+                                                ?>
+                                            </div>
+                                        <?php
+                                        } ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="form-preco" class="col-form-label">Preço:</label>
-                                        <input type="number" name="preco" id="form-preco" class="form-control" min="0.10" step="0.01" required>
+                                        <input type="text" name="preco" id="form-preco" class="form-control <?php echo isset($_SESSION['Erro_form']['preco']) ? 'is-invalid' : '' ?>" aria-describedby="serverPreco" <?php echo isset($_SESSION['form']['preco']) ? 'value="' . $_SESSION['form']['preco'] . '"' : "" ?>>
+                                        <?php
+                                        if (isset($_SESSION['Erro_form']['preco'])) { ?>
+
+                                            <div id='serverPreco' class="invalid-feedback">
+                                                <?php
+                                                echo $_SESSION['Erro_form']['preco'];
+                                                unset($_SESSION['Erro_form']['preco']);
+                                                ?>
+                                            </div>
+                                        <?php
+                                        } ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="form-fornecedor" class="col-form-label">Fornecedor:</label>
-                                        <select name="fornecedor_id" id="form-fornecedor" class="form-control" required>
+                                        <select name="fornecedor_id" id="form-fornecedor_id" class="form-control <?php echo isset($_SESSION['Erro_form']['fornecedor_id']) ? 'is-invalid' : '' ?>" aria-describedby="serverFornecedor_id">
                                         </select>
+                                        <?php if (isset($_SESSION['Erro_form']['fornecedor_id'])) { ?>
+
+                                            <div id='serverFornecedor_id' class="invalid-feedback">
+                                                <?php
+                                                echo $_SESSION['Erro_form']['fornecedor_id'];
+                                                unset($_SESSION['Erro_form']['fornecedor_id']);
+                                                ?>
+                                            </div>
+                                        <?php
+                                        } ?>
                                     </div>
                                     <div class="form-group">
-                                        <label for="form-kilograma" class="col-form-label">Kilograma:</label>
-                                        <input type="number" name="kilograma" id="form-kilograma" class="form-control" min='0.001' step="0.001" required>
+                                        <label for="form-kilograma" class="col-form-label">Kg:</label>
+                                        <input type="text" name="kilograma" id="form-kilograma" class="form-control <?php echo isset($_SESSION['Erro_form']['kilograma']) ? 'is-invalid' : '' ?>" aria-describedby="serverKilograma" <?php echo isset($_SESSION['form']['kilograma']) ? 'value="' . $_SESSION['form']['kilograma'] . '"' : "" ?>> 
+                                        <?php if (isset($_SESSION['Erro_form']['kilograma'])) { ?>
+
+                                            <div id='serverKilograma' class="invalid-feedback">
+                                                <?php
+                                                echo $_SESSION['Erro_form']['kilograma'];
+                                                unset($_SESSION['Erro_form']['kilograma']);
+                                                ?>
+                                            </div>
+                                        <?php
+                                        } ?>
                                     </div>
                                     <div class="form-group">
                                         <label for="form-quantidade" class="col-form-label">Quantidade:</label>
-                                        <input type="number" name="quantidade" id="form-quantidade" min="1" class="form-control" step="1" required>
+                                        <input type="number" name="quantidade" id="form-quantidade" min="1" class="form-control <?php echo isset($_SESSION['Erro_form']['quantidade']) ? 'is-invalid' : '' ?>" aria-describedby="serverQuantidade" step="1" <?php echo isset($_SESSION['form']['quantidade']) ? 'value="' . $_SESSION['form']['quantidade'] . '"' : "" ?>>
+                                        <?php if (isset($_SESSION['Erro_form']['quantidade'])) { ?>
+
+                                            <div id='serverQuantidade' class="invalid-feedback">
+                                                <?php
+                                                echo $_SESSION['Erro_form']['quantidade'];
+                                                unset($_SESSION['Erro_form']['quantidade']);
+                                                ?>
+                                            </div>
+                                        <?php
+                                        } ?>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -160,13 +217,23 @@ include_once "app/View/include/header.php";
             <?php
             include_once "app/View/include/footer.php";
             ?>
+            
             <script src="<?php echo URL; ?>app/Assets/js/eventos.js"></script>
             <script src="<?php echo URL; ?>app/Assets/jquery/jquery.dataTables.min.js"></script>
             <script src="<?php echo URL; ?>app/Assets/js/dataTables.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script src="<?php echo URL; ?>app/Assets/js/mask.js"></script>
             <script src="<?php echo URL; ?>app/Assets/js/produtos-ajax.js"></script>
             <script>
                 window.addEventListener("load", indexProdutos());
             </script>
+            
+            <?php
+            if (isset($_SESSION['script'])) {
+                echo $_SESSION['script'];
+                unset($_SESSION['script']);
+            }
+            ?>
             </body>
 
 </html>
