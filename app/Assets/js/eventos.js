@@ -616,6 +616,52 @@ f_a_produto.submit(function(e)
 });
 // fim da validação do formulário de atualizar produto
 
+//perfil atualizar dados
+
+let f_a_perfil = $('#form-atualizar-perfil');
+f_a_perfil.submit(function(e)
+{
+  let f_credencial = $('#form-credencial').val();
+  let f_senhaAtual = $('#form-senhaAtual').val();
+  let f_senha = $('#form-senha').val();
+  let f_senhaRepetida = $('#form-senhaRepetida').val();
+
+  let f_validos =[
+    validatamanho(f_credencial,8,20),
+    validatamanho(f_senhaAtual,8,64),
+    validatamanho(f_senha,8,64),
+    validaSenhaRepetida(f_senha,f_senhaRepetida,8,64)
+  ];
+  
+  if(!form_valido(f_validos))
+  {
+  
+    let form_campos = [
+      ['form-credencial','*Preencha este campo, credencial deve conter entre 8 a 20 caracteres'],
+      ['form-senhaAtual',"*Senha inválida"],
+      ['form-senha','*Informe a nova senha, deve conter entre 8 a 64 caracteres'],
+      ['form-senhaRepetida','*Senha diferente, informe a nova senha e tente novamente'],
+    ];
+    
+    for(var i = 0; i < f_validos.length; i ++)
+    {
+      
+      $('#'+form_campos[i][0]).removeClass('is-invalid');
+      $('#d-'+form_campos[i][0]).remove();
+      
+      if(f_validos[i] == false)
+      {
+        var elemento = $('#'+form_campos[i]).addClass('is-invalid');
+        
+        elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+"><p>" +form_campos[i][1] + "</p></div>");
+      }
+    }
+    e.preventDefault();
+  }
+
+});
+  //fim da atualização do perfil do usuário.
+
   // funções de validação
   function validaOpcoes(array)
   {
@@ -697,6 +743,14 @@ f_a_produto.submit(function(e)
         
        return false;
       }
+    }
+    return true;
+  }
+  function validaSenhaRepetida(senha,senhaRepetida,minimo,maximo)
+  {
+    if(senhaRepetida.length < minimo || senhaRepetida.length > maximo || senhaRepetida != senha)
+    {
+      return false;
     }
     return true;
   }
