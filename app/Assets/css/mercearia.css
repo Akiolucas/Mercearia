@@ -232,3 +232,48 @@ margin-bottom:15px;
 #form-pg-privada-id.form-check.is-invalid{
   border-color: #dc3545;
 }
+/*  fim */
+
+/* perfil de usuário*/
+
+#perfilUsuario{
+  width:400px;
+  margin:auto;
+  padding:0;
+  background-color:#17a2b8;
+  border: 1px solid black;
+  border-radius:5px;
+}
+
+#perfilUsuario ul{
+  padding:0;
+  margin:10px 10px 10px 10px;
+  border-radius:5px;
+}
+#perfilUsuario ul li{
+  background-color:rgb(226, 232, 233);
+   
+}
+#perfilUsuario ul li a{
+  background-color:#17a2b8;
+  border:1px solid #17a2b8;
+  border-radius:5px;
+  color:#212529;
+  font-weight:bold;
+  font-style:italic;
+  padding:10px 10px;
+  font-size:12pt;
+  text-align:center;
+  display:block;
+
+}
+#perfilUsuario ul li span{
+  float:right;
+}
+
+#perfilUsuario ul li a:hover{
+  background-image:linear-gradient(to right,transparent,black);
+  color:white;
+  text-decoration: none;
+}
+/*  Fim */
