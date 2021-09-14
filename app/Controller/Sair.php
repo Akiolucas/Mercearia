@@ -9,7 +9,6 @@ namespace App\Controller;
 
 class Sair extends Controller
 {
-    private $dados;
 
     public function index(): void
     {
