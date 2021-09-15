@@ -10,9 +10,11 @@ namespace App\Controller;
 class Home extends Controller
 {
     private $dados;
-
     public function index()
     {
+        $detalhes = new \App\Model\Home();
+        $this->dados = $detalhes->listar();
+      
         $pagina = new \Core\ConfigView('View/home/index',$this->dados);
         $pagina->renderizar();
     }
