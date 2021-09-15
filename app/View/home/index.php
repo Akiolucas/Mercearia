@@ -1,12 +1,13 @@
-<?php 
-   if(!defined("MERCEARIA2021")) // verificar se a constante criada no index, foi definida!
-    {   
-        header("Location: http://localhost/mercearia/paginaInvalida/index");
-        die("Erro: Página não encontrada!");
-    }
+<?php
+if (!defined("MERCEARIA2021")) // verificar se a constante criada no index, foi definida!
+{
+    header("Location: http://localhost/mercearia/paginaInvalida/index");
+    die("Erro: Página não encontrada!");
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,25 +24,67 @@ include_once "app/View/include/header.php";
 
 ?>
 <div class="container-fluid">
-  <div class="row">
-<?php 
-include_once "app/View/include/menulateral.php";
-?>
-    <div class="col-md-9 ml-auto col-lg-10 principal">
-    <main role="main" class="m-2">
-<?php
-if(isset($_SESSION['msg']))
-{
-    echo $_SESSION['msg'];
-    unset($_SESSION['msg']);
-}
+    <div class="row">
+        <?php
+        include_once "app/View/include/menulateral.php";
+        ?>
+        <div class="col-md-9 ml-auto col-lg-10 principal">
+            <main role="main" class="m-2">
+                <?php
+                if (isset($_SESSION['msg'])) {
+                    echo $_SESSION['msg'];
+                    unset($_SESSION['msg']);
+                
+                }
+                if(isset($_SESSION['usuario_cargo']) && $_SESSION['usuario_cargo'] == 'Administrador')
+                {
+                    $detalhes = $this->dados[0];
+                ?>
+                <div class="row m-0">
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Funcionários</h5><hr>
+                                <p class="card-text"><b>Total:</b> <?php echo $detalhes['funcionario'];?></p>
+                                <a href="<?php echo URL;?>funcionario" class="btn btn-info d-block">Detalhes</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Fornecedores</h5><hr>
+                                <p class="card-text"><b>Total:</b> <?php echo $detalhes['fornecedor'];?></p>
+                                <a href="<?php echo URL;?>fornecedor" class="btn btn-info d-block">Detalhes</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Produtos</h5><hr>
+                                <p class="card-text"><b>Total:</b> <?php echo $detalhes['produto'];?></p>
+                                <a href="<?php echo URL;?>produtos" class="btn btn-info d-block">Detalhes</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-md-12 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title text-center">Caixa</h5><hr>
+                                <p class="card-text"><b>Total:</b> </p>
+                                <a href="<?php echo URL;?>caixa" class="btn btn-info d-block">Detalhes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php };?>
 
-?>
-      
-    </main>
-<?php
-    include_once "app/View/include/footer.php";
-?>
-<script src="<?php echo URL;?>app/Assets/js/eventos.js"></script>
-</body>
+            </main>
+            <?php
+            include_once "app/View/include/footer.php";
+            ?>
+            <script src="<?php echo URL; ?>app/Assets/js/eventos.js"></script>
+            </body>
+
 </html>
