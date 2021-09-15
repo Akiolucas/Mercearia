@@ -2,7 +2,6 @@
 
 namespace App\Model;
 
-use App\Controller\Controller;
 use PDOException;
 
 if (!defined("MERCEARIA2021")) // verificar se a constante criada no index, foi definida!
