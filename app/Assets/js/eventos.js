@@ -662,6 +662,57 @@ f_a_perfil.submit(function(e)
 });
   //fim da atualização do perfil do usuário.
 
+  //caixa cadastrar compra
+  $('#form-dinheiro-cliente').change(function(){
+    $('#d-form-dinheiro-cliente').remove();
+    let formaPagamento= $('#form-pagamento').val();
+
+    if(formaPagamento == 'Dinheiro')
+    {
+      $(this).removeClass('is-invalid');
+      $('#d-form-dinheiro-cliente').remove();
+
+      let valorCompra = $('#form-total').val();
+      let valorTotal = formatar_real(valorCompra);
+      let pagamentoCliente = $(this).val();
+      pagamentoCliente = formatar_real(pagamentoCliente,false);
+    
+      let resultado = parseFloat(pagamentoCliente - valorTotal).toFixed(2);
+     
+      if(pagamentoCliente >= valorTotal)
+      {
+          resultado = new Intl.NumberFormat('pt-BR').format(resultado);
+          pagamentoCliente = new Intl.NumberFormat('pt-BR').format(pagamentoCliente);
+          $(this).val('R$ '+ pagamentoCliente);
+          $('#form-troco').val('R$ '+ resultado);
+      }
+      else{
+          $('#form-troco').val('');
+          $('#form-dinheiro-cliente').addClass('is-invalid');
+
+          let restante = parseFloat(resultado * -1).toFixed(2);
+          restante = new Intl.NumberFormat('pt-BR').format(restante);
+          let mensagem = 'Valor insuficiente, falta R$ '+ restante;
+          $('#form-dinheiro-cliente').after("<div class='invalid-feedback' id='d-form-dinheiro-cliente'><p>" +mensagem+ "</p></div>");
+          $('#btn_cadastrar').click(function(e){e.preventDefault()});
+      }
+    }
+    else{
+      $('#form-dinheiro-cliente').addClass('is-invalid');
+      let mensagem = 'Selecione uma forma de pagamento primeiro!';
+      $('#form-dinheiro-cliente').after("<div class='invalid-feedback' id='d-form-dinheiro-cliente'><p>" +mensagem+ "</p></div>");
+      $('#btn_cadastrar').click(function(e){e.preventDefault()});
+    }
+   
+});
+
+  //cancelar compra alerta
+  $('#cancelarCompra').click(function(e){
+    if(!confirm('Deseja cancelar toda a compra?')){
+      e.preventDefault();
+    };
+  });
+
   // funções de validação
   function validaOpcoes(array)
   {
@@ -753,5 +804,17 @@ f_a_perfil.submit(function(e)
       return false;
     }
     return true;
+  }
+  function formatar_real(valor,sifrao = true)
+  {
+
+      if(sifrao){
+        valor = valor.replace('R$','');
+      }
+      valor = valor.replace(/[^0-9\,]+/g,'');
+      valor = valor.replace(',','.');
+
+      valor = parseFloat(valor);
+      return valor;
   }
 })
