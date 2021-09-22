@@ -17,7 +17,8 @@
                 $_SESSION['paginas_publicas'],
                 $_SESSION['form'],
                 $_SESSION['Erro_form'],
-                $_SESSION['msg']
+                $_SESSION['msg'],
+                $_SESSION['caixa']
             );
          }
      }
