@@ -27,6 +27,12 @@
             $pagina->renderizar();
            
         }
+        public function pedido()
+        {
+            $dados = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+            $cadastro = new \App\Model\Caixa();
+            $cadastro->cadastrar($dados);
+        }
 
         public function listaProdutosAjax()
         {
