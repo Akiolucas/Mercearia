@@ -663,9 +663,9 @@ f_a_perfil.submit(function(e)
   //fim da atualização do perfil do usuário.
 
   //caixa cadastrar compra
-  $('#form-dinheiro-cliente').change(function(){
+  $('body').on('change','#form-dinheiro-cliente',function(){
     $('#d-form-dinheiro-cliente').remove();
-    let formaPagamento= $('#form-pagamento').val();
+    let formaPagamento = $('#form-pagamento').val();
 
     if(formaPagamento == 'Dinheiro')
     {
@@ -681,27 +681,33 @@ f_a_perfil.submit(function(e)
      
       if(pagamentoCliente >= valorTotal)
       {
-          resultado = new Intl.NumberFormat('pt-BR').format(resultado);
-          pagamentoCliente = new Intl.NumberFormat('pt-BR').format(pagamentoCliente);
-          $(this).val('R$ '+ pagamentoCliente);
-          $('#form-troco').val('R$ '+ resultado);
+          resultado = new Intl.NumberFormat('pt-BR',{ style: 'currency', currency: 'BRL' }).format(resultado);
+          pagamentoCliente = new Intl.NumberFormat('pt-BR',{ style: 'currency', currency: 'BRL' }).format(pagamentoCliente);
+          $(this).val(pagamentoCliente);
+          $('#form-troco').val(resultado);
       }
       else{
+          let mensagem = "";
           $('#form-troco').val('');
           $('#form-dinheiro-cliente').addClass('is-invalid');
 
-          let restante = parseFloat(resultado * -1).toFixed(2);
-          restante = new Intl.NumberFormat('pt-BR').format(restante);
-          let mensagem = 'Valor insuficiente, falta R$ '+ restante;
+          if(!isNaN(pagamentoCliente)){
+            let restante = parseFloat(resultado * -1).toFixed(2);
+            restante = new Intl.NumberFormat('pt-BR',{ style: 'currency', currency: 'BRL' }).format(restante);
+            mensagem = 'Valor insuficiente, falta '+ restante;
+          }
+          else{
+            mensagem = 'Valor informado inválido!';
+          }
+         
           $('#form-dinheiro-cliente').after("<div class='invalid-feedback' id='d-form-dinheiro-cliente'><p>" +mensagem+ "</p></div>");
-          $('#btn_cadastrar').click(function(e){e.preventDefault()});
       }
     }
-    else{
+    else if(formaPagamento != 'Crédito' && formaPagamento != 'Débito'){
       $('#form-dinheiro-cliente').addClass('is-invalid');
       let mensagem = 'Selecione uma forma de pagamento primeiro!';
       $('#form-dinheiro-cliente').after("<div class='invalid-feedback' id='d-form-dinheiro-cliente'><p>" +mensagem+ "</p></div>");
-      $('#btn_cadastrar').click(function(e){e.preventDefault()});
+      
     }
    
 });
@@ -711,6 +717,39 @@ f_a_perfil.submit(function(e)
     if(!confirm('Deseja cancelar toda a compra?')){
       e.preventDefault();
     };
+  });
+
+  // validação de todos os campos da compra
+  let f_caixa = $('#form-caixa');
+  f_caixa.submit(function(e)
+  {
+    let produtos = [];
+
+    $('input[name="form-id[]"]').each(function(){
+      produtos.push($(this).val());
+      
+    });
+    let pagamento = $('#form-pagamento').val();
+    let dinheiro_cliente = $('#form-dinheiro-cliente').val();
+    let troco = $('#form-troco').val();
+    // verificar se existe produtos adicionados 
+    if(produtos.length > 0)
+    {
+      if(pagamento == 'Dinheiro' || pagamento == 'Crédito' || pagamento == 'Débito')
+      {
+          if(isNaN(formatar_real(dinheiro_cliente))){
+            alert('informe um valor válido'); e.preventDefault();
+          }
+      }
+      else{
+        alert('Selecione uma forma de pagamento'); e.preventDefault();
+      }
+    }
+    else{
+      alert('Adicione produtos primeiro!');
+      e.preventDefault();
+    }
+    
   });
 
   // funções de validação
@@ -816,5 +855,5 @@ f_a_perfil.submit(function(e)
 
       valor = parseFloat(valor);
       return valor;
-  }
+    }
 })
