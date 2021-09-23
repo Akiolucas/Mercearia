@@ -48,44 +48,44 @@ include_once "app/View/include/header.php";
                     <div class="form-row">
                         <div class="form-group col-12" id="resultado-busca"></div>
                     </div>
-                    <div class="table-responsive-caixa largura-table-caixa">
-                        <table id="produtos-selecionados" class="table table-hover">
-                            <thead  class="bg-info">
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Nome</th>
-                                    <th>Código</th>
-                                    <th>Preço</th>
-                                    <th>Quantidade</th>
-                                    <th>Subtotal</th>
-                                    <th>Excluir</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                if(count($this->dados) > 0)
-                                {
-                                    $total= 0;
-                                    foreach($this->dados as $item):
-                                        $total+= floatval($item['subTotal']);
+                    <form action="<?php echo URL; ?>caixa/pedido" method="POST" id="form-caixa">
+                        <div class="table-responsive-caixa largura-table-caixa">
+                            <table id="produtos-selecionados" class="table table-hover">
+                                <thead class="bg-info">
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nome</th>
+                                        <th>Código</th>
+                                        <th>Preço</th>
+                                        <th>Quantidade</th>
+                                        <th>Subtotal</th>
+                                        <th>Excluir</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    if (count($this->dados) > 0) {
+                                        $total = 0;
+                                        foreach ($this->dados as $item) :
+                                            $total += floatval($item['subTotal']);
                                     ?>
-                                  <tr>
-                                      <td><input type="text" name="form-id" id="form-id" class='f-caixa' value="<?php echo $item['id']?>" readonly></td>
-                                      <td><input type="text" name="form-nome" id="form-nome" class='f-caixa' value="<?php echo $item['nome']?>" readonly></td>
-                                      <td><input type="text" name="form-codigo" id="form-codigo" class='f-caixa' value="<?php echo $item['codigo']?>" readonly></td>
-                                      <td><input type="text" name="form-preco" id="form-preco" class='f-caixa' value="<?php echo "R$ ". number_format($item['preco'],2,',','.')?>" readonly></td>
-                                      <td><input type='text' id='form-quantidade'class='f-caixa'  value='<?php echo $item['quantidade']?>' name='form-quantidade' data-value='<?php echo $item['id']?>'></td>
-                                      <td><?php echo "R$ ". number_format($item['subTotal'],2,',','.')?></td>
-                                      <td> <a href='<?php echo URL;?>caixa/remover?id=<?php echo $item['id'];?>' class='btn btn-danger col-mb-3' id='removerItemCaixa' data-name='<?php echo $item['nome'] ?>'><i class='fas fa-trash-alt'></i></a></td>
-                                  </tr>  
-                                <?php
-                                    endforeach;
-                                ?>
+                                            <tr>
+                                                <td><input type="text" name="form-id[]" id="form-id" class='f-caixa' value="<?php echo $item['id'] ?>" readonly></td>
+                                                <td><?php echo $item['nome'] ?></td>
+                                                <td><?php echo $item['codigo'] ?></td>
+                                                <td><?php echo "R$ " . number_format($item['preco'], 2, ',', '.') ?></td>
+                                                <td><input type='text' id='form-quantidade' class='f-caixa' value='<?php echo $item['quantidade'] ?>' name='form-quantidade[]' data-value='<?php echo $item['id'] ?>'></td>
+                                                <td><input type="text" name="form-subTotal[]" id="form-subTotal" class="f-caixa" value="<?php echo "R$ " . number_format($item['subTotal'], 2, ',', '.') ?>" readonly></td>
+                                                <td> <a href='<?php echo URL; ?>caixa/remover?id=<?php echo $item['id']; ?>' class='btn btn-danger col-mb-3' id='removerItemCaixa' data-name='<?php echo $item['nome'] ?>'><i class='fas fa-trash-alt'></i></a></td>
+                                            </tr>
+                                        <?php
+                                        endforeach;
+                                        ?>
                                 </tbody>
                                 <tfoot class='bg-info'>
                                     <tr>
                                         <th colspan='5'>Total</th>
-                                        <th colspan='2'><input type="text" name="form-total" id="form-total" class='f-caixa' value="<?php echo 'R$ '. number_format($total,2,',','.')?>" readonly></th>
+                                        <th colspan='2'><input type="text" name="form-total" id="form-total" class='f-caixa' value="<?php echo 'R$ ' . number_format($total, 2, ',', '.') ?>" readonly></th>
                                     </tr>
                                     <tr>
                                         <th colspan='3'>Forma de pagamento</th>
@@ -104,22 +104,18 @@ include_once "app/View/include/header.php";
                                         <th colspan='2'><input type="text" name="form-troco" class='form-control' id="form-troco" readonly></th>
                                     </tr>
                                 </tfoot>
-                                <?php  
-                                }  
-                                else{
-                                ?>
+                            <?php
+                                    } else {
+                            ?>
                                 <tr>
-                                     <td colspan="7"class="text-center">Nenhum produto adicionado</td>
-                                </tr> 
-                                </tbody>                               
-                                <?php
-                                }
-                                ?>
-                        </table>
-                    </div>
-
-
-                    <form action="<?php echo URL; ?>caixa/pedido" method="POST" id="form-caixa">
+                                    <td colspan="7" class="text-center">Nenhum produto adicionado</td>
+                                </tr>
+                                </tbody>
+                            <?php
+                                    }
+                            ?>
+                            </table>
+                        </div>
                         <div class="form-row largura-table-caixa">
                             <div class="form-group col-6 pl-0">
                                 <a href="<?php echo URL ?>caixa/cancelarTudo" id='cancelarCompra' class="form-control btn btn-danger">Cancelar tudo</a>
