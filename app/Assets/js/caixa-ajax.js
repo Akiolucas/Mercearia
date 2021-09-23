@@ -169,7 +169,7 @@ $(document).ready(function()
                 break;
             
             default:
-                $('#form-dinheiro-cliente').prop('readonly',);
+                $('#form-dinheiro-cliente').prop('readonly',false);
                 $('#form-pagamento').addClass('is-invalid');
                 $('#form-dinheiro-cliente').addClass('is-invalid');
                 $('#form-troco').val('');
