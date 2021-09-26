@@ -32,6 +32,9 @@
             $dados = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
             $cadastro = new \App\Model\Caixa();
             $cadastro->cadastrar($dados);
+
+            header("Location:". URL . "caixa/index");
+            exit();
         }
 
         public function listaProdutosAjax()
