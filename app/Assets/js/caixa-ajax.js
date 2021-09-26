@@ -134,44 +134,49 @@ $(document).ready(function()
     $('body').on('change','#form-pagamento',function(){
     let valor = $(this).val();
     let valorCompra = $('#form-total').val();
-    $('#form-dinheiro-cliente').val('');
-    $('#d-form-dinheiro-cliente').remove();
+    $('#form-valor').val('');
+    $('#d-form-valor').remove();
 
         switch (valor) {
             case 'Dinheiro':
-                $('#form-dinheiro-cliente').prop('readonly',false);
+                $('#form-valor').prop('readonly',false);
                 $('#form-pagamento').removeClass('is-invalid');
                 $('#form-troco').val('');
-                let pagamento = $('#form-dinheiro-cliente').val();
-                $('#form-dinheiro-cliente').mask('000.000.000,00',{reverse:true});
+                let pagamento = $('#form-valor').val();
+                $('#form-valor').mask('000.000.000,00',{reverse:true});
 
                 if(pagamento == "")
                 {
-                    $('#form-dinheiro-cliente').addClass('is-invalid');
-                    $('#form-dinheiro-cliente').attr('placeholder','* Informe o valor');
+                    $('#form-valor').addClass('is-invalid');
+                    $('#form-valor').attr('placeholder','* Informe o valor');
                 }
+                
                 break;
 
             case 'Crédito':
-                $('#form-dinheiro-cliente').prop('readonly',true);
+                $('#form-valor').prop('readonly',true);
                 $('#form-pagamento').removeClass('is-invalid');
-                $('#form-dinheiro-cliente').removeClass('is-invalid');
-                $('#form-dinheiro-cliente').val(valorCompra);
+                $('#form-valor').removeClass('is-invalid');
+                $('#form-valor').val(valorCompra);
                 $('#form-troco').val('R$ 0,00');
+                $('#form-caixa').off('submit');
+                $('#btn_cadastrar').off('click');
                 break;
             
             case 'Débito':
-                $('#form-dinheiro-cliente').prop('readonly',true);
+                $('#form-valor').prop('readonly',true);
                 $('#form-pagamento').removeClass('is-invalid');
-                $('#form-dinheiro-cliente').removeClass('is-invalid');
-                $('#form-dinheiro-cliente').val(valorCompra);
+                $('#form-valor').removeClass('is-invalid');
+                $('#form-valor').val(valorCompra);
                 $('#form-troco').val('R$ 0,00');
+                $('#form-caixa').off('submit');
+                $('#btn_cadastrar').off('click');
                 break;
             
             default:
-                $('#form-dinheiro-cliente').prop('readonly',false);
+                $('#form-valor').prop('readonly',false);
                 $('#form-pagamento').addClass('is-invalid');
-                $('#form-dinheiro-cliente').addClass('is-invalid');
+                $('#form-valor').addClass('is-invalid');
                 $('#form-troco').val('');
                 $('#btn_cadastrar').click(function(e){e.preventDefault()});
                 break;
