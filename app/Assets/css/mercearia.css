@@ -352,7 +352,7 @@ border-bottom-left-radius:25px;
   max-width:80px;
  }
  
- #table-caixa #form-total, #table-caixa #form-dinheiro-cliente, #table-caixa #form-troco{
+ #table-caixa #form-total, #table-caixa #form-valor, #table-caixa #form-troco{
   font-weight:bold;
 }  
 
@@ -407,7 +407,7 @@ border-bottom-left-radius:25px;
    text-align:center;
    color:black;
  }
- #produtos-selecionados #form-dinheiro-cliente::placeholder{
+ #produtos-selecionados #form-valor::placeholder{
    color:black;
  }
 
@@ -434,4 +434,8 @@ border-bottom-left-radius:25px;
     max-width:900px;
     margin-left:auto;
     margin-right:auto;
+  }
+
+  .form-invalid{
+    color:red;
   }
