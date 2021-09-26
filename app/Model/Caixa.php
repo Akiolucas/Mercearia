@@ -46,8 +46,7 @@ class Caixa extends Model
             parent::valida_float($dados['total'],'total','*Total informado inválido',0),
             parent::valida_float($dados['troco'],'troco','*Troco informado inválido',0));
 
-            var_dump($this->form_valido,$dados);
-            exit();
+
             if(parent::formularioValido($this->form_valido))
             { 
                 // pegar valores dos produtos com base no id, informado
@@ -120,7 +119,6 @@ class Caixa extends Model
                             {
                                 $_SESSION['form-quantidade'][$key] = '*Estoque ' .$quantidade['quantidade'].' unidades';
                                 throw new PDOException('Quantidade informada superior ao do estoque!');
-                                
                             }
                             else
                             {
@@ -316,9 +314,7 @@ class Caixa extends Model
                 $dados['dados'].='</select></th>';
                 $dados['dados'].='<th colspan="2"><input type="text" name="valor" class="form-control" id="form-valor" aria-describedby="d-form-valor"></th></tr>';
                 $dados['dados'].='<tr><th colspan="5">Troco</th>';
-                $dados['dados'].='<th colspan="2"><input type="text" name="troco" class="form-control" id="form-troco" readonly></th></tr></tfoot>'; 
-
-                                                    
+                $dados['dados'].='<th colspan="2"><input type="text" name="troco" class="form-control" id="form-troco" readonly></th></tr></tfoot>';                                     
                 return $dados;
                
             }
