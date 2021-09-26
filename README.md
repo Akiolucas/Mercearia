@@ -7,8 +7,8 @@
  <h3>No formulário de login utilize esse usuário :star2: :point_down:</h3>
  <hr>
  :warning: Atenção: campos case sensitive :exclamation:
- <h4>Credencial: lucas</h4>
- <h4>Senha: 12345</h4>
+ <h4>Credencial: lucasakio</h4>
+ <h4>Senha: 12345678</h4>
  <hr>
  :warning: Atenção: Esse projeto está em desenvolvimento ainda.
 <hr>
@@ -39,8 +39,48 @@
 </figure>
 <hr>
 <figure>
+    <img src="app/Assets/image/projeto/perfil.png" alt="imagem página perfil do usuário">
+    <figcaption>:camera: Página perfil do usuário</figcaption>
+</figure>
+<hr>
+ <figure>
+    <img src="app/Assets/image/projeto/alterarSenhaValidacao.png" alt="imagem página alterar senha e credencial usuário">
+    <figcaption>:camera: Página de alterar senha e credencial do usuário, observe, validação tanto no front-end quanto no back-end</figcaption>
+</figure>
+<hr>
+ <figure>
     <img src="app/Assets/image/projeto/home.png" alt="imagem página home">
     <figcaption>:camera: Página home</figcaption>
+</figure>
+<hr>
+ <figure>
+    <img src="app/Assets/image/projeto/caixa-inicial.png" alt="imagem página caixa">
+  <figcaption>:camera: Página do caixa, implementada com <b>Ajax</b></figcaption>
+</figure>
+<hr>
+ <figure>
+    <img src="app/Assets/image/projeto/caixa-pesquisa.png" alt="imagem página caixa, usando o campo de pesquisa">
+    <figcaption>:camera: Página caixa usando o campo de pesquisa</figcaption>
+</figure>
+<hr>
+ <figure>
+    <img src="app/Assets/image/projeto/caixa-adicionado.png" alt="imagem página caixa produtos adicionados">
+    <figcaption>:camera: Página caixa, produtos adicionados</figcaption>
+</figure>
+<hr>
+ <figure>
+    <img src="app/Assets/image/projeto/caixa-pagamento.png" alt="imagem página caixa, adicionado forma de pagamento">
+    <figcaption>:camera: Página caixa, adicionado forma de pagamento</figcaption>
+</figure>
+<hr>
+ <figure>
+    <img src="app/Assets/image/projeto/caixa-troco.png" alt="imagem página caixa, adicionado dinheiro do cliente, e retornando o troco">
+    <figcaption>:camera: Página caixa, adicionado dinheiro do cliente e retornando o troco</figcaption>
+</figure>
+<hr>
+ <figure>
+    <img src="app/Assets/image/projeto/caixa-comprafinalizada.png" alt="imagem página caixa, compra finalizada">
+    <figcaption>:camera: Página caixa, compra finalizada</figcaption>
 </figure>
 <hr>
 <figure>
