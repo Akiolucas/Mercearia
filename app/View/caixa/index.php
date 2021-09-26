@@ -66,16 +66,21 @@ include_once "app/View/include/header.php";
                                     <?php
                                     if (count($this->dados) > 0) {
                                         $total = 0;
-                                        foreach ($this->dados as $item) :
+                                        foreach ($this->dados as $key => $item) :
                                             $total += floatval($item['subTotal']);
                                     ?>
                                             <tr>
-                                                <td><input type="text" name="form-id[]" id="form-id" class='f-caixa' value="<?php echo $item['id'] ?>" readonly></td>
+                                                <td><input type="text" name="produto_id[]" id="form-id" class='f-caixa' value="<?php echo $item['id'] ?>" readonly></td>
                                                 <td><?php echo $item['nome'] ?></td>
                                                 <td><?php echo $item['codigo'] ?></td>
                                                 <td><?php echo "R$ " . number_format($item['preco'], 2, ',', '.') ?></td>
-                                                <td><input type='text' id='form-quantidade' class='f-caixa' value='<?php echo $item['quantidade'] ?>' name='form-quantidade[]' data-value='<?php echo $item['id'] ?>'></td>
-                                                <td><input type="text" name="form-subTotal[]" id="form-subTotal" class="f-caixa" value="<?php echo "R$ " . number_format($item['subTotal'], 2, ',', '.') ?>" readonly></td>
+                                                <td>
+                                                    <input type='text' id='form-quantidade' class='f-caixa' value='<?php echo $item['quantidade'] ?>' name='quantidade[]' data-value='<?php echo $item['id'] ?>'>
+                                                    <?php if(isset($_SESSION['form-quantidade'][$key])){?>
+                                                        <div class="form-invalid"><?php echo $_SESSION['form-quantidade'][$key]; unset($_SESSION['form-quantidade']);?></div>
+                                                    <?php }?>
+                                                </td>
+                                                <td><input type="text" name="subTotal[]" id="form-subTotal" class="f-caixa" value="<?php echo "R$ " . number_format($item['subTotal'], 2, ',', '.') ?>" readonly></td>
                                                 <td> <a href='<?php echo URL; ?>caixa/remover?id=<?php echo $item['id']; ?>' class='btn btn-danger col-mb-3' id='removerItemCaixa' data-name='<?php echo $item['nome'] ?>'><i class='fas fa-trash-alt'></i></a></td>
                                             </tr>
                                         <?php
@@ -85,23 +90,23 @@ include_once "app/View/include/header.php";
                                 <tfoot class='bg-info'>
                                     <tr>
                                         <th colspan='5'>Total</th>
-                                        <th colspan='2'><input type="text" name="form-total" id="form-total" class='f-caixa' value="<?php echo 'R$ ' . number_format($total, 2, ',', '.') ?>" readonly></th>
+                                        <th colspan='2'><input type="text" name="total" id="form-total" class='f-caixa' value="<?php echo 'R$ ' . number_format($total, 2, ',', '.') ?>" readonly></th>
                                     </tr>
                                     <tr>
                                         <th colspan='3'>Forma de pagamento</th>
                                         <th colspan='2'>
-                                            <select name="form-pagamento" id="form-pagamento" class="form-control is-invalid">
+                                            <select name="pagamento" id="form-pagamento" class="form-control is-invalid">
                                                 <option value="">-------- Selecione --------</option>
                                                 <option value="Dinheiro">Dinheiro</option>
                                                 <option value="Crédito">Crédito</option>
                                                 <option value="Débito">Débito</option>
                                             </select>
                                         </th>
-                                        <th colspan='2'><input type="text" name="form-dinheiro-cliente" class='form-control' id="form-dinheiro-cliente" aria-describedby="d-form-dinheiro-cliente"></th>
+                                        <th colspan='2'><input type="text" name="valor" class='form-control' id="form-valor" aria-describedby="d-form-valor"></th>
                                     </tr>
                                     <tr>
                                         <th colspan='5'>Troco</th>
-                                        <th colspan='2'><input type="text" name="form-troco" class='form-control' id="form-troco" readonly></th>
+                                        <th colspan='2'><input type="text" name="troco" class='form-control' id="form-troco" readonly></th>
                                     </tr>
                                 </tfoot>
                             <?php
