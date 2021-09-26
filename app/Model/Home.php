@@ -20,7 +20,8 @@ class Home extends Model
                "SELECT
                (SELECT count(funcionario.id) FROM funcionario) AS funcionario,
                (SELECT count(fornecedor.id) FROM fornecedor) AS fornecedor,
-               (SELECT sum(estoque.quantidade) FROM estoque) AS produto"
+               (SELECT sum(estoque.quantidade) FROM estoque) AS produto,
+               (SELECT sum(caixa_fechamento.total) FROM caixa_fechamento) AS caixa"
             );
     
             if (!empty($home)) {
