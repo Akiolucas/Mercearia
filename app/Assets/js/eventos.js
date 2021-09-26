@@ -663,14 +663,14 @@ f_a_perfil.submit(function(e)
   //fim da atualização do perfil do usuário.
 
   //caixa cadastrar compra
-  $('body').on('change','#form-dinheiro-cliente',function(){
-    $('#d-form-dinheiro-cliente').remove();
+  $('body').on('change','#form-valor',function(){
+    $('#d-form-valor').remove();
     let formaPagamento = $('#form-pagamento').val();
 
     if(formaPagamento == 'Dinheiro')
     {
       $(this).removeClass('is-invalid');
-      $('#d-form-dinheiro-cliente').remove();
+      $('#d-form-valor').remove();
 
       let valorCompra = $('#form-total').val();
       let valorTotal = formatar_real(valorCompra);
@@ -685,11 +685,12 @@ f_a_perfil.submit(function(e)
           pagamentoCliente = new Intl.NumberFormat('pt-BR',{ style: 'currency', currency: 'BRL' }).format(pagamentoCliente);
           $(this).val(pagamentoCliente);
           $('#form-troco').val(resultado);
+          $('#form-caixa').off('submit');
       }
       else{
           let mensagem = "";
           $('#form-troco').val('');
-          $('#form-dinheiro-cliente').addClass('is-invalid');
+          $('#form-valor').addClass('is-invalid');
 
           if(!isNaN(pagamentoCliente)){
             let restante = parseFloat(resultado * -1).toFixed(2);
@@ -699,14 +700,14 @@ f_a_perfil.submit(function(e)
           else{
             mensagem = 'Valor informado inválido!';
           }
-         
-          $('#form-dinheiro-cliente').after("<div class='invalid-feedback' id='d-form-dinheiro-cliente'><p>" +mensagem+ "</p></div>");
+          $('#form-caixa').submit(function(e){e.preventDefault()});
+          $('#form-valor').after("<div class='invalid-feedback' id='d-form-valor'><p>" +mensagem+ "</p></div>");
       }
     }
     else if(formaPagamento != 'Crédito' && formaPagamento != 'Débito'){
-      $('#form-dinheiro-cliente').addClass('is-invalid');
+      $('#form-valor').addClass('is-invalid');
       let mensagem = 'Selecione uma forma de pagamento primeiro!';
-      $('#form-dinheiro-cliente').after("<div class='invalid-feedback' id='d-form-dinheiro-cliente'><p>" +mensagem+ "</p></div>");
+      $('#form-valor').after("<div class='invalid-feedback' id='d-form-valor'><p>" +mensagem+ "</p></div>");
       
     }
    
@@ -725,20 +726,43 @@ f_a_perfil.submit(function(e)
   {
     let produtos = [];
 
-    $('input[name="form-id[]"]').each(function(){
+    $('input[name="produto_id[]"]').each(function(){
       produtos.push($(this).val());
       
     });
-    let pagamento = $('#form-pagamento').val();
-    let dinheiro_cliente = $('#form-dinheiro-cliente').val();
+    let total = $('#form-total').val();
     let troco = $('#form-troco').val();
+    let pagamento = $('#form-pagamento').val();
+    let dinheiro_cliente = $('#form-valor').val();
     // verificar se existe produtos adicionados 
     if(produtos.length > 0)
     {
       if(pagamento == 'Dinheiro' || pagamento == 'Crédito' || pagamento == 'Débito')
       {
           if(isNaN(formatar_real(dinheiro_cliente))){
-            alert('informe um valor válido'); e.preventDefault();
+            alert('*Informe um valor válido'); e.preventDefault();
+          }
+          else{
+            let valorTotal = formatar_real(total);
+
+            if(pagamento == 'Dinheiro')
+            {
+              dinheiro_cliente = formatar_real(dinheiro_cliente,false);
+              if(dinheiro_cliente > valorTotal){
+                $('#form-caixa').off('submit');
+                $('#btn_cadastrar').off('click');
+              }
+              else{e.preventDefault()};
+            }
+            else{
+              dinheiro_cliente = formatar_real(dinheiro_cliente,false);
+              if(dinheiro_cliente > valorTotal)
+              {
+                $('#form-caixa').off('submit');
+                $('#btn_cadastrar').off('click');
+              }
+              else{e.preventDefault()};
+            } 
           }
       }
       else{
