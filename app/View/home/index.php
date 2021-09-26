@@ -45,7 +45,7 @@ include_once "app/View/include/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-center">Funcionários</h5><hr>
-                                <p class="card-text"><b>Total:</b> <?php echo $detalhes['funcionario'];?></p>
+                                <p class="card-text"><b>Total:</b> <?php echo number_format($detalhes['funcionario'],0,',','.');?></p>
                                 <a href="<?php echo URL;?>funcionario" class="btn btn-info d-block">Detalhes</a>
                             </div>
                         </div>
@@ -54,7 +54,7 @@ include_once "app/View/include/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-center">Fornecedores</h5><hr>
-                                <p class="card-text"><b>Total:</b> <?php echo $detalhes['fornecedor'];?></p>
+                                <p class="card-text"><b>Total:</b> <?php echo number_format($detalhes['fornecedor'],0,',','.');?></p>
                                 <a href="<?php echo URL;?>fornecedor" class="btn btn-info d-block">Detalhes</a>
                             </div>
                         </div>
@@ -63,7 +63,7 @@ include_once "app/View/include/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-center">Produtos</h5><hr>
-                                <p class="card-text"><b>Total:</b> <?php echo $detalhes['produto'];?></p>
+                                <p class="card-text"><b>Total:</b> <?php echo number_format($detalhes['produto'],0,',','.');?></p>
                                 <a href="<?php echo URL;?>produtos" class="btn btn-info d-block">Detalhes</a>
                             </div>
                         </div>
@@ -72,7 +72,7 @@ include_once "app/View/include/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-center">Caixa</h5><hr>
-                                <p class="card-text"><b>Total:</b> </p>
+                                <p class="card-text"><b>Total:</b> <?php echo 'R$ '.number_format($detalhes['caixa'],2,',','.');?></p>
                                 <a href="<?php echo URL;?>caixa" class="btn btn-info d-block">Detalhes</a>
                             </div>
                         </div>
