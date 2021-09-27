@@ -51,6 +51,7 @@ include_once "app/View/include/header.php";
                                 <th>Fornecedor</th>
                                 <th>Código</th>
                                 <th>Kilograma</th>
+                                <th>Litro</th>
                                 <th>Estoque</th>
                                 <th>Registro</th>
                                 <th>Editar</th>
@@ -67,6 +68,7 @@ include_once "app/View/include/header.php";
                                     <td><?php echo $item['fornecedor']; ?></td>
                                     <td><?php echo $item['codigo']; ?></td>
                                     <td><?php echo number_format($item['kilograma'], 3, ',', '.') . " Kg"; ?></td>
+                                    <td><?php echo number_format($item['litro'], 3, ',', '.') . " L"; ?></td>
                                     <td><?php echo $item['estoque']; ?></td>
                                     <td data-order="<?php echo date('Y/m/d H:i:s', strtotime($item['dt_registro'])); ?>"><?php echo date('d/m/Y', strtotime($item['dt_registro'])); ?></td>
                                     <td>
@@ -88,6 +90,7 @@ include_once "app/View/include/header.php";
                                 <th>Fornecedor</th>
                                 <th>Código</th>
                                 <th>Kilograma</th>
+                                <th>Litro</th>
                                 <th>Estoque</th>
                                 <th>Registro</th>
                                 <th>Editar</th>
@@ -166,6 +169,20 @@ include_once "app/View/include/header.php";
                                                 <?php
                                                 echo $_SESSION['Erro_form']['kilograma'];
                                                 unset($_SESSION['Erro_form']['kilograma']);
+                                                ?>
+                                            </div>
+                                        <?php
+                                        } ?>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="form-litro" class="col-form-label">Litro:</label>
+                                        <input type="text" name="litro" id="form-litro" class="form-control <?php echo isset($_SESSION['Erro_form']['litro']) ? 'is-invalid' : '' ?>" aria-describedby="serverKilograma" <?php echo isset($_SESSION['form']['litro']) ? 'value="' . $_SESSION['form']['litro'] . '"' : "" ?>> 
+                                        <?php if (isset($_SESSION['Erro_form']['litro'])) { ?>
+
+                                            <div id='serverKilograma' class="invalid-feedback">
+                                                <?php
+                                                echo $_SESSION['Erro_form']['litro'];
+                                                unset($_SESSION['Erro_form']['litro']);
                                                 ?>
                                             </div>
                                         <?php
