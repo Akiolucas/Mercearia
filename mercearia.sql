@@ -26,14 +26,16 @@ DROP TABLE IF EXISTS `caixa`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `caixa` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `cliente` int NOT NULL,
   `produto_id` int NOT NULL,
   `quantidade` int NOT NULL,
-  `total` double NOT NULL,
+  `subTotal` double NOT NULL,
   `dt_registro` datetime NOT NULL,
-  PRIMARY KEY (`id`,`produto_id`),
-  KEY `fk_caixa_produto_idx` (`produto_id`),
+  PRIMARY KEY (`id`,`produto_id`,`cliente`),
+  KEY `fk_caixa_produto_idx` (`produto_id`) /*!80000 INVISIBLE */,
+  KEY `cliente_idx` (`cliente`),
   CONSTRAINT `fk_caixa_produto` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +44,39 @@ CREATE TABLE `caixa` (
 
 LOCK TABLES `caixa` WRITE;
 /*!40000 ALTER TABLE `caixa` DISABLE KEYS */;
+INSERT INTO `caixa` VALUES (1,1,4,5,125,'2021-09-25 23:13:09'),(2,1,8,5,150,'2021-09-25 23:13:09'),(3,1,9,1,25,'2021-09-25 23:13:09'),(4,1,19,2,5.4,'2021-09-25 23:13:09'),(5,2,4,5,125,'2021-09-25 23:15:48'),(6,2,8,5,150,'2021-09-25 23:15:48'),(7,2,9,1,25,'2021-09-25 23:15:48'),(8,2,19,2,5.4,'2021-09-25 23:15:48'),(9,3,6,2,10,'2021-09-26 00:09:14'),(10,3,18,2,7,'2021-09-26 00:09:14'),(11,3,5,1,7,'2021-09-26 00:09:14'),(12,3,12,1,39.5,'2021-09-26 00:09:14'),(13,3,2,1,5.5,'2021-09-26 00:09:14'),(14,3,17,3,20.55,'2021-09-26 00:09:14');
 /*!40000 ALTER TABLE `caixa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `caixa_fechamento`
+--
+
+DROP TABLE IF EXISTS `caixa_fechamento`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `caixa_fechamento` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `cliente_id` int NOT NULL,
+  `total` double NOT NULL,
+  `pagamento` varchar(9) COLLATE utf8mb4_0900_as_cs NOT NULL,
+  `valor` double NOT NULL,
+  `troco` double NOT NULL,
+  `dt_registro` datetime NOT NULL,
+  PRIMARY KEY (`id`,`cliente_id`),
+  KEY `fk_caixa_fechamento_caixa_idx` (`cliente_id`),
+  CONSTRAINT `fk_caixa_fechamento_caixa` FOREIGN KEY (`cliente_id`) REFERENCES `caixa` (`cliente`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `caixa_fechamento`
+--
+
+LOCK TABLES `caixa_fechamento` WRITE;
+/*!40000 ALTER TABLE `caixa_fechamento` DISABLE KEYS */;
+INSERT INTO `caixa_fechamento` VALUES (1,1,305.4,'Dinheiro',320,14.6,'2021-09-25 23:13:09'),(2,2,305.4,'Dinheiro',320,14.6,'2021-09-25 23:15:48'),(3,3,89.55,'Débito',89.55,0,'2021-09-26 00:09:14');
+/*!40000 ALTER TABLE `caixa_fechamento` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -106,6 +140,7 @@ CREATE TABLE `estoque` (
   `produto_id` int NOT NULL,
   `quantidade` int NOT NULL,
   PRIMARY KEY (`id`,`produto_id`),
+  UNIQUE KEY `produto_id_UNIQUE` (`produto_id`),
   KEY `fk_estoque_produto_idx` (`produto_id`) /*!80000 INVISIBLE */,
   CONSTRAINT `fk_estoque_produto` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
@@ -117,7 +152,7 @@ CREATE TABLE `estoque` (
 
 LOCK TABLES `estoque` WRITE;
 /*!40000 ALTER TABLE `estoque` DISABLE KEYS */;
-INSERT INTO `estoque` VALUES (1,1,35),(2,2,30),(3,3,20),(4,4,30),(5,5,70),(6,6,59),(7,7,60),(8,8,30),(9,9,30),(10,10,45),(11,11,5),(12,12,45),(13,13,100),(14,14,100),(15,15,350),(16,16,90),(17,17,60),(18,18,50),(19,19,40),(20,20,50);
+INSERT INTO `estoque` VALUES (1,1,900),(2,2,899),(3,3,900),(4,4,890),(5,5,899),(6,6,898),(7,7,900),(8,8,890),(9,9,898),(10,10,900),(11,11,900),(12,12,899),(13,13,900),(14,14,900),(15,15,900),(16,16,900),(17,17,897),(18,18,898),(19,19,896),(20,20,900);
 /*!40000 ALTER TABLE `estoque` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +214,7 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,'Lucas Akio Turuda',1,3,'lucas','$2y$10$txRewOK602QZN61Grh2fZOiv9zaL7m6eyml5sqw4LyXB33KhrZnKi',1,'2021-09-03 23:46:27'),(2,'José Gomes Pereira',2,3,'joseamaro','$2y$10$IxAyR2Fj1K4dST.vURDj5uwyvd8fzIHt045Qga4VJkWOQpmzibGxa',1,'2021-09-09 21:02:24');
+INSERT INTO `funcionario` VALUES (1,'Lucas Akio Turuda',1,3,'lucasakio','$2y$10$IqFJS0D8S0Ddq3PQk7TIsOCsEcXBiEKBda5fsBIMp57sCvCaLUlvG',1,'2021-09-03 23:46:27'),(2,'José Gomes Pereira',2,3,'josegomes','$2y$10$ADACziYi8E4kZQZNastgBeOYy6ALa9u0sUNjaPWumkx5Y.s9/pA6S',1,'2021-09-11 17:37:17');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +243,7 @@ CREATE TABLE `funcionario_pg_privada` (
 
 LOCK TABLES `funcionario_pg_privada` WRITE;
 /*!40000 ALTER TABLE `funcionario_pg_privada` DISABLE KEYS */;
-INSERT INTO `funcionario_pg_privada` VALUES (1,1,'2021-09-04 18:50:12'),(1,2,'2021-09-04 18:50:12'),(1,3,'2021-09-04 18:50:12'),(1,4,'2021-09-04 18:50:12'),(1,5,'2021-09-04 18:50:12'),(1,6,'2021-09-04 18:50:12'),(1,7,'2021-09-04 18:50:12'),(1,8,'2021-09-04 18:50:12'),(1,9,'2021-09-04 18:50:12'),(1,10,'2021-09-04 18:50:12'),(1,11,'2021-09-04 18:50:12'),(2,1,'2021-09-09 21:02:24'),(2,11,'2021-09-09 21:02:24');
+INSERT INTO `funcionario_pg_privada` VALUES (1,1,'2021-09-04 18:50:12'),(1,2,'2021-09-04 18:50:12'),(1,3,'2021-09-04 18:50:12'),(1,4,'2021-09-04 18:50:12'),(1,5,'2021-09-04 18:50:12'),(1,6,'2021-09-04 18:50:12'),(1,7,'2021-09-04 18:50:12'),(1,8,'2021-09-04 18:50:12'),(1,9,'2021-09-04 18:50:12'),(1,10,'2021-09-04 18:50:12'),(1,11,'2021-09-04 18:50:12'),(2,1,'2021-09-11 17:37:17'),(2,3,'2021-09-11 17:37:17'),(2,5,'2021-09-11 17:37:17'),(2,11,'2021-09-11 17:37:17');
 /*!40000 ALTER TABLE `funcionario_pg_privada` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +360,7 @@ DROP TABLE IF EXISTS `produto`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `produto` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `nome` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
+  `nome` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_ci NOT NULL,
   `preco` double NOT NULL,
   `fornecedor_id` int NOT NULL,
   `codigo_id` int NOT NULL,
@@ -345,7 +380,7 @@ CREATE TABLE `produto` (
 
 LOCK TABLES `produto` WRITE;
 /*!40000 ALTER TABLE `produto` DISABLE KEYS */;
-INSERT INTO `produto` VALUES (1,'Pão integral',7.49,2,1,0.5,'2021-08-25 23:35:39'),(2,'Pão de forma',5.5,2,2,0.5,'2021-07-29 08:27:37'),(3,'Queijo prato',46,1,3,1,'2021-07-29 08:27:37'),(4,'Bolo de limão',25,2,4,1,'2021-08-11 21:24:17'),(5,'Molho Barbecue Heinz',7,3,5,0.397,'2021-08-12 00:05:05'),(6,'Requeijão',5,2,6,1,'2021-08-12 00:03:57'),(7,'Goiabada',4.5,2,7,0.5,'2021-08-12 00:04:50'),(8,'Bolo de maracujá',25,2,8,1,'2021-08-12 00:05:04'),(9,'Bolo de chocolate',25,2,9,1,'2021-08-12 00:05:04'),(10,'Bolo de cenoura',20,2,10,1,'2021-08-12 00:05:04'),(11,'Bolo de abacaxi',20,2,11,1.5,'2021-08-26 20:19:32'),(12,'Presunto Marques Monte',39.5,1,12,1,'2021-08-12 00:05:04'),(13,'Molho de tomate Heinz',4,3,13,0.4,'2021-08-12 00:05:04'),(14,'Catchup Heinz',5.5,3,14,0.26,'2021-08-12 00:05:05'),(15,'Maionese Sachê Heinz',0.5,3,15,0.8,'2021-08-12 00:05:05'),(16,'Maionese Tradicional Heinz',6.7,3,16,0.215,'2021-08-12 00:05:05'),(17,'Leite condensado Moça',6.85,2,17,0.395,'2021-08-28 11:09:01'),(18,'Creme de leite nestlé',3.5,1,18,0.25,'2021-08-28 16:06:53'),(19,'Biscoito de morango Trakinas ',2.7,1,19,0.13,'2021-09-11 16:26:09'),(20,'Fermento biológico Dona Benta',1,2,20,0.05,'2021-09-11 16:37:31');
+INSERT INTO `produto` VALUES (1,'Pão integral',7.49,2,1,0.5,'2021-08-25 23:35:39'),(2,'Pão de forma',5.5,2,2,0.5,'2021-07-29 08:27:37'),(3,'Queijo prato',46,1,3,1,'2021-07-29 08:27:37'),(4,'Bolo de limão',25,2,4,1,'2021-08-11 21:24:17'),(5,'Molho Barbecue Heinz',7,3,5,0.397,'2021-08-12 00:05:05'),(6,'Requeijão',5,2,6,1,'2021-08-12 00:03:57'),(7,'Goiabada',4.5,2,7,0.5,'2021-08-12 00:04:50'),(8,'Bolo de maracujá',30,2,8,1,'2021-09-11 17:09:32'),(9,'Bolo de chocolate',25,2,9,1,'2021-08-12 00:05:04'),(10,'Bolo de cenoura',20,2,10,1,'2021-08-12 00:05:04'),(11,'Bolo de abacaxi',20,2,11,1.5,'2021-08-26 20:19:32'),(12,'Presunto Marques Monte',39.5,1,12,1,'2021-08-12 00:05:04'),(13,'Molho de tomate Heinz',4,3,13,0.4,'2021-08-12 00:05:04'),(14,'Catchup Heinz',5.5,3,14,0.26,'2021-08-12 00:05:05'),(15,'Maionese Sachê Heinz',0.5,3,15,0.8,'2021-08-12 00:05:05'),(16,'Maionese Tradicional Heinz',6.7,3,16,0.215,'2021-08-12 00:05:05'),(17,'Leite condensado Moça',6.85,2,17,0.395,'2021-08-28 11:09:01'),(18,'Creme de leite nestlé',3.5,1,18,0.25,'2021-08-28 16:06:53'),(19,'Biscoito de morango Trakinas ',2.7,1,19,0.13,'2021-09-11 16:26:09'),(20,'Fermento biológico Dona Benta',1,2,20,0.05,'2021-09-11 16:37:31');
 /*!40000 ALTER TABLE `produto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -472,4 +507,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-11 16:52:22
+-- Dump completed on 2021-09-27 14:05:34
