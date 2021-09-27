@@ -17,7 +17,7 @@
         public function listar(): array
         {
             $listar = parent::projetarTodos(
-            "SELECT p.id, p.nome, p.preco, f.nome AS fornecedor, c.barra AS codigo, p.kilograma, e.quantidade AS estoque, p.dt_registro
+            "SELECT p.id, p.nome, p.preco, f.nome AS fornecedor, c.barra AS codigo, p.kilograma,p.litro, e.quantidade AS estoque, p.dt_registro
             FROM produto p
             INNER JOIN fornecedor f
             ON p.fornecedor_id = f.id
@@ -32,7 +32,7 @@
         public function editar($id): array
         {
             $produto = parent::projetarExpecifico(
-            "SELECT p.id, p.nome, p.preco, p.fornecedor_id, f.nome AS fornecedor, p.codigo_id, c.barra AS codigo, p.kilograma, e.quantidade AS quantidade, p.dt_registro
+            "SELECT p.id, p.nome, p.preco, p.fornecedor_id, f.nome AS fornecedor, p.codigo_id, c.barra AS codigo, p.kilograma, p.litro, e.quantidade AS quantidade, p.dt_registro
             FROM produto p 
             INNER JOIN fornecedor f
             ON p.fornecedor_id = f.id
@@ -53,7 +53,7 @@
         
         public function atualizar($dados): void
         {   
-            $this->form_obrigatorio = array('id','nome','preco','fornecedor_id','codigo_id','kilograma','quantidade','btn_atualizar');
+            $this->form_obrigatorio = array('id','nome','preco','fornecedor_id','codigo_id','litro','kilograma','quantidade','btn_atualizar');
             $this->form_obrigatorio_quantidade = count($this->form_obrigatorio);
 
             if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade))
@@ -64,7 +64,8 @@
                 parent::valida_float($dados['preco'],'preco','*Informe o preço corretamente, mínimo R$ 0,10!',0.10),
                 parent::valida_int($dados['fornecedor_id'],'fornecedor_id','*Id inválido!',1),
                 parent::valida_int($dados['codigo_id'],'codigo_id','*Código_id inválido!',1),
-                parent::valida_float($dados['kilograma'],'kilograma','*Informe o kilograma corretamente, mínimo 0,001 kg',0.001),
+                parent::valida_float($dados['litro'],'litro','*Informe o litro corretamente, mínimo 0,000 L',0.000),
+                parent::valida_float($dados['kilograma'],'kilograma','*Informe o kilograma corretamente, mínimo 0,000 kg',0.000),
                 parent::valida_int($dados['quantidade'],'quantidade','*Quantidade informada inválida!',0)
                 );
 
@@ -72,11 +73,12 @@
                 {
                     unset($dados['btn_atualizar']);
                     $dados['preco'] = parent::converteFloat($dados['preco']);
+                    $dados['litro'] = parent::converteFloat($dados['litro']);
                     $dados['kilograma'] = parent::converteFloat($dados['kilograma']);
 
                     $atualizar = parent::projetarExpecifico(
                     "CALL atualizar_produto_estoque
-                    (:id, :nome, :preco, :fornecedor_id, :codigo_id, :kilograma, :quantidade)",
+                    (:id, :nome, :preco, :fornecedor_id, :codigo_id, :kilograma, :litro, :quantidade)",
                     $dados,true);
 
                     switch ($atualizar['Mensagem']) {
@@ -141,7 +143,7 @@
 
         public function cadastrar($dados): void
         {
-            $this->form_obrigatorio = array('nome','preco','fornecedor_id','kilograma','quantidade','btn_cadastrar');
+            $this->form_obrigatorio = array('nome','preco','fornecedor_id','kilograma','litro','quantidade','btn_cadastrar');
             $this->form_obrigatorio_quantidade = count($this->form_obrigatorio);
 
             if(parent::existeCamposFormulario($dados,$this->form_obrigatorio,$this->form_obrigatorio_quantidade))
@@ -150,7 +152,8 @@
                 parent::valida_tamanho($dados['nome'],'nome','*Preencha este campo, limite 30 caracteres!',30,1),
                 parent::valida_float($dados['preco'],'preco','*Informe o preço corretamente, mínimo R$ 0,10!',0.10),
                 parent::valida_int($dados['fornecedor_id'],'fornecedor_id','*Id inválido!',1),
-                parent::valida_float($dados['kilograma'],'kilograma','*Informe o kilograma corretamente, mínimo 0,001 kg',0.001),
+                parent::valida_float($dados['litro'],'litro','*Informe o litro corretamente, mínimo 0,000 L',0.000),
+                parent::valida_float($dados['kilograma'],'kilograma','*Informe o kilograma corretamente, mínimo 0,000 kg',0.000),
                 parent::valida_int($dados['quantidade'],'quantidade','*Quantidade informada inválida!',1)
                 );
                 
@@ -158,14 +161,15 @@
                 {
                     unset($dados['btn_cadastrar']);
                     $dados['preco'] = parent::converteFloat($dados['preco']);
+                    $dados['litro'] = parent::converteFloat($dados['litro']);
                     $dados['kilograma'] = parent::converteFloat($dados['kilograma']);
                     
                     $cadastrar = parent::projetarExpecifico(
                         "CALL cadastrar_codigo_produto_estoque(
-                           :nome, :preco, :fornecedor_id, :kilograma, :quantidade
+                           :nome, :preco, :fornecedor_id, :kilograma, :litro, :quantidade
                         )",$dados,true
                     );
-                   
+                    
                     switch ($cadastrar['Mensagem']) {
                         case 'Erro ao inserir na tabela de código':
                             $msg = 'Não foi possível cadastrar, erro no código do produto';
@@ -188,7 +192,7 @@
                             break;
 
                         case 'Preencha todos os campos e tente novamente!';
-                            $msg = 'Preencha todos os campos e tente novamente!';
+                            $msg = 'Preencha todos os campos e tente novamente<>!';
                             $resultado = false;
                             break;
 
