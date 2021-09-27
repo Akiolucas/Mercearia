@@ -14,3 +14,10 @@ if(maskKilograma.val() == "")
     maskKilograma.val('0.001');
 }
 maskKilograma.mask('000.000.000.000,000',{reverse:true});
+
+let maskLitro = $('#form-litro');
+if(maskLitro.val() == "")
+{
+    maskLitro.val('0.250');
+}
+maskLitro.mask('000.000.000.000,000',{reverse:true});
