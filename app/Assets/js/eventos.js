@@ -528,13 +528,15 @@ f_produto.submit(function(e)
   let f_preco = $('#form-preco').val();
   let f_fornecedor_id = $('#form-fornecedor_id').val();
   let f_form_kilograma = $('#form-kilograma').val();
+  let f_form_litro = $('#form-litro').val();
   let f_quantidade = $('#form-quantidade').val();
 
   let f_validos =[
     validatamanho(f_nome,1,30),
     validaFloat(f_preco,0.10),
     validaInt(1,f_fornecedor_id),
-    validaFloat(f_form_kilograma,0.001),
+    validaFloat(f_form_kilograma,0.000),
+    validaFloat(f_form_litro,0.000),
     validaInt(1,f_quantidade)
   ];
   
@@ -544,7 +546,8 @@ f_produto.submit(function(e)
       ['form-nome','*Preencha este campo, limite máximo permitido é 30 caracteres'],
       ['form-preco',"* Informe o preço, mínimo 0,10 Reais"],
       ['form-fornecedor_id','*Selecione uma opção'],
-      ['form-kilograma','*Informe o Kg, mínimo 0,001 kg'],
+      ['form-kilograma','*Informe o Kg, mínimo 0,000 kg'],
+      ['form-litro','*Informe o Litro, mínimo 0,000 L'],
       ['form-quantidade','*Informe a quantidade, mínimo 1']
     ];
     
@@ -576,13 +579,15 @@ f_a_produto.submit(function(e)
   let f_preco = $('#form-preco').val();
   let f_fornecedor_id = $('#form-fornecedor_id').val();
   let f_form_kilograma = $('#form-kilograma').val();
+  let f_form_litro = $('#form-litro').val();
   let f_quantidade = $('#form-quantidade').val();
 
   let f_validos =[
     validatamanho(f_nome,1,30),
     validaFloat(f_preco,0.10),
     validaInt(1,f_fornecedor_id),
-    validaFloat(f_form_kilograma,0.001),
+    validaFloat(f_form_kilograma,0.000),
+    validaFloat(f_form_litro,0.000),
     validaInt(0,f_quantidade)
   ];
  
@@ -593,7 +598,8 @@ f_a_produto.submit(function(e)
       ['form-nome','*Preencha este campo, limite máximo permitido é 30 caracteres'],
       ['form-preco',"* Informe o preço, mínimo 0,10 Reais"],
       ['form-fornecedor_id','*Selecione uma opção'],
-      ['form-kilograma','*Informe o Kg, mínimo 0,001 kg'],
+      ['form-kilograma','*Informe o Kg, mínimo 0,000 kg'],
+      ['form-litro','*Informe o Litro, mínimo 0,000 L'],
       ['form-quantidade','*Informe a quantidade, mínimo 0']
     ];
     
