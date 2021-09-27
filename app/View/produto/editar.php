@@ -43,7 +43,7 @@ include_once "app/View/include/header.php";
                     <h1 class="text-center mt-2">Produto</h1>
                     <form action="<?php echo URL; ?>produtos/atualizar" method="POST" id='form-atualizar-produto'>
                         <div class="form-row">
-                            <div class="form-group col-12 col-sm-8">
+                            <div class="form-group col-12 col-sm-12">
                                 <input type="hidden" name="id" value="<?php echo $produto['id'] ?>">
                                 <label for="form_nome">Nome</label>
                                 <input type="text" name="nome" class="form-control <?php echo isset($_SESSION['Erro_form']['nome']) ? 'is-invalid' : '' ?>" aria-describedby="serverNome" id="form-nome" value="<?php echo $produto['nome'] ?>">
@@ -59,8 +59,8 @@ include_once "app/View/include/header.php";
                                 } ?>
                             </div>
 
-                            <div class="form-group col-4 col-sm-4">
-                                <label for="form_kilograma">Kg</label>
+                            <div class="form-group col-3 col-sm-6">
+                                <label for="form-kilograma">Kg</label>
                                 <input type="text" name="kilograma" id="form-kilograma" class="form-control <?php echo isset($_SESSION['Erro_form']['kilograma']) ? 'is-invalid' : '' ?>" value="<?php echo number_format($produto['kilograma'], 3, ',', '.') ?>">
                                 <?php if (isset($_SESSION['Erro_form']['kilograma'])) { ?>
                                     <div id='serverKilograma' class="invalid-feedback">
@@ -73,7 +73,21 @@ include_once "app/View/include/header.php";
                                 } ?>
                             </div>
 
-                            <div class="form-group col-4 col-sm-6">
+                            <div class="form-group col-3 col-sm-6">
+                                <label for="form-litro">Litro</label>
+                                <input type="text" name="litro" id="form-litro" class="form-control <?php echo isset($_SESSION['Erro_form']['litro']) ? 'is-invalid' : '' ?>" value="<?php echo number_format($produto['litro'], 3, ',', '.') ?>">
+                                <?php if (isset($_SESSION['Erro_form']['litro'])) { ?>
+                                    <div id='serverKilograma' class="invalid-feedback">
+                                        <?php
+                                        echo $_SESSION['Erro_form']['litro'];
+                                        unset($_SESSION['Erro_form']['litro']);
+                                        ?>
+                                    </div>
+                                <?php
+                                } ?>
+                            </div>
+
+                            <div class="form-group col-3 col-sm-6">
                                 <label for="form_preco">Preço</label>
                                 <input type="text" name="preco" id="form-preco" class="form-control <?php echo isset($_SESSION['Erro_form']['preco']) ? 'is-invalid' : '' ?>" aria-describedby="serverPreco" value="<?php echo number_format($produto['preco'], 2, ',', '.')?>">
                                 <?php
@@ -89,7 +103,7 @@ include_once "app/View/include/header.php";
                                 } ?>
                             </div>
 
-                            <div class="form-group col-4 col-sm-6">
+                            <div class="form-group col-3 col-sm-6">
                                 <label for="form_quantidade">Quantidade</label>
                                 <input type="number" name="quantidade" id="form-quantidade" min="1" class="form-control <?php echo isset($_SESSION['Erro_form']['quantidade']) ? 'is-invalid' : '' ?>" aria-describedby="serverQuantidade" value="<?php echo $produto['quantidade'] ?>" min="0" step="1">
                                 <?php if (isset($_SESSION['Erro_form']['quantidade'])) { ?>
