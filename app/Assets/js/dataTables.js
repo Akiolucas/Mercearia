@@ -3,7 +3,7 @@ $(document).ready(function() {
         "language": {
             "url": "https://cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
         },
-        "order":[[7,'desc']]
+        "order":[[8,'desc']]
     });
     $('#listar-fornecedores').DataTable( {
         "language": {
