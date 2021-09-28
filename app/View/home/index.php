@@ -46,7 +46,8 @@ include_once "app/View/include/header.php";
                             <div class="card-body">
                                 <h5 class="card-title text-center">Funcionários</h5><hr>
                                 <p class="card-text"><b>Total:</b> <?php echo number_format($detalhes['funcionario'],0,',','.');?></p>
-                                <a href="<?php echo URL;?>funcionario" class="btn btn-info d-block">Detalhes</a>
+                                <p class="card-text"><b>Ativos:</b> <?php echo number_format($detalhes['funcionario_ativo'],0,',','.');?></p>
+                                <a href="#" class="btn btn-info d-block">Detalhes</a>
                             </div>
                         </div>
                     </div>
@@ -54,8 +55,11 @@ include_once "app/View/include/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-center">Fornecedores</h5><hr>
-                                <p class="card-text"><b>Total:</b> <?php echo number_format($detalhes['fornecedor'],0,',','.');?></p>
-                                <a href="<?php echo URL;?>fornecedor" class="btn btn-info d-block">Detalhes</a>
+                                <p class="card-text"><b>Maior fornecedor:</b></p>
+                                <p class="card-text"><?php echo $detalhes['maiorFornecedor'];?></p>
+                                <p class="card-text d-none card-fornecedor"><b>Total comprado:</b> <?php echo $detalhes['fornecedor_qtd'];?></p><hr class="d-none card-fornecedor">
+                                <p class="card-text d-none card-fornecedor"><b>N° de fornecedores:</b> <?php echo number_format($detalhes['fornecedor'],0,',','.');?></p>
+                                <a href="#" class="btn btn-info d-block" id="detalhes-fornecedor">Detalhes</a>
                             </div>
                         </div>
                     </div>
@@ -63,8 +67,11 @@ include_once "app/View/include/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-center">Produtos</h5><hr>
-                                <p class="card-text"><b>Total:</b> <?php echo number_format($detalhes['produto'],0,',','.');?></p>
-                                <a href="<?php echo URL;?>produtos" class="btn btn-info d-block">Detalhes</a>
+                                <p class="card-text"><b>Produto mais vendido:</b></p>
+                                <p class="card-text"> <?php echo $detalhes['maisVendido'];?></p>
+                                <p class="card-text d-none card-produto"><b>Total vendido:</b> <?php echo number_format($detalhes['totalVendido'],0,',','.');?></p><hr class='card-produto d-none'>
+                                <p class="card-text d-none card-produto"><b>Total de produtos:</b> <?php echo number_format($detalhes['produto'],0,',','.');?></p>
+                                <a href="#" class="btn btn-info d-block" id="detalhes-produtos">Detalhes</a>
                             </div>
                         </div>
                     </div>
@@ -72,8 +79,9 @@ include_once "app/View/include/header.php";
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title text-center">Caixa</h5><hr>
+                                <p class="card-text"><b>Hoje:</b> <?php echo number_format($detalhes['caixa_hoje'],2,',','.');?></p>
                                 <p class="card-text"><b>Total:</b> <?php echo 'R$ '.number_format($detalhes['caixa'],2,',','.');?></p>
-                                <a href="<?php echo URL;?>caixa" class="btn btn-info d-block">Detalhes</a>
+                                <a href="#" class="btn btn-info d-block">Detalhes</a>
                             </div>
                         </div>
                     </div>
