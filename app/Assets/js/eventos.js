@@ -4,11 +4,39 @@ $(document).ready(function(){
   $('#btn-menu').click( function () {
     $('#btn-menu').addClass("border-btn-menu");
   })
+
+  // exibir detalhes produtos home
+  $('#detalhes-produtos').click(function(){
+      exibirDetalhes('.card-produto','#detalhes-produtos');
+    });
+  // exibir detalhes fornecedores home
+  $('#detalhes-fornecedor').click(function(){
+    exibirDetalhes('.card-fornecedor','#detalhes-fornecedor');
+  });
   
+
+  // função de exibir detalhes home
+  function exibirDetalhes(classe,botao){
+    $(classe).each(function(){
+      if($(this).hasClass('d-none'))
+      {
+        $(botao).html('<i class="fas fa-angle-double-up"></i>');
+        $(this).removeClass('d-none');
+        $(this).addClass('d-block');
+      }
+      else{
+        $(botao).html('Detalhes');
+        $(this).removeClass('d-block');
+        $(this).addClass('d-none');
+      }
+    });
+  };
+
+
   //remover classe de efeito.
   $('#menuLateral').on('hidden.bs.collapse', function () {
     $('#btn-menu').removeClass("border-btn-menu");
-  })
+  });
 
   $('td #link_excluir').click(function(e){
     e.preventDefault();
