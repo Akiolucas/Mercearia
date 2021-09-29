@@ -13,6 +13,14 @@ $(document).ready(function(){
   $('#detalhes-fornecedor').click(function(){
     exibirDetalhes('.card-fornecedor','#detalhes-fornecedor');
   });
+  // exibir detalhes funcionários home
+  $('#detalhes-funcionario').click(function(){
+    exibirDetalhes('.card-funcionario','#detalhes-funcionario');
+  });
+  // exibir detalhes caixa home
+  $('#detalhes-caixa').click(function(){
+    exibirDetalhes('.card-caixa','#detalhes-caixa');
+  });
   
 
   // função de exibir detalhes home
