@@ -58,7 +58,7 @@ class Login extends Model
             $_SESSION['usuario_cargo'] = $this->usuario['cargo'];
             $_SESSION['usuario_paginas'] = $this->paginasUsuario;
             $_SESSION['paginas_publicas'] = $this->paginasPublicas;
-            $msg = parent::alertaSucesso("Bem vindo " . $_SESSION['usuario_nome']);
+            $msg = parent::alertaBemvindo("Bem vindo " . $_SESSION['usuario_nome']);
             $_SESSION['msg'] = $msg;
             $this->resultado = true;
         }
