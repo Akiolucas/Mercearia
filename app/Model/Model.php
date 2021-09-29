@@ -35,6 +35,12 @@ class Model extends Conexao
         return $this->mensagem;
     }
 
+    final protected function alertaBemvindo($mensagem): string
+    {
+        $this->mensagem = $this->alerta->alertaBemvindo($mensagem);
+        return $this->mensagem;
+    }
+
     final protected function projetarTodos($query): array
     {
         $this->query = $this->conn->prepare($query);
