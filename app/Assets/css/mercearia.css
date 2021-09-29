@@ -119,9 +119,21 @@ body {
   font-weight: bold;
   font-size: 13pt;
 }
+.alertaBemvindo{
+  background-color: #17a2b8;
+  color:white;
+  font-size: 13pt;
+  font-style: italic;
+  font-weight: 600;
+  margin: 0 15px 20px;
+}
 
 .alertaErro, .alertaSucesso {
-  margin: 20px;
+  margin: 0 45px 20px;
+}
+/* alerta dentro de modal de cadastro */
+#modalCadastrar .alertaErro{
+  margin:0;
 }
 /* conteudo principal*/
 .principal{
