@@ -29,6 +29,17 @@
 
             return $elemento;
         }
+        public function alertaBemvindo($texto = null):string
+        {
+            $elemento = '<div class="alert alertaBemvindo alert-dismissible fade show" role="alert">'
+                            . '<p class="text-center">' . $texto . '</p>'
+                            .'<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>';
+
+            return $elemento;
+        }
     
      }
 
