@@ -54,6 +54,11 @@
 </figure>
 <hr>
  <figure>
+    <img src="app/Assets/image/projeto/home-detalhes.png" alt="imagem página home detalhes">
+    <figcaption>:camera: Página home, exibição de todos os detalhes </figcaption>
+</figure>
+<hr>
+ <figure>
     <img src="app/Assets/image/projeto/caixa-inicial.png" alt="imagem página caixa">
   <figcaption>:camera: Página do caixa, implementada com <b>Ajax</b></figcaption>
 </figure>
