@@ -571,8 +571,8 @@ f_produto.submit(function(e)
     validatamanho(f_nome,1,30),
     validaFloat(f_preco,0.10),
     validaInt(1,f_fornecedor_id),
-    validaFloat(f_form_kilograma,0.000),
-    validaFloat(f_form_litro,0.000),
+    validaFloat(f_form_kilograma,0),
+    validaFloat(f_form_litro,0),
     validaInt(1,f_quantidade)
   ];
   
@@ -597,7 +597,7 @@ f_produto.submit(function(e)
       {
         var elemento = $('#'+form_campos[i]).addClass('is-invalid');
         
-        elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+"><p>" +form_campos[i][1] + "</p></div>");
+        elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
       }
     }
     e.preventDefault();
@@ -622,8 +622,8 @@ f_a_produto.submit(function(e)
     validatamanho(f_nome,1,30),
     validaFloat(f_preco,0.10),
     validaInt(1,f_fornecedor_id),
-    validaFloat(f_form_kilograma,0.000),
-    validaFloat(f_form_litro,0.000),
+    validaFloat(f_form_kilograma,0),
+    validaFloat(f_form_litro,0),
     validaInt(0,f_quantidade)
   ];
  
@@ -649,7 +649,7 @@ f_a_produto.submit(function(e)
       {
         var elemento = $('#'+form_campos[i]).addClass('is-invalid');
         
-        elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+"><p>" +form_campos[i][1] + "</p></div>");
+        elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
       }
     }
     e.preventDefault();
@@ -695,7 +695,7 @@ f_a_perfil.submit(function(e)
       {
         var elemento = $('#'+form_campos[i]).addClass('is-invalid');
         
-        elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+"><p>" +form_campos[i][1] + "</p></div>");
+        elemento.after("<div class='invalid-feedback' id=d-"+ form_campos[i][0]+">" +form_campos[i][1] + "</div>");
       }
     }
     e.preventDefault();
@@ -743,13 +743,13 @@ f_a_perfil.submit(function(e)
             mensagem = 'Valor informado inválido!';
           }
           $('#form-caixa').submit(function(e){e.preventDefault()});
-          $('#form-valor').after("<div class='invalid-feedback' id='d-form-valor'><p>" +mensagem+ "</p></div>");
+          $('#form-valor').after("<div class='invalid-feedback' id='d-form-valor'>" +mensagem+ "</div>");
       }
     }
     else if(formaPagamento != 'Crédito' && formaPagamento != 'Débito'){
       $('#form-valor').addClass('is-invalid');
       let mensagem = 'Selecione uma forma de pagamento primeiro!';
-      $('#form-valor').after("<div class='invalid-feedback' id='d-form-valor'><p>" +mensagem+ "</p></div>");
+      $('#form-valor').after("<div class='invalid-feedback' id='d-form-valor'>" +mensagem+ "</div>");
       
     }
    
@@ -853,7 +853,7 @@ f_a_perfil.submit(function(e)
       return false;
     }
 
-    else if (valor < minimo)
+    else if (valor < parseInt(minimo))
     {
       return false;
     }
@@ -884,7 +884,7 @@ f_a_perfil.submit(function(e)
       return false;
     }
 
-    else if(variavel < minimo){
+    else if(variavel < parseFloat(minimo)){
       return false;
     }
 
