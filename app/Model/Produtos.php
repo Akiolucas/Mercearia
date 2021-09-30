@@ -219,6 +219,12 @@
                     $_SESSION['alerta'] = parent::alertaFalha($msg);
                 }
             }
+            else{
+                $_SESSION['form'] = $dados;
+                $_SESSION['script'] = "<script>$('#modalCadastrar').modal('show');</script>";
+                $msg = "Preencha todos os campos e tente novamente!";
+                $_SESSION['alerta'] = parent::alertaFalha($msg);
+            }
         }
         
         public function excluir($id)
