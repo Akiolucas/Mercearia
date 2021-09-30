@@ -64,8 +64,8 @@
                 parent::valida_float($dados['preco'],'preco','*Informe o preço corretamente, mínimo R$ 0,10!',0.10),
                 parent::valida_int($dados['fornecedor_id'],'fornecedor_id','*Id inválido!',1),
                 parent::valida_int($dados['codigo_id'],'codigo_id','*Código_id inválido!',1),
-                parent::valida_float($dados['litro'],'litro','*Informe o litro corretamente, mínimo 0,000 L',0.000),
-                parent::valida_float($dados['kilograma'],'kilograma','*Informe o kilograma corretamente, mínimo 0,000 kg',0.000),
+                parent::valida_float($dados['litro'],'litro','*Informe o litro corretamente, mínimo 0,000 L',0),
+                parent::valida_float($dados['kilograma'],'kilograma','*Informe o kilograma corretamente, mínimo 0,000 kg',0),
                 parent::valida_int($dados['quantidade'],'quantidade','*Quantidade informada inválida!',0)
                 );
 
@@ -152,8 +152,8 @@
                 parent::valida_tamanho($dados['nome'],'nome','*Preencha este campo, limite 30 caracteres!',30,1),
                 parent::valida_float($dados['preco'],'preco','*Informe o preço corretamente, mínimo R$ 0,10!',0.10),
                 parent::valida_int($dados['fornecedor_id'],'fornecedor_id','*Id inválido!',1),
-                parent::valida_float($dados['litro'],'litro','*Informe o litro corretamente, mínimo 0,000 L',0.000),
-                parent::valida_float($dados['kilograma'],'kilograma','*Informe o kilograma corretamente, mínimo 0,000 kg',0.000),
+                parent::valida_float($dados['litro'],'litro','*Informe o litro corretamente, mínimo 0,000 L',0),
+                parent::valida_float($dados['kilograma'],'kilograma','*Informe o kilograma corretamente, mínimo 0,000 kg',0),
                 parent::valida_int($dados['quantidade'],'quantidade','*Quantidade informada inválida!',1)
                 );
                 
