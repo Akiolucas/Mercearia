@@ -67,8 +67,52 @@ include_once "app/View/include/header.php";
                                     <td><?php echo "R$ " . number_format($item['preco'], 2, ",", "."); ?></td>
                                     <td><?php echo $item['fornecedor']; ?></td>
                                     <td><?php echo $item['codigo']; ?></td>
-                                    <td><?php echo number_format($item['kilograma'], 3, ',', '.') . " Kg"; ?></td>
-                                    <td><?php echo number_format($item['litro'], 3, ',', '.') . " L"; ?></td>
+                                    <td data-order="<?php  echo $item["kilograma"]?>">
+                                        <?php
+                                            if (strpos($item['kilograma'],'.')){
+                                                if(floatval($item['kilograma']) > 0 && floatval($item['kilograma']) < 1)
+                                                {
+                                                    echo ltrim(str_replace('0,','',number_format($item['kilograma'], 3, ',', '.')),'0') . " g"; 
+                                                }
+                                                else{
+                                                    echo trim(number_format($item['kilograma'], 3, ',', '.'),'0') . " kg"; 
+                                                   
+                                                }     
+                                            }
+                                            else{            
+                                                if($item['kilograma'] == "0")
+                                                {
+                                                    echo "<i class='fa fa-ban' aria-hidden='true'></i>";
+                                                } 
+                                                else{
+                                                    echo $item['kilograma']. " kg";
+                                                }                                  
+                                               
+                                            }
+                                         ?>
+                                    </td>
+                                    <td data-order="<?php  echo $item["litro"]?>">
+                                        <?php
+                                            if (strpos($item['litro'],'.')){
+                                                 if(floatval($item['litro']) > 0 && floatval($item['litro']) < 1)
+                                                {
+                                                    echo ltrim(str_replace('0,','',number_format($item['litro'], 3, ',', '.')),'0') . " ml"; 
+                                                }
+                                                else{
+                                                    echo trim(number_format($item['litro'], 3, ',', '.'),'0') . " L"; 
+                                                }                                   
+                                            }
+                                            else{
+                                                if($item['litro'] == "0")
+                                                {
+                                                    echo "<i class='fa fa-ban' aria-hidden='true'></i>";
+                                                }
+                                                else{
+                                                    echo $item['litro'] . " L";
+                                                }                                            
+                                            }
+                                        ?>
+                                    </td>
                                     <td><?php echo $item['estoque']; ?></td>
                                     <td data-order="<?php echo date('Y/m/d H:i:s', strtotime($item['dt_registro'])); ?>"><?php echo date('d/m/Y', strtotime($item['dt_registro'])); ?></td>
                                     <td>
@@ -132,7 +176,7 @@ include_once "app/View/include/header.php";
                                     </div>
                                     <div class="form-group">
                                         <label for="form-preco" class="col-form-label">Preço:</label>
-                                        <input type="text" name="preco" id="form-preco" class="form-control <?php echo isset($_SESSION['Erro_form']['preco']) ? 'is-invalid' : '' ?>" aria-describedby="serverPreco" <?php echo isset($_SESSION['form']['preco']) ? 'value="' . $_SESSION['form']['preco'] . '"' : "" ?>>
+                                        <input type="text" name="preco" id="form-preco" class="form-control <?php echo isset($_SESSION['Erro_form']['preco']) ? 'is-invalid' : '' ?>" aria-describedby="serverPreco" <?php echo isset($_SESSION['form']['preco']) ? 'value="' . $_SESSION['form']['preco'] . '"' : "" ?> placeholder="0,00">
                                         <?php
                                         if (isset($_SESSION['Erro_form']['preco'])) { ?>
 
@@ -162,7 +206,7 @@ include_once "app/View/include/header.php";
                                     </div>
                                     <div class="form-group">
                                         <label for="form-kilograma" class="col-form-label">Kg:</label>
-                                        <input type="text" name="kilograma" id="form-kilograma" class="form-control <?php echo isset($_SESSION['Erro_form']['kilograma']) ? 'is-invalid' : '' ?>" aria-describedby="serverKilograma" <?php echo isset($_SESSION['form']['kilograma']) ? 'value="' . $_SESSION['form']['kilograma'] . '"' : "" ?>> 
+                                        <input type="text" name="kilograma" id="form-kilograma" class="form-control <?php echo isset($_SESSION['Erro_form']['kilograma']) ? 'is-invalid' : '' ?>" aria-describedby="serverKilograma" <?php echo isset($_SESSION['form']['kilograma']) ? 'value="' . $_SESSION['form']['kilograma'] . '"' : "" ?> placeholder="0,000"> 
                                         <?php if (isset($_SESSION['Erro_form']['kilograma'])) { ?>
 
                                             <div id='serverKilograma' class="invalid-feedback">
@@ -176,7 +220,7 @@ include_once "app/View/include/header.php";
                                     </div>
                                     <div class="form-group">
                                         <label for="form-litro" class="col-form-label">Litro:</label>
-                                        <input type="text" name="litro" id="form-litro" class="form-control <?php echo isset($_SESSION['Erro_form']['litro']) ? 'is-invalid' : '' ?>" aria-describedby="serverKilograma" <?php echo isset($_SESSION['form']['litro']) ? 'value="' . $_SESSION['form']['litro'] . '"' : "" ?>> 
+                                        <input type="text" name="litro" id="form-litro" class="form-control <?php echo isset($_SESSION['Erro_form']['litro']) ? 'is-invalid' : '' ?>" aria-describedby="serverKilograma" <?php echo isset($_SESSION['form']['litro']) ? 'value="' . $_SESSION['form']['litro'] . '"' : "" ?> placeholder="0,000"> 
                                         <?php if (isset($_SESSION['Erro_form']['litro'])) { ?>
 
                                             <div id='serverKilograma' class="invalid-feedback">
