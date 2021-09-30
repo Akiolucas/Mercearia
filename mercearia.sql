@@ -248,33 +248,6 @@ INSERT INTO `funcionario_pg_privada` VALUES (1,1,'2021-09-04 18:50:12'),(1,2,'20
 UNLOCK TABLES;
 
 --
--- Table structure for table `imagem`
---
-
-DROP TABLE IF EXISTS `imagem`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `imagem` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `produto_id` int NOT NULL,
-  `endereco` varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_as_cs NOT NULL,
-  PRIMARY KEY (`id`,`produto_id`),
-  UNIQUE KEY `endereco_UNIQUE` (`endereco`),
-  KEY `fk_imagem_produto_idx` (`produto_id`),
-  CONSTRAINT `fk_imagem_produto` FOREIGN KEY (`produto_id`) REFERENCES `produto` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_as_cs;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `imagem`
---
-
-LOCK TABLES `imagem` WRITE;
-/*!40000 ALTER TABLE `imagem` DISABLE KEYS */;
-/*!40000 ALTER TABLE `imagem` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `nivel`
 --
 
@@ -514,4 +487,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-30 13:35:22
+-- Dump completed on 2021-09-30 14:19:38
