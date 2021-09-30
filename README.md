@@ -1,7 +1,6 @@
-# Mercearia
+# Sistema de gerenciamento para uma Mercearia
 <h2>Esse é um projeto desenvolvido com o intuito de apresentar um pouco dos meus conhecimentos com programação web.</h2>
-<hr>
-<h3>Utilizando essa estrutura inicial desenvolvida por mim, você pode melhorá-la e aplicar no seu projeto pessoal, um E-commerce por exemplo.<h3>
+<h3>O sistema possui ferramentas como cadastro de produtos, funcionários, fornecedores, caixa e entre outros confira :eyes: :computer: :camera: <h3>
 <h4>Este projeto contém validações no front-end e no back-end em todas as páginas, fique à vontade, acesse e faça testes!</h4>
  <hr>
  <h3>No formulário de login utilize esse usuário :star2: :point_down:</h3>
@@ -10,9 +9,6 @@
  <h4>Credencial: lucasakio</h4>
  <h4>Senha: 12345678</h4>
  <hr>
- :warning: Atenção: Esse projeto está em desenvolvimento ainda.
-<hr>
-
 :boom: Para funcionar corretamente você precisará:
  <hr>
 <ul>
